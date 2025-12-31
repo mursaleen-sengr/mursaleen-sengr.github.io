@@ -1,29 +1,26 @@
-// ========== DATA LOADING AND RENDERING ==========
-// This module handles loading data from JSON files and rendering sections dynamically
+// ========== EMBEDDED DATA ==========
+// Data is embedded directly to avoid fetch issues on GitHub Pages
 
-// Get the base path for GitHub Pages compatibility
-const BASE_PATH = window.location.hostname.includes('github.io') 
-    ? `${window.location.pathname.replace(/\/$/, '')}/`
-    : '';
+const DATA = {
+    about: {"summary":{"title":"Professional Summary","text":"AI & ML Engineer with 1.5 years of experience building production-grade Generative AI and Agentic systems. Specialized in architecting scalable RAG pipelines and fine-tuning LLMs for niche domains, with expertise in bridging the gap between ML models and real-time users by deploying FastAPI backends on AWS and DigitalOcean using event-driven architectures."},"info":[{"icon":"fas fa-map-marker-alt","text":"Islamabad, Pakistan"},{"icon":"fas fa-phone","text":"+92 307 770 6100"},{"icon":"fas fa-envelope","text":"mursaleen.sengr@gmail.com"}],"stats":[{"value":"1.5+","label":"Years Experience"},{"value":"10+","label":"Projects Completed"},{"value":"99.9%","label":"Uptime Achieved"}]},
+    
+    experience: {"experiences":[{"date":"March 2025 – Present","title":"AI/ML Engineer","company":"DiveDeepAI","location":"Islamabad, Pakistan","responsibilities":["Designed and implemented scalable AI & backend pipelines serving real-time users, deployed on AWS and DigitalOcean with high availability and fault tolerance","Collaborated with cross-functional teams including product managers, designers, and DevOps engineers to deliver innovative AI solutions on schedule","Successfully led project initiatives from conception to deployment, ensuring alignment with business objectives and technical best practices"]},{"date":"August 2024 – February 2025","title":"Jr AI Engineer","company":"Softoo","location":"Islamabad, Pakistan","responsibilities":["Developed RAG-based applications using LangChain, LLMs (GPT, Claude, LLama), and vector databases (Qdrant, FAISS)","Built Chat-with-Database proof-of-concepts using embedding models to enhance data-driven decision-making","Implemented semantic search and question-answering systems that improved information retrieval accuracy by 35%","Optimized vector database queries and embedding pipelines, reducing latency by 40%"]}]},
+    
+    projects: {"projects":[{"icon":"fas fa-mobile-alt","title":"eQRA-AI: Islamic AI Assistant","description":"Complete FastAPI backend for Islamic mobile app with dual RAG-powered chatbots, Voice Tasbeeh feature with WebSocket streaming, and production infrastructure on DigitalOcean.","tags":["Python","FastAPI","LangChain","Qdrant","AWS","Docker"],"stats":[{"icon":"fas fa-clock","text":"99.9% Uptime"},{"icon":"fas fa-users","text":"Real-time Users"}]},{"icon":"fas fa-microphone","title":"Fine-Tuning Whisper for Quranic Arabic","description":"Fine-tuned OpenAI's Whisper model on 10,000+ Quranic audio samples, enhancing Harakat recognition by 90% and reducing Word Error Rate by 30-40%.","tags":["PyTorch","Hugging Face","Whisper","NLP"],"stats":[{"icon":"fas fa-chart-line","text":"90% Accuracy Boost"},{"icon":"fas fa-database","text":"10K+ Samples"}]},{"icon":"fas fa-database","title":"AI-Powered Database Chat Agent","description":"Intelligent chatbot enabling natural language queries on relational databases with 92% accuracy, reducing time-to-insight by 60% for non-technical stakeholders.","tags":["Vanna.ai","Autogen","PostgreSQL","Streamlit"],"stats":[{"icon":"fas fa-bolt","text":"60% Faster"},{"icon":"fas fa-check-circle","text":"92% Accuracy"}]}]},
+    
+    skills: {"categories":[{"name":"Languages","icon":"fas fa-code","skills":[{"name":"Python","logo":"https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg"},{"name":"C++","logo":"https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg"},{"name":"SQL","logo":"https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg"},{"name":"Julia","logo":"https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/julia/julia-original.svg"}]},{"name":"AI & ML","icon":"fas fa-brain","skills":[{"name":"PyTorch","logo":"https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pytorch/pytorch-original.svg"},{"name":"TensorFlow","logo":"https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tensorflow/tensorflow-original.svg"},{"name":"Scikit-learn","logo":"https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/scikit-learn/scikit-learn-original.svg"},{"name":"Hugging Face","logo":"https://huggingface.co/front/assets/huggingface_logo.svg"},{"name":"Pandas","logo":"https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pandas/pandas-original.svg"},{"name":"NumPy","logo":"https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/numpy/numpy-original.svg"},{"name":"LangChain","icon":"fas fa-link"},{"name":"Autogen","icon":"fas fa-robot"}]},{"name":"Databases","icon":"fas fa-database","skills":[{"name":"PostgreSQL","logo":"https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg"},{"name":"MySQL","logo":"https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg"},{"name":"MongoDB","logo":"https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original.svg"},{"name":"Qdrant","icon":"fas fa-vector-square"},{"name":"FAISS","icon":"fas fa-search-plus"}]},{"name":"Cloud & DevOps","icon":"fas fa-cloud","skills":[{"name":"AWS","logo":"https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-original-wordmark.svg"},{"name":"Docker","logo":"https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg"},{"name":"Linux","logo":"https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg"},{"name":"Git","logo":"https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg"},{"name":"DigitalOcean","logo":"https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/digitalocean/digitalocean-original.svg"}]},{"name":"Backend & APIs","icon":"fas fa-server","skills":[{"name":"FastAPI","logo":"https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/fastapi/fastapi-original.svg"},{"name":"Flask","logo":"https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/flask/flask-original.svg"},{"name":"Django","logo":"https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/django/django-plain.svg"},{"name":"Redis","logo":"https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/redis/redis-original.svg"},{"name":"Celery","icon":"fas fa-tasks"}]}]},
+    
+    education: {"degree":{"title":"Bachelor of Science in Software Engineering","institution":"The Islamia University of Bahawalpur","date":"October 2020 – June 2024","cgpa":"3.70/4.00","coursework":"Relevant Coursework: Databases, Object-Oriented Programming, Software Engineering, Data Structures and Algorithms, Artificial Intelligence, Machine Learning, Cloud Computing, Computer Networks"},"certifications":[{"title":"Intermediate Python","issuer":"DataCamp","year":"2024"},{"title":"Introduction to Large Language Models","issuer":"Google Cloud","year":"2024"}]}
+};
 
-async function loadJSON(url) {
-    try {
-        const fullUrl = BASE_PATH + url;
-        console.log(`Loading: ${fullUrl}`);
-        const response = await fetch(fullUrl);
-        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-        const data = await response.json();
-        console.log(`Successfully loaded: ${fullUrl}`);
-        return data;
-    } catch (error) {
-        console.error(`Error loading ${url}:`, error);
-        return null;
-    }
+// ========== DATA LOADING ==========
+async function loadJSON(key) {
+    return DATA[key] || null;
 }
 
 // ========== ABOUT SECTION RENDERER ==========
 async function renderAboutSection() {
-    const data = await loadJSON('data/about.json');
+    const data = await loadJSON('about');
     if (!data) return;
 
     const container = document.getElementById('about-content');
@@ -59,7 +56,7 @@ async function renderAboutSection() {
 
 // ========== EXPERIENCE SECTION RENDERER ==========
 async function renderExperienceSection() {
-    const data = await loadJSON('data/experience.json');
+    const data = await loadJSON('experience');
     if (!data) return;
 
     const container = document.getElementById('experience-timeline');
@@ -87,7 +84,7 @@ async function renderExperienceSection() {
 
 // ========== PROJECTS SECTION RENDERER ==========
 async function renderProjectsSection() {
-    const data = await loadJSON('data/projects.json');
+    const data = await loadJSON('projects');
     if (!data) return;
 
     const container = document.getElementById('projects-grid');
@@ -121,7 +118,7 @@ async function renderProjectsSection() {
 
 // ========== SKILLS SECTION RENDERER ==========
 async function renderSkillsSection() {
-    const data = await loadJSON('data/skills.json');
+    const data = await loadJSON('skills');
     if (!data) return;
 
     const container = document.getElementById('skills-container');
@@ -160,7 +157,7 @@ async function renderSkillsSection() {
 
 // ========== EDUCATION SECTION RENDERER ==========
 async function renderEducationSection() {
-    const data = await loadJSON('data/education.json');
+    const data = await loadJSON('education');
     if (!data) return;
 
     const container = document.getElementById('education-content');
