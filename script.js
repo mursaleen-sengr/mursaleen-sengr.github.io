@@ -1,11 +1,20 @@
 // ========== DATA LOADING AND RENDERING ==========
 // This module handles loading data from JSON files and rendering sections dynamically
 
+// Get the base path for GitHub Pages compatibility
+const BASE_PATH = window.location.hostname.includes('github.io') 
+    ? `${window.location.pathname.replace(/\/$/, '')}/`
+    : '';
+
 async function loadJSON(url) {
     try {
-        const response = await fetch(url);
+        const fullUrl = BASE_PATH + url;
+        console.log(`Loading: ${fullUrl}`);
+        const response = await fetch(fullUrl);
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-        return await response.json();
+        const data = await response.json();
+        console.log(`Successfully loaded: ${fullUrl}`);
+        return data;
     } catch (error) {
         console.error(`Error loading ${url}:`, error);
         return null;
