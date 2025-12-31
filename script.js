@@ -1,3 +1,323 @@
+// ========== DATA LOADING AND RENDERING ==========
+// This module handles loading data from JSON files and rendering sections dynamically
+
+async function loadJSON(url) {
+    try {
+        const response = await fetch(url);
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        return await response.json();
+    } catch (error) {
+        console.error(`Error loading ${url}:`, error);
+        return null;
+    }
+}
+
+// ========== ABOUT SECTION RENDERER ==========
+async function renderAboutSection() {
+    const data = await loadJSON('data/about.json');
+    if (!data) return;
+
+    const container = document.getElementById('about-content');
+    if (!container) return;
+
+    const infoItemsHTML = data.info.map(item => `
+        <div class="info-item">
+            <i class="${item.icon}"></i>
+            <span>${item.text}</span>
+        </div>
+    `).join('');
+
+    const statsHTML = data.stats.map(stat => `
+        <div class="stat-card">
+            <h4>${stat.value}</h4>
+            <p>${stat.label}</p>
+        </div>
+    `).join('');
+
+    container.innerHTML = `
+        <div class="about-text">
+            <h3>${data.summary.title}</h3>
+            <p>${data.summary.text}</p>
+            <div class="about-info">
+                ${infoItemsHTML}
+            </div>
+        </div>
+        <div class="about-stats">
+            ${statsHTML}
+        </div>
+    `;
+}
+
+// ========== EXPERIENCE SECTION RENDERER ==========
+async function renderExperienceSection() {
+    const data = await loadJSON('data/experience.json');
+    if (!data) return;
+
+    const container = document.getElementById('experience-timeline');
+    if (!container) return;
+
+    const timelineHTML = data.experiences.map(exp => {
+        const responsibilitiesHTML = exp.responsibilities.map(r => `<li>${r}</li>`).join('');
+        return `
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <span class="timeline-date">${exp.date}</span>
+                    <h3>${exp.title}</h3>
+                    <h4>${exp.company} | ${exp.location}</h4>
+                    <ul>
+                        ${responsibilitiesHTML}
+                    </ul>
+                </div>
+            </div>
+        `;
+    }).join('');
+
+    container.innerHTML = timelineHTML;
+}
+
+// ========== PROJECTS SECTION RENDERER ==========
+async function renderProjectsSection() {
+    const data = await loadJSON('data/projects.json');
+    if (!data) return;
+
+    const container = document.getElementById('projects-grid');
+    if (!container) return;
+
+    const projectsHTML = data.projects.map(project => {
+        const tagsHTML = project.tags.map(tag => `<span>${tag}</span>`).join('');
+        const statsHTML = project.stats.map(stat => 
+            `<span><i class="${stat.icon}"></i> ${stat.text}</span>`
+        ).join('');
+
+        return `
+            <div class="project-card">
+                <div class="project-icon">
+                    <i class="${project.icon}"></i>
+                </div>
+                <h3>${project.title}</h3>
+                <p>${project.description}</p>
+                <div class="project-tags">
+                    ${tagsHTML}
+                </div>
+                <div class="project-stats">
+                    ${statsHTML}
+                </div>
+            </div>
+        `;
+    }).join('');
+
+    container.innerHTML = projectsHTML;
+}
+
+// ========== SKILLS SECTION RENDERER ==========
+async function renderSkillsSection() {
+    const data = await loadJSON('data/skills.json');
+    if (!data) return;
+
+    const container = document.getElementById('skills-container');
+    if (!container) return;
+
+    const categoriesHTML = data.categories.map(category => {
+        const skillsHTML = category.skills.map(skill => {
+            // Check if skill has a logo URL or uses an icon
+            const iconHTML = skill.logo 
+                ? `<img src="${skill.logo}" alt="${skill.name}">`
+                : `<div class="skill-icon-placeholder"><i class="${skill.icon}"></i></div>`;
+            
+            return `
+                <div class="skill-item">
+                    ${iconHTML}
+                    <span>${skill.name}</span>
+                </div>
+            `;
+        }).join('');
+
+        return `
+            <div class="skill-category">
+                <div class="category-header">
+                    <i class="${category.icon}"></i>
+                    <h3>${category.name}</h3>
+                </div>
+                <div class="skill-grid">
+                    ${skillsHTML}
+                </div>
+            </div>
+        `;
+    }).join('');
+
+    container.innerHTML = categoriesHTML;
+}
+
+// ========== EDUCATION SECTION RENDERER ==========
+async function renderEducationSection() {
+    const data = await loadJSON('data/education.json');
+    if (!data) return;
+
+    const container = document.getElementById('education-content');
+    if (!container) return;
+
+    const certificationsHTML = data.certifications.map(cert => `
+        <div class="cert-item">
+            <i class="fas fa-certificate"></i>
+            <div>
+                <h4>${cert.title}</h4>
+                <p>${cert.issuer}, ${cert.year}</p>
+            </div>
+        </div>
+    `).join('');
+
+    container.innerHTML = `
+        <div class="education-card">
+            <div class="education-icon">
+                <i class="fas fa-graduation-cap"></i>
+            </div>
+            <h3>${data.degree.title}</h3>
+            <h4>${data.degree.institution}</h4>
+            <p class="education-date">${data.degree.date}</p>
+            <p class="cgpa">CGPA: ${data.degree.cgpa}</p>
+            <p>${data.degree.coursework}</p>
+        </div>
+
+        <div class="certificates">
+            <h3>Certifications</h3>
+            ${certificationsHTML}
+        </div>
+    `;
+}
+
+// ========== INITIALIZE ALL DATA-DRIVEN SECTIONS ==========
+async function initializeDataSections() {
+    // Load all sections in parallel for better performance
+    await Promise.all([
+        renderAboutSection(),
+        renderExperienceSection(),
+        renderProjectsSection(),
+        renderSkillsSection(),
+        renderEducationSection()
+    ]);
+
+    // Re-initialize animations after content is loaded
+    initializeAnimations();
+}
+
+// ========== ANIMATION INITIALIZATION ==========
+function initializeAnimations() {
+    // Re-observe elements for scroll animations
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -100px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('fade-in');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    // Observe all dynamically created elements
+    const elementsToAnimate = document.querySelectorAll(`
+        .about-content,
+        .timeline-item,
+        .project-card,
+        .skill-category,
+        .education-card,
+        .cert-item,
+        .contact-content
+    `);
+
+    elementsToAnimate.forEach(el => {
+        observer.observe(el);
+    });
+
+    // Re-initialize skill items animation
+    const skillItems = document.querySelectorAll('.skill-item');
+    const skillObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+                setTimeout(() => {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }, index * 50);
+                skillObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+
+    skillItems.forEach(item => {
+        item.style.opacity = '0';
+        item.style.transform = 'translateY(30px)';
+        item.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+        skillObserver.observe(item);
+    });
+
+    // Re-initialize project card hover effects
+    const projectCards = document.querySelectorAll('.project-card');
+    projectCards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            const rotateX = (y - centerY) / 20;
+            const rotateY = (centerX - x) / 20;
+            
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-12px)`;
+        });
+        
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
+            card.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+        });
+        
+        card.addEventListener('mouseenter', () => {
+            card.style.transition = 'none';
+        });
+    });
+
+    // Re-initialize stat counter animation
+    const statCards = document.querySelectorAll('.stat-card h4');
+    const statsObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                statCards.forEach(card => {
+                    const targetValue = parseFloat(card.textContent);
+                    animateCounter(card, targetValue);
+                });
+                statsObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.5 });
+
+    const statsSection = document.querySelector('.about-stats');
+    if (statsSection) {
+        statsObserver.observe(statsSection);
+    }
+}
+
+// ========== COUNTER ANIMATION ==========
+const animateCounter = (element, target, duration = 2000) => {
+    let start = 0;
+    const increment = target / (duration / 16);
+    const suffix = element.textContent.replace(/[0-9.]/g, '');
+    
+    const timer = setInterval(() => {
+        start += increment;
+        if (start >= parseFloat(target)) {
+            element.textContent = target + suffix;
+            clearInterval(timer);
+        } else {
+            element.textContent = start.toFixed(1) + suffix;
+        }
+    }, 16);
+};
+
 // ========== MOBILE MENU TOGGLE ==========
 const hamburger = document.querySelector('.hamburger');
 const navMenu = document.querySelector('.nav-menu');
@@ -101,36 +421,6 @@ navLinks.forEach(link => {
     });
 });
 
-// ========== SCROLL REVEAL ANIMATIONS ==========
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -100px 0px'
-};
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('fade-in');
-            observer.unobserve(entry.target);
-        }
-    });
-}, observerOptions);
-
-// Observe all sections and cards
-const elementsToAnimate = document.querySelectorAll(`
-    .about-content,
-    .timeline-item,
-    .project-card,
-    .skill-category,
-    .education-card,
-    .cert-item,
-    .contact-content
-`);
-
-elementsToAnimate.forEach(el => {
-    observer.observe(el);
-});
-
 // ========== TYPING EFFECT FOR HERO SUBTITLE ==========
 const subtitleElement = document.querySelector('.hero-subtitle');
 const originalText = 'AI & ML Engineer';
@@ -158,48 +448,6 @@ function typeEffect() {
         isDeleting = false;
         setTimeout(typeEffect, 500);
     }
-}
-
-// Start typing effect after page loads
-window.addEventListener('load', () => {
-    setTimeout(typeEffect, 1000);
-});
-
-// ========== ANIMATED COUNTER FOR STATS ==========
-const statCards = document.querySelectorAll('.stat-card h4');
-
-const animateCounter = (element, target, duration = 2000) => {
-    let start = 0;
-    const increment = target / (duration / 16);
-    const suffix = element.textContent.replace(/[0-9.]/g, '');
-    
-    const timer = setInterval(() => {
-        start += increment;
-        if (start >= parseFloat(target)) {
-            element.textContent = target + suffix;
-            clearInterval(timer);
-        } else {
-            element.textContent = start.toFixed(1) + suffix;
-        }
-    }, 16);
-};
-
-// Trigger counter animation when stats section is visible
-const statsObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            statCards.forEach(card => {
-                const targetValue = parseFloat(card.textContent);
-                animateCounter(card, targetValue);
-            });
-            statsObserver.unobserve(entry.target);
-        }
-    });
-}, { threshold: 0.5 });
-
-const statsSection = document.querySelector('.about-stats');
-if (statsSection) {
-    statsObserver.observe(statsSection);
 }
 
 // ========== FLOATING CARDS INTERACTIVE EFFECT ==========
@@ -313,27 +561,6 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
-// ========== SMOOTH REVEAL FOR SKILL ITEMS ==========
-const skillItems = document.querySelectorAll('.skill-item');
-const skillObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry, index) => {
-        if (entry.isIntersecting) {
-            setTimeout(() => {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-            }, index * 50);
-            skillObserver.unobserve(entry.target);
-        }
-    });
-}, { threshold: 0.1 });
-
-skillItems.forEach(item => {
-    item.style.opacity = '0';
-    item.style.transform = 'translateY(30px)';
-    item.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
-    skillObserver.observe(item);
-});
-
 // ========== MINI CARDS STAGGERED ANIMATION ==========
 const miniCards = document.querySelectorAll('.mini-card');
 miniCards.forEach((card, index) => {
@@ -347,48 +574,6 @@ miniCards.forEach((card, index) => {
     }, 800 + index * 100);
 });
 
-// ========== SKILLS PROGRESS ANIMATION ==========
-const skillTags = document.querySelectorAll('.skill-tag');
-
-skillTags.forEach((tag, index) => {
-    tag.style.opacity = '0';
-    tag.style.transform = 'translateY(20px)';
-    
-    setTimeout(() => {
-        tag.style.transition = 'all 0.5s ease';
-        tag.style.opacity = '1';
-        tag.style.transform = 'translateY(0)';
-    }, index * 50);
-});
-
-// ========== PROJECT CARDS ELEGANT HOVER EFFECT ==========
-const projectCards = document.querySelectorAll('.project-card');
-
-projectCards.forEach(card => {
-    card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        
-        const rotateX = (y - centerY) / 20;
-        const rotateY = (centerX - x) / 20;
-        
-        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-12px)`;
-    });
-    
-    card.addEventListener('mouseleave', () => {
-        card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
-        card.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
-    });
-    
-    card.addEventListener('mouseenter', () => {
-        card.style.transition = 'none';
-    });
-});
-
 // ========== PAGE LOAD ANIMATION ==========
 window.addEventListener('load', () => {
     document.body.style.opacity = '0';
@@ -397,6 +582,9 @@ window.addEventListener('load', () => {
     setTimeout(() => {
         document.body.style.opacity = '1';
     }, 100);
+    
+    // Start typing effect
+    setTimeout(typeEffect, 1000);
 });
 
 // ========== SCROLL TO TOP BUTTON ==========
@@ -454,3 +642,8 @@ scrollTopBtn.addEventListener('mouseleave', () => {
 console.log('%c👋 Hey there!', 'font-size: 20px; font-weight: bold; color: #6366f1;');
 console.log('%cLooking for a talented AI/ML Engineer? Let\'s connect!', 'font-size: 14px; color: #8b5cf6;');
 console.log('%cEmail: mursaleen.sengr@gmail.com', 'font-size: 12px; color: #94a3b8;');
+
+// ========== INITIALIZE ON DOM READY ==========
+document.addEventListener('DOMContentLoaded', () => {
+    initializeDataSections();
+});

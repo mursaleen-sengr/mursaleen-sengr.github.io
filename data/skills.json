@@ -1,0 +1,142 @@
+{
+    "categories": [
+        {
+            "name": "Languages",
+            "icon": "fas fa-code",
+            "skills": [
+                {
+                    "name": "Python",
+                    "logo": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg"
+                },
+                {
+                    "name": "C++",
+                    "logo": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg"
+                },
+                {
+                    "name": "SQL",
+                    "logo": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg"
+                },
+                {
+                    "name": "Julia",
+                    "logo": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/julia/julia-original.svg"
+                }
+            ]
+        },
+        {
+            "name": "AI & ML",
+            "icon": "fas fa-brain",
+            "skills": [
+                {
+                    "name": "PyTorch",
+                    "logo": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pytorch/pytorch-original.svg"
+                },
+                {
+                    "name": "TensorFlow",
+                    "logo": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tensorflow/tensorflow-original.svg"
+                },
+                {
+                    "name": "Scikit-learn",
+                    "logo": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/scikit-learn/scikit-learn-original.svg"
+                },
+                {
+                    "name": "Hugging Face",
+                    "logo": "https://huggingface.co/front/assets/huggingface_logo.svg"
+                },
+                {
+                    "name": "Pandas",
+                    "logo": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pandas/pandas-original.svg"
+                },
+                {
+                    "name": "NumPy",
+                    "logo": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/numpy/numpy-original.svg"
+                },
+                {
+                    "name": "LangChain",
+                    "icon": "fas fa-link"
+                },
+                {
+                    "name": "Autogen",
+                    "icon": "fas fa-robot"
+                }
+            ]
+        },
+        {
+            "name": "Databases",
+            "icon": "fas fa-database",
+            "skills": [
+                {
+                    "name": "PostgreSQL",
+                    "logo": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg"
+                },
+                {
+                    "name": "MySQL",
+                    "logo": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg"
+                },
+                {
+                    "name": "MongoDB",
+                    "logo": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original.svg"
+                },
+                {
+                    "name": "Qdrant",
+                    "icon": "fas fa-vector-square"
+                },
+                {
+                    "name": "FAISS",
+                    "icon": "fas fa-search-plus"
+                }
+            ]
+        },
+        {
+            "name": "Cloud & DevOps",
+            "icon": "fas fa-cloud",
+            "skills": [
+                {
+                    "name": "AWS",
+                    "logo": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-original-wordmark.svg"
+                },
+                {
+                    "name": "Docker",
+                    "logo": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg"
+                },
+                {
+                    "name": "Linux",
+                    "logo": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg"
+                },
+                {
+                    "name": "Git",
+                    "logo": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg"
+                },
+                {
+                    "name": "DigitalOcean",
+                    "logo": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/digitalocean/digitalocean-original.svg"
+                }
+            ]
+        },
+        {
+            "name": "Backend & APIs",
+            "icon": "fas fa-server",
+            "skills": [
+                {
+                    "name": "FastAPI",
+                    "logo": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/fastapi/fastapi-original.svg"
+                },
+                {
+                    "name": "Flask",
+                    "logo": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/flask/flask-original.svg"
+                },
+                {
+                    "name": "Django",
+                    "logo": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/django/django-plain.svg"
+                },
+                {
+                    "name": "Redis",
+                    "logo": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/redis/redis-original.svg"
+                },
+                {
+                    "name": "Celery",
+                    "icon": "fas fa-tasks"
+                }
+            ]
+        }
+    ]
+}

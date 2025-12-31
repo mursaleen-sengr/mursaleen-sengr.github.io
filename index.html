@@ -51,8 +51,8 @@
                             Building production-grade AI systems with 1.5+ years of experience.
                         </p>
                         <div class="hero-buttons">
-                            <a href="#contact" class="btn btn-primary">Get In Touch</a>
-                            <a href="#projects" class="btn btn-secondary">View My Work</a>
+                            <a href="resume.pdf" download class="btn btn-primary"><i class="fas fa-download"></i> Resume</a>
+                            <a href="#contact" class="btn btn-secondary">Get In Touch</a>
                         </div>
                         <div class="social-links">
                             <a href="mailto:mursaleen.sengr@gmail.com" target="_blank" class="social-icon" title="Email">
@@ -116,45 +116,8 @@
     <section id="about" class="about">
         <div class="container">
             <h2 class="section-title">About Me</h2>
-            <div class="about-content">
-                <div class="about-text">
-                    <h3>Professional Summary</h3>
-                    <p>
-                        AI & ML Engineer with 1.5 years of experience building production-grade 
-                        Generative AI and Agentic systems. Specialized in architecting scalable RAG 
-                        pipelines and fine-tuning LLMs for niche domains, with expertise in bridging 
-                        the gap between ML models and real-time users by deploying FastAPI backends 
-                        on AWS and DigitalOcean using event-driven architectures.
-                    </p>
-                    <div class="about-info">
-                        <div class="info-item">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span>Islamabad, Pakistan</span>
-                        </div>
-                        <div class="info-item">
-                            <i class="fas fa-phone"></i>
-                            <span>+92 307 770 6100</span>
-                        </div>
-                        <div class="info-item">
-                            <i class="fas fa-envelope"></i>
-                            <span>mursaleen.sengr@gmail.com</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="about-stats">
-                    <div class="stat-card">
-                        <h4>1.5+</h4>
-                        <p>Years Experience</p>
-                    </div>
-                    <div class="stat-card">
-                        <h4>10+</h4>
-                        <p>Projects Completed</p>
-                    </div>
-                    <div class="stat-card">
-                        <h4>99.9%</h4>
-                        <p>Uptime Achieved</p>
-                    </div>
-                </div>
+            <div class="about-content" id="about-content">
+                <!-- Dynamically populated from data/about.json -->
             </div>
         </div>
     </section>
@@ -163,34 +126,8 @@
     <section id="experience" class="experience">
         <div class="container">
             <h2 class="section-title">Experience</h2>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <span class="timeline-date">March 2025 – Present</span>
-                        <h3>AI/ML Engineer</h3>
-                        <h4>DiveDeepAI | Islamabad, Pakistan</h4>
-                        <ul>
-                            <li>Designed and implemented scalable AI & backend pipelines serving real-time users, deployed on AWS and DigitalOcean with high availability and fault tolerance</li>
-                            <li>Collaborated with cross-functional teams including product managers, designers, and DevOps engineers to deliver innovative AI solutions on schedule</li>
-                            <li>Successfully led project initiatives from conception to deployment, ensuring alignment with business objectives and technical best practices</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <span class="timeline-date">August 2024 – February 2025</span>
-                        <h3>Jr AI Engineer</h3>
-                        <h4>Softoo | Islamabad, Pakistan</h4>
-                        <ul>
-                            <li>Developed RAG-based applications using LangChain, LLMs (GPT, Claude, LLama), and vector databases (Qdrant, FAISS)</li>
-                            <li>Built Chat-with-Database proof-of-concepts using embedding models to enhance data-driven decision-making</li>
-                            <li>Implemented semantic search and question-answering systems that improved information retrieval accuracy by 35%</li>
-                            <li>Optimized vector database queries and embedding pipelines, reducing latency by 40%</li>
-                        </ul>
-                    </div>
-                </div>
+            <div class="timeline" id="experience-timeline">
+                <!-- Dynamically populated from data/experience.json -->
             </div>
         </div>
     </section>
@@ -199,62 +136,8 @@
     <section id="projects" class="projects">
         <div class="container">
             <h2 class="section-title">Featured Projects</h2>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-icon">
-                        <i class="fas fa-mobile-alt"></i>
-                    </div>
-                    <h3>eQRA-AI: Islamic AI Assistant</h3>
-                    <p>Complete FastAPI backend for Islamic mobile app with dual RAG-powered chatbots, Voice Tasbeeh feature with WebSocket streaming, and production infrastructure on DigitalOcean.</p>
-                    <div class="project-tags">
-                        <span>Python</span>
-                        <span>FastAPI</span>
-                        <span>LangChain</span>
-                        <span>Qdrant</span>
-                        <span>AWS</span>
-                        <span>Docker</span>
-                    </div>
-                    <div class="project-stats">
-                        <span><i class="fas fa-clock"></i> 99.9% Uptime</span>
-                        <span><i class="fas fa-users"></i> Real-time Users</span>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-icon">
-                        <i class="fas fa-microphone"></i>
-                    </div>
-                    <h3>Fine-Tuning Whisper for Quranic Arabic</h3>
-                    <p>Fine-tuned OpenAI's Whisper model on 10,000+ Quranic audio samples, enhancing Harakat recognition by 90% and reducing Word Error Rate by 30-40%.</p>
-                    <div class="project-tags">
-                        <span>PyTorch</span>
-                        <span>Hugging Face</span>
-                        <span>Whisper</span>
-                        <span>NLP</span>
-                    </div>
-                    <div class="project-stats">
-                        <span><i class="fas fa-chart-line"></i> 90% Accuracy Boost</span>
-                        <span><i class="fas fa-database"></i> 10K+ Samples</span>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-icon">
-                        <i class="fas fa-database"></i>
-                    </div>
-                    <h3>AI-Powered Database Chat Agent</h3>
-                    <p>Intelligent chatbot enabling natural language queries on relational databases with 92% accuracy, reducing time-to-insight by 60% for non-technical stakeholders.</p>
-                    <div class="project-tags">
-                        <span>Vanna.ai</span>
-                        <span>Autogen</span>
-                        <span>PostgreSQL</span>
-                        <span>Streamlit</span>
-                    </div>
-                    <div class="project-stats">
-                        <span><i class="fas fa-bolt"></i> 60% Faster</span>
-                        <span><i class="fas fa-check-circle"></i> 92% Accuracy</span>
-                    </div>
-                </div>
+            <div class="projects-grid" id="projects-grid">
+                <!-- Dynamically populated from data/projects.json -->
             </div>
         </div>
     </section>
@@ -263,169 +146,8 @@
     <section id="skills" class="skills">
         <div class="container">
             <h2 class="section-title">Skills & Technologies</h2>
-            <div class="skills-container">
-                <div class="skill-category">
-                    <div class="category-header">
-                        <i class="fas fa-code"></i>
-                        <h3>Languages</h3>
-                    </div>
-                    <div class="skill-grid">
-                        <div class="skill-item">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" alt="Python">
-                            <span>Python</span>
-                        </div>
-                        <div class="skill-item">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg" alt="C++">
-                            <span>C++</span>
-                        </div>
-                        <div class="skill-item">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg" alt="SQL">
-                            <span>SQL</span>
-                        </div>
-                        <div class="skill-item">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/julia/julia-original.svg" alt="Julia">
-                            <span>Julia</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="skill-category">
-                    <div class="category-header">
-                        <i class="fas fa-brain"></i>
-                        <h3>AI & ML</h3>
-                    </div>
-                    <div class="skill-grid">
-                        <div class="skill-item">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pytorch/pytorch-original.svg" alt="PyTorch">
-                            <span>PyTorch</span>
-                        </div>
-                        <div class="skill-item">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tensorflow/tensorflow-original.svg" alt="TensorFlow">
-                            <span>TensorFlow</span>
-                        </div>
-                        <div class="skill-item">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/scikit-learn/scikit-learn-original.svg" alt="Scikit-learn">
-                            <span>Scikit-learn</span>
-                        </div>
-                        <div class="skill-item">
-                            <img src="https://huggingface.co/front/assets/huggingface_logo.svg" alt="Hugging Face">
-                            <span>Hugging Face</span>
-                        </div>
-                        <div class="skill-item">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pandas/pandas-original.svg" alt="Pandas">
-                            <span>Pandas</span>
-                        </div>
-                        <div class="skill-item">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/numpy/numpy-original.svg" alt="NumPy">
-                            <span>NumPy</span>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-icon-placeholder">
-                                <i class="fas fa-link"></i>
-                            </div>
-                            <span>LangChain</span>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-icon-placeholder">
-                                <i class="fas fa-robot"></i>
-                            </div>
-                            <span>Autogen</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="skill-category">
-                    <div class="category-header">
-                        <i class="fas fa-database"></i>
-                        <h3>Databases</h3>
-                    </div>
-                    <div class="skill-grid">
-                        <div class="skill-item">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg" alt="PostgreSQL">
-                            <span>PostgreSQL</span>
-                        </div>
-                        <div class="skill-item">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg" alt="MySQL">
-                            <span>MySQL</span>
-                        </div>
-                        <div class="skill-item">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original.svg" alt="MongoDB">
-                            <span>MongoDB</span>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-icon-placeholder">
-                                <i class="fas fa-vector-square"></i>
-                            </div>
-                            <span>Qdrant</span>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-icon-placeholder">
-                                <i class="fas fa-search-plus"></i>
-                            </div>
-                            <span>FAISS</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="skill-category">
-                    <div class="category-header">
-                        <i class="fas fa-cloud"></i>
-                        <h3>Cloud & DevOps</h3>
-                    </div>
-                    <div class="skill-grid">
-                        <div class="skill-item">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" alt="AWS">
-                            <span>AWS</span>
-                        </div>
-                        <div class="skill-item">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg" alt="Docker">
-                            <span>Docker</span>
-                        </div>
-                        <div class="skill-item">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg" alt="Linux">
-                            <span>Linux</span>
-                        </div>
-                        <div class="skill-item">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" alt="Git">
-                            <span>Git</span>
-                        </div>
-                        <div class="skill-item">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/digitalocean/digitalocean-original.svg" alt="DigitalOcean">
-                            <span>DigitalOcean</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="skill-category">
-                    <div class="category-header">
-                        <i class="fas fa-server"></i>
-                        <h3>Backend & APIs</h3>
-                    </div>
-                    <div class="skill-grid">
-                        <div class="skill-item">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/fastapi/fastapi-original.svg" alt="FastAPI">
-                            <span>FastAPI</span>
-                        </div>
-                        <div class="skill-item">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/flask/flask-original.svg" alt="Flask">
-                            <span>Flask</span>
-                        </div>
-                        <div class="skill-item">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/django/django-plain.svg" alt="Django">
-                            <span>Django</span>
-                        </div>
-                        <div class="skill-item">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/redis/redis-original.svg" alt="Redis">
-                            <span>Redis</span>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-icon-placeholder">
-                                <i class="fas fa-tasks"></i>
-                            </div>
-                            <span>Celery</span>
-                        </div>
-                    </div>
-                </div>
+            <div class="skills-container" id="skills-container">
+                <!-- Dynamically populated from data/skills.json -->
             </div>
         </div>
     </section>
@@ -434,35 +156,8 @@
     <section id="education" class="education">
         <div class="container">
             <h2 class="section-title">Education & Certificates</h2>
-            <div class="education-content">
-                <div class="education-card">
-                    <div class="education-icon">
-                        <i class="fas fa-graduation-cap"></i>
-                    </div>
-                    <h3>Bachelor of Science in Software Engineering</h3>
-                    <h4>The Islamia University of Bahawalpur</h4>
-                    <p class="education-date">October 2020 – June 2024</p>
-                    <p class="cgpa">CGPA: 3.70/4.00</p>
-                    <p>Relevant Coursework: Databases, Object-Oriented Programming, Software Engineering, Data Structures and Algorithms, Artificial Intelligence, Machine Learning, Cloud Computing, Computer Networks</p>
-                </div>
-
-                <div class="certificates">
-                    <h3>Certifications</h3>
-                    <div class="cert-item">
-                        <i class="fas fa-certificate"></i>
-                        <div>
-                            <h4>Intermediate Python</h4>
-                            <p>DataCamp, 2024</p>
-                        </div>
-                    </div>
-                    <div class="cert-item">
-                        <i class="fas fa-certificate"></i>
-                        <div>
-                            <h4>Introduction to Large Language Models</h4>
-                            <p>Google Cloud, 2024</p>
-                        </div>
-                    </div>
-                </div>
+            <div class="education-content" id="education-content">
+                <!-- Dynamically populated from data/education.json -->
             </div>
         </div>
     </section>

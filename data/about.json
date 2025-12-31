@@ -1,0 +1,34 @@
+{
+    "summary": {
+        "title": "Professional Summary",
+        "text": "AI & ML Engineer with 1.5 years of experience building production-grade Generative AI and Agentic systems. Specialized in architecting scalable RAG pipelines and fine-tuning LLMs for niche domains, with expertise in bridging the gap between ML models and real-time users by deploying FastAPI backends on AWS and DigitalOcean using event-driven architectures."
+    },
+    "info": [
+        {
+            "icon": "fas fa-map-marker-alt",
+            "text": "Islamabad, Pakistan"
+        },
+        {
+            "icon": "fas fa-phone",
+            "text": "+92 307 770 6100"
+        },
+        {
+            "icon": "fas fa-envelope",
+            "text": "mursaleen.sengr@gmail.com"
+        }
+    ],
+    "stats": [
+        {
+            "value": "1.5+",
+            "label": "Years Experience"
+        },
+        {
+            "value": "10+",
+            "label": "Projects Completed"
+        },
+        {
+            "value": "99.9%",
+            "label": "Uptime Achieved"
+        }
+    ]
+}

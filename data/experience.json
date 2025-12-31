@@ -1,0 +1,27 @@
+{
+    "experiences": [
+        {
+            "date": "March 2025 – Present",
+            "title": "AI/ML Engineer",
+            "company": "DiveDeepAI",
+            "location": "Islamabad, Pakistan",
+            "responsibilities": [
+                "Designed and implemented scalable AI & backend pipelines serving real-time users, deployed on AWS and DigitalOcean with high availability and fault tolerance",
+                "Collaborated with cross-functional teams including product managers, designers, and DevOps engineers to deliver innovative AI solutions on schedule",
+                "Successfully led project initiatives from conception to deployment, ensuring alignment with business objectives and technical best practices"
+            ]
+        },
+        {
+            "date": "August 2024 – February 2025",
+            "title": "Jr AI Engineer",
+            "company": "Softoo",
+            "location": "Islamabad, Pakistan",
+            "responsibilities": [
+                "Developed RAG-based applications using LangChain, LLMs (GPT, Claude, LLama), and vector databases (Qdrant, FAISS)",
+                "Built Chat-with-Database proof-of-concepts using embedding models to enhance data-driven decision-making",
+                "Implemented semantic search and question-answering systems that improved information retrieval accuracy by 35%",
+                "Optimized vector database queries and embedding pipelines, reducing latency by 40%"
+            ]
+        }
+    ]
+}

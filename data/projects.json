@@ -1,0 +1,52 @@
+{
+    "projects": [
+        {
+            "icon": "fas fa-mobile-alt",
+            "title": "eQRA-AI: Islamic AI Assistant",
+            "description": "Complete FastAPI backend for Islamic mobile app with dual RAG-powered chatbots, Voice Tasbeeh feature with WebSocket streaming, and production infrastructure on DigitalOcean.",
+            "tags": ["Python", "FastAPI", "LangChain", "Qdrant", "AWS", "Docker"],
+            "stats": [
+                {
+                    "icon": "fas fa-clock",
+                    "text": "99.9% Uptime"
+                },
+                {
+                    "icon": "fas fa-users",
+                    "text": "Real-time Users"
+                }
+            ]
+        },
+        {
+            "icon": "fas fa-microphone",
+            "title": "Fine-Tuning Whisper for Quranic Arabic",
+            "description": "Fine-tuned OpenAI's Whisper model on 10,000+ Quranic audio samples, enhancing Harakat recognition by 90% and reducing Word Error Rate by 30-40%.",
+            "tags": ["PyTorch", "Hugging Face", "Whisper", "NLP"],
+            "stats": [
+                {
+                    "icon": "fas fa-chart-line",
+                    "text": "90% Accuracy Boost"
+                },
+                {
+                    "icon": "fas fa-database",
+                    "text": "10K+ Samples"
+                }
+            ]
+        },
+        {
+            "icon": "fas fa-database",
+            "title": "AI-Powered Database Chat Agent",
+            "description": "Intelligent chatbot enabling natural language queries on relational databases with 92% accuracy, reducing time-to-insight by 60% for non-technical stakeholders.",
+            "tags": ["Vanna.ai", "Autogen", "PostgreSQL", "Streamlit"],
+            "stats": [
+                {
+                    "icon": "fas fa-bolt",
+                    "text": "60% Faster"
+                },
+                {
+                    "icon": "fas fa-check-circle",
+                    "text": "92% Accuracy"
+                }
+            ]
+        }
+    ]
+}

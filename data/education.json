@@ -1,0 +1,21 @@
+{
+    "degree": {
+        "title": "Bachelor of Science in Software Engineering",
+        "institution": "The Islamia University of Bahawalpur",
+        "date": "October 2020 – June 2024",
+        "cgpa": "3.70/4.00",
+        "coursework": "Relevant Coursework: Databases, Object-Oriented Programming, Software Engineering, Data Structures and Algorithms, Artificial Intelligence, Machine Learning, Cloud Computing, Computer Networks"
+    },
+    "certifications": [
+        {
+            "title": "Intermediate Python",
+            "issuer": "DataCamp",
+            "year": "2024"
+        },
+        {
+            "title": "Introduction to Large Language Models",
+            "issuer": "Google Cloud",
+            "year": "2024"
+        }
+    ]
+}
