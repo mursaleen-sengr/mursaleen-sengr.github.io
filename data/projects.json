@@ -1,50 +1,79 @@
 {
     "projects": [
         {
-            "icon": "fas fa-mobile-alt",
-            "title": "eQRA-AI: Islamic AI Assistant",
-            "description": "Complete FastAPI backend for Islamic mobile app with dual RAG-powered chatbots, Voice Tasbeeh feature with WebSocket streaming, and production infrastructure on DigitalOcean.",
-            "tags": ["Python", "FastAPI", "LangChain", "Qdrant", "AWS", "Docker"],
+            "icon": "fas fa-clinic-medical",
+            "title": "Bridge Vet: Veterinary Clinic Platform",
+            "description": [
+                "Managed a development team to deliver an end-to-end clinic management system; built a scalable FastAPI, Redis, and Celery backend for asynchronous AI SOAP note generation, medication extraction, and appointment follow-ups.",
+                "Developed a custom RAG-based clinical assistant for dosage calculations, evaluated retrieval accuracy via Langfuse, and implemented OCR pipelines to automate inventory tracking. Maintained continuous deployments on AWS EC2."
+            ],
+            "tags": ["Python", "FastAPI", "Redis", "Celery", "Google Gemini", "Vector DBs", "Langfuse", "OCR", "Docker", "AWS EC2"],
             "stats": [
                 {
-                    "icon": "fas fa-clock",
-                    "text": "99.9% Uptime"
+                    "icon": "fas fa-stethoscope",
+                    "text": "Clinical SOAP Notes"
                 },
                 {
-                    "icon": "fas fa-users",
-                    "text": "Real-time Users"
+                    "icon": "fas fa-shield-alt",
+                    "text": "Langfuse Evaluated"
                 }
             ]
         },
         {
-            "icon": "fas fa-microphone",
-            "title": "Fine-Tuning Whisper for Quranic Arabic",
-            "description": "Fine-tuned OpenAI's Whisper model on 10,000+ Quranic audio samples, enhancing Harakat recognition by 90% and reducing Word Error Rate by 30-40%.",
-            "tags": ["PyTorch", "Hugging Face", "Whisper", "NLP"],
+            "icon": "fas fa-mosque",
+            "title": "eQRA-AI: Islamic AI Assistant",
+            "description": [
+                "Built the backend for an Islamic AI Assistant, deploying dual RAG chatbots (Phase 1) dedicated to precise Fatwa and Duas retrieval. Scaled deployments on DigitalOcean App platform and Redis/Celery over droplets and Grafana Loki for log aggregation.",
+                "Developed an agentic MVP (Phase 2) using a LangGraph multi-tool agent to efficiently route user intent between live web queries and vectorized Qdrant databases. Integrated Mem0 for long-term memory and built web scraping pipelines to ingest extensive Islamic literature."
+            ],
+            "tags": ["Python", "FastAPI", "LangGraph", "Qdrant", "Mem0", "Redis", "Celery", "Grafana Loki", "AWS", "DigitalOcean"],
             "stats": [
                 {
-                    "icon": "fas fa-chart-line",
-                    "text": "90% Accuracy Boost"
+                    "icon": "fas fa-project-diagram",
+                    "text": "LangGraph Agents"
                 },
                 {
                     "icon": "fas fa-database",
-                    "text": "10K+ Samples"
+                    "text": "Qdrant & Mem0"
                 }
             ]
         },
         {
-            "icon": "fas fa-database",
-            "title": "AI-Powered Database Chat Agent",
-            "description": "Intelligent chatbot enabling natural language queries on relational databases with 92% accuracy, reducing time-to-insight by 60% for non-technical stakeholders.",
-            "tags": ["Vanna.ai", "Autogen", "PostgreSQL", "Streamlit"],
+            "icon": "fas fa-file-invoice-dollar",
+            "title": "Yani: AI Assistant for Chartered Accountants",
+            "description": [
+                "Built a RAG-based chatbot to assist Chartered Accountants, alongside a distinct document compliance workflow that evaluates text chunks directly against regulatory frameworks to map clauses and flag non-compliance.",
+                "Implemented an AI-powered database chat utilizing Vanna.ai trained on complex schemas, achieving 92% accuracy in natural language to SQL conversion.",
+                "Developed a multi-agent system using Autogen to perform automated Exploratory Data Analysis (EDA) and dynamically generate visual insights from the extracted SQL data."
+            ],
+            "tags": ["Python", "Vanna.ai", "Autogen", "RAG", "LLMs", "Pandas", "Matplotlib", "Streamlit"],
             "stats": [
                 {
-                    "icon": "fas fa-bolt",
-                    "text": "60% Faster"
+                    "icon": "fas fa-percentage",
+                    "text": "92% NL-to-SQL Accuracy"
                 },
                 {
-                    "icon": "fas fa-check-circle",
-                    "text": "92% Accuracy"
+                    "icon": "fas fa-chart-bar",
+                    "text": "Autogen Multi-Agent EDA"
+                }
+            ]
+        },
+        {
+            "icon": "fas fa-microphone-alt",
+            "title": "Whisper Fine-Tuning for Quranic Arabic",
+            "description": [
+                "Optimized a custom fine-tuning pipeline for the Whisper model utilizing 10,000+ Quranic Tarteel audio samples to improve specialized Arabic speech-to-text transcription and phonetic accuracy.",
+                "Achieved a 90% improvement in complex Harakat (diacritic) recognition and reduced overall Word Error Rate (WER) by 30–40% compared to foundational baseline models."
+            ],
+            "tags": ["Python", "PyTorch", "Hugging Face", "Whisper", "Audio Processing"],
+            "stats": [
+                {
+                    "icon": "fas fa-star",
+                    "text": "90% Harakat Recognition"
+                },
+                {
+                    "icon": "fas fa-chart-line",
+                    "text": "30-40% WER Reduction"
                 }
             ]
         }

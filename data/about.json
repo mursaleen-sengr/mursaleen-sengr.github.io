@@ -1,7 +1,7 @@
 {
     "summary": {
         "title": "Professional Summary",
-        "text": "AI & ML Engineer with 1.5 years of experience building production-grade Generative AI and Agentic systems. Specialized in architecting scalable RAG pipelines and fine-tuning LLMs for niche domains, with expertise in bridging the gap between ML models and real-time users by deploying FastAPI backends on AWS and DigitalOcean using event-driven architectures."
+        "text": "AI & ML Engineer with 2+ years of experience building production-grade LLM applications, RAG systems, and agent workflows. Delivered FastAPI-based AI platforms serving healthcare, finance, and Islamic knowledge domains using LangGraph, Qdrant, AWS, and Docker. Experienced in fine-tuning, retrieval optimization, and scalable AI backend development."
     },
     "info": [
         {
@@ -19,7 +19,7 @@
     ],
     "stats": [
         {
-            "value": "1.5+",
+            "value": "2+",
             "label": "Years Experience"
         },
         {

@@ -9,21 +9,13 @@
                     "logo": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg"
                 },
                 {
-                    "name": "C++",
-                    "logo": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg"
-                },
-                {
                     "name": "SQL",
                     "logo": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg"
-                },
-                {
-                    "name": "Julia",
-                    "logo": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/julia/julia-original.svg"
                 }
             ]
         },
         {
-            "name": "AI & ML",
+            "name": "AI/ML & Frameworks",
             "icon": "fas fa-brain",
             "skills": [
                 {
@@ -31,32 +23,58 @@
                     "logo": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pytorch/pytorch-original.svg"
                 },
                 {
-                    "name": "TensorFlow",
-                    "logo": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tensorflow/tensorflow-original.svg"
-                },
-                {
-                    "name": "Scikit-learn",
-                    "logo": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/scikit-learn/scikit-learn-original.svg"
-                },
-                {
                     "name": "Hugging Face",
                     "logo": "https://huggingface.co/front/assets/huggingface_logo.svg"
                 },
                 {
-                    "name": "Pandas",
-                    "logo": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pandas/pandas-original.svg"
-                },
-                {
-                    "name": "NumPy",
-                    "logo": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/numpy/numpy-original.svg"
+                    "name": "OpenAI",
+                    "icon": "fas fa-brain"
                 },
                 {
                     "name": "LangChain",
-                    "icon": "fas fa-link"
+                    "logo": "https://cdn.simpleicons.org/langchain"
+                },
+                {
+                    "name": "LangGraph",
+                    "icon": "fas fa-network-wired"
                 },
                 {
                     "name": "Autogen",
                     "icon": "fas fa-robot"
+                },
+                {
+                    "name": "RAG",
+                    "icon": "fas fa-search-plus"
+                },
+                {
+                    "name": "Mem0",
+                    "icon": "fas fa-memory"
+                }
+            ]
+        },
+        {
+            "name": "Evaluation & Observability",
+            "icon": "fas fa-glasses",
+            "skills": [
+                {
+                    "name": "Langfuse",
+                    "icon": "fas fa-binoculars"
+                },
+                {
+                    "name": "Grafana Loki",
+                    "logo": "https://cdn.simpleicons.org/grafana"
+                },
+                {
+                    "name": "LLM Benchmarking",
+                    "icon": "fas fa-tasks"
+                },
+                {
+                    "name": "Retrieval Evaluation",
+                    "icon": "fas fa-poll"
+                },
+                {
+                    "name": "Hallucination Reduction",
+                    "icon": "fas fa-shield-alt"
                 }
             ]
         },
@@ -69,30 +87,46 @@
                     "logo": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg"
                 },
                 {
-                    "name": "MySQL",
-                    "logo": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg"
-                },
-                {
-                    "name": "MongoDB",
-                    "logo": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original.svg"
-                },
-                {
                     "name": "Qdrant",
-                    "icon": "fas fa-vector-square"
+                    "logo": "https://cdn.simpleicons.org/qdrant"
                 },
                 {
                     "name": "FAISS",
                     "icon": "fas fa-search-plus"
+                },
+                {
+                    "name": "PgVector",
+                    "icon": "fas fa-vector-square"
+                },
+                {
+                    "name": "Redis",
+                    "logo": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/redis/redis-original.svg"
+                },
+                {
+                    "name": "MongoDB",
+                    "logo": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original.svg"
                 }
             ]
         },
         {
-            "name": "Cloud & DevOps",
-            "icon": "fas fa-cloud",
+            "name": "Backend & Infrastructure",
+            "icon": "fas fa-server",
             "skills": [
                 {
-                    "name": "AWS",
+                    "name": "FastAPI",
+                    "logo": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/fastapi/fastapi-original.svg"
+                },
+                {
+                    "name": "Celery",
+                    "logo": "https://cdn.simpleicons.org/celery"
+                },
+                {
+                    "name": "AWS (EC2, S3)",
                     "logo": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-original-wordmark.svg"
+                },
+                {
+                    "name": "DigitalOcean",
+                    "logo": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/digitalocean/digitalocean-original.svg"
                 },
                 {
                     "name": "Docker",
@@ -103,38 +137,46 @@
                     "logo": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg"
                 },
                 {
-                    "name": "Git",
-                    "logo": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg"
-                },
-                {
-                    "name": "DigitalOcean",
-                    "logo": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/digitalocean/digitalocean-original.svg"
+                    "name": "CI/CD",
+                    "icon": "fas fa-sync-alt"
                 }
             ]
         },
         {
-            "name": "Backend & APIs",
-            "icon": "fas fa-server",
+            "name": "Tools",
+            "icon": "fas fa-tools",
             "skills": [
                 {
-                    "name": "FastAPI",
-                    "logo": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/fastapi/fastapi-original.svg"
+                    "name": "Git",
+                    "logo": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg"
                 },
                 {
-                    "name": "Flask",
-                    "logo": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/flask/flask-original.svg"
+                    "name": "GitHub",
+                    "logo": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg"
                 },
                 {
-                    "name": "Django",
-                    "logo": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/django/django-plain.svg"
+                    "name": "GitLab",
+                    "logo": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/gitlab/gitlab-original.svg"
                 },
                 {
-                    "name": "Redis",
-                    "logo": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/redis/redis-original.svg"
+                    "name": "Web Scraping",
+                    "icon": "fas fa-spider"
                 },
                 {
-                    "name": "Celery",
-                    "icon": "fas fa-tasks"
+                    "name": "Postman",
+                    "logo": "https://cdn.simpleicons.org/postman"
+                },
+                {
+                    "name": "Claude Code",
+                    "icon": "fas fa-code-branch"
+                },
+                {
+                    "name": "Cursor",
+                    "icon": "fas fa-mouse-pointer"
+                },
+                {
+                    "name": "Antigravity",
+                    "icon": "fas fa-space-shuttle"
                 }
             ]
         }
