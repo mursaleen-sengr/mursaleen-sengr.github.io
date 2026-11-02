@@ -1341,8 +1341,68 @@ mark {
 .skills-stage {
     display: grid;
     grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
-    gap: clamp(28px, 5vw, 64px);
+    grid-template-areas:
+        "orbit core"
+        "orbit side";
+    gap: 28px clamp(28px, 5vw, 64px);
     align-items: center;
+}
+
+.skills-stage .orbit {
+    grid-area: orbit;
+}
+
+.core-stack {
+    grid-area: core;
+    align-self: end;
+    display: grid;
+    gap: 10px;
+}
+
+.core-stack .sub-title {
+    margin-bottom: 0;
+}
+
+.core-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    margin-top: 4px;
+}
+
+.core-list li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+    padding: 8px 10px 8px 8px;
+    border-radius: var(--r-sm);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    font-size: 0.9rem;
+    font-weight: 500;
+    line-height: 1.2;
+}
+
+.core-list .skill-logo {
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+}
+
+.core-list .skill-logo img {
+    width: 18px;
+    height: 18px;
+}
+
+.core-list .skill-logo i {
+    font-size: 0.8rem;
+}
+
+.core-list span:last-child {
+    min-width: 0;
+    overflow-wrap: anywhere;
 }
 
 .orbit {
@@ -1527,9 +1587,11 @@ mark {
 }
 
 .orbit-side {
+    grid-area: side;
+    align-self: start;
     display: grid;
     gap: 16px;
-    align-content: center;
+    align-content: start;
 }
 
 .orbit-side .sub-title {
@@ -2010,6 +2072,14 @@ fieldset.field legend {
 
     .skills-stage {
         grid-template-columns: 1fr;
+        grid-template-areas:
+            "core"
+            "orbit"
+            "side";
+    }
+
+    .core-stack {
+        align-self: start;
     }
 
     .contact-panel {
@@ -2139,6 +2209,12 @@ fieldset.field legend {
 
     .orbit-center {
         width: 34%;
+    }
+}
+
+@media (max-width: 520px) {
+    .core-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
 

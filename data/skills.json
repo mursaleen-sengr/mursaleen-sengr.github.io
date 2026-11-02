@@ -1,4 +1,18 @@
 {
+    "core": [
+        "Python",
+        "LangGraph",
+        "LangChain",
+        "RAG",
+        "FastAPI",
+        "Qdrant",
+        "Redis",
+        "PyTorch",
+        "Hugging Face",
+        "Langfuse",
+        "Docker",
+        "AWS"
+    ],
     "categories": [
         {
             "name": "Languages",

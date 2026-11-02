@@ -144,6 +144,15 @@ data/
 
 ---
 
+### Core stack
+
+The `core` list at the top of `skills.json` sets the always-visible "Core stack" in the Skills section. Use the exact skill names from the categories below it:
+```json
+"core": ["Python", "LangGraph", "FastAPI", "Qdrant", "AWS"]
+```
+
+---
+
 ### 5. Education Section (`education.json`)
 
 **To update degree:**
