@@ -10,7 +10,8 @@ data/
 ├── experience.json # Work experience timeline
 ├── projects.json   # Featured projects
 ├── skills.json     # Skills & technologies by category
-└── education.json  # Education and certifications
+├── education.json  # Education and certifications
+└── services.json   # 'How I can help' services and the project process steps
 ```
 
 ---
@@ -198,3 +199,17 @@ This portfolio uses [FontAwesome Icons](https://fontawesome.com/icons). Common i
 This setup works perfectly with **GitHub Pages** since it uses client-side JavaScript to load JSON files. No server-side processing is required!
 
 Just push your changes to GitHub and the site will update automatically.
+
+---
+
+### 6. Services (`services.json`)
+
+Edit `services` for the "How I can help" cards (`icon`, `title`, `text`, `proof`) and `process` for the numbered steps (`title`, `text`).
+
+### Skill logos
+
+Logos live in `assets/logos/`. To add one, save an SVG there and point the skill at it:
+```json
+{ "name": "Docker", "logo": "assets/logos/docker.svg" }
+```
+If a logo fails to load, the skill's `icon` is shown instead.

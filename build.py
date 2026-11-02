@@ -16,7 +16,8 @@ def load_json_files():
         'experience': 'data/experience.json',
         'projects': 'data/projects.json',
         'skills': 'data/skills.json',
-        'education': 'data/education.json'
+        'education': 'data/education.json',
+        'services': 'data/services.json'
     }
     
     for key, filepath in json_files.items():

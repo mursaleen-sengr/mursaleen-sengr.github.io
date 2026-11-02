@@ -1,12 +1,17 @@
 {
     "summary": {
         "title": "Professional Summary",
-        "text": "AI & ML Engineer with 2+ years of experience building production-grade LLM applications, RAG systems, and agent workflows. Delivered FastAPI-based AI platforms serving healthcare, finance, and Islamic knowledge domains using LangGraph, Qdrant, AWS, and Docker. Experienced in fine-tuning, retrieval optimization, and scalable AI backend development."
+        "text": "AI & ML Engineer with almost 3 years of experience building production-grade LLM applications, RAG systems and agent workflows. I've delivered FastAPI-based AI platforms for healthcare, finance, procurement and Islamic knowledge using LangGraph, Qdrant, AWS and Docker, and I work across fine-tuning, retrieval optimization and scalable Gen-AI backends."
+    },
+    "current": {
+        "role": "Software Engineer (AI/ML)",
+        "company": "CodingCops",
+        "location": "Lahore, Pakistan"
     },
     "info": [
         {
-            "icon": "fas fa-map-marker-alt",
-            "text": "Islamabad, Pakistan"
+            "icon": "fas fa-location-dot",
+            "text": "Lahore, Pakistan"
         },
         {
             "icon": "fas fa-phone",
@@ -19,16 +24,20 @@
     ],
     "stats": [
         {
-            "value": "2+",
-            "label": "Years Experience"
+            "value": "~3 yrs",
+            "label": "Building production AI"
         },
         {
-            "value": "10+",
-            "label": "Projects Completed"
+            "value": "4",
+            "label": "Industries: healthcare, finance, procurement, Islamic knowledge"
         },
         {
-            "value": "99.9%",
-            "label": "Uptime Achieved"
+            "value": "92%",
+            "label": "Accuracy on natural-language to SQL"
+        },
+        {
+            "value": "30–40%",
+            "label": "Lower word error rate after fine-tuning Whisper"
         }
     ]
 }

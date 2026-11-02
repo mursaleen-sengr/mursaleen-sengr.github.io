@@ -6,7 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Muhammad Mursaleen, AI & ML Engineer</title>
     <meta name="description"
-        content="Muhammad Mursaleen builds production LLM applications, RAG systems and agent workflows with FastAPI, LangGraph and Qdrant.">
+        content="Muhammad Mursaleen builds AI assistants, agents and RAG systems for businesses, from prototype to production on AWS and DigitalOcean.">
+    <meta property="og:title" content="Muhammad Mursaleen, AI & ML Engineer">
+    <meta property="og:description"
+        content="AI assistants, agents, text-to-SQL and fine-tuned models, built and run in production.">
+    <meta property="og:image" content="profile-photo-640.jpg">
     <script>
         // Set theme before paint to avoid a flash
         (function () {
@@ -38,13 +42,14 @@
                 <span class="wordmark-name">Muhammad Mursaleen</span>
             </a>
             <nav class="site-nav" id="siteNav" aria-label="Main">
-                <a href="#about" class="nav-link">About</a>
+                <a href="#services" class="nav-link">Services</a>
+                <a href="#work" class="nav-link">Work</a>
                 <a href="#experience" class="nav-link">Experience</a>
-                <a href="#projects" class="nav-link">Projects</a>
                 <a href="#skills" class="nav-link">Skills</a>
-                <a href="#contact" class="nav-link">Contact</a>
+                <a href="#about" class="nav-link">About</a>
             </nav>
             <div class="header-actions">
+                <a href="#contact" class="btn btn-solid btn-small header-cta">Contact me</a>
                 <button class="icon-btn" id="themeToggle" type="button" aria-label="Switch to dark theme">
                     <i class="fas fa-moon" aria-hidden="true"></i>
                 </button>
@@ -61,18 +66,22 @@
         <section id="home" class="hero">
             <div class="wrap hero-grid">
                 <div class="hero-intro">
-                    <p class="hero-hello">Hi, I'm</p>
+                    <p class="hero-status" id="heroStatus">
+                        <span class="status-dot" aria-hidden="true"></span>
+                        Software Engineer (AI/ML) at CodingCops, Lahore
+                    </p>
                     <h1 class="hero-name">Muhammad<br>Mursaleen</h1>
-                    <p class="hero-role">AI & ML engineer building LLM products that hold up in production.</p>
+                    <p class="hero-role">I build AI assistants, agents and RAG systems that businesses can rely on in
+                        production.</p>
                     <p class="hero-lede">
-                        I design RAG pipelines, agent workflows and the FastAPI backends behind them, for teams in
-                        healthcare, finance and Islamic knowledge.
+                        Almost 3 years shipping LLM products for healthcare, finance, procurement and Islamic
+                        knowledge, from the first prototype to monitored deployments on AWS and DigitalOcean.
                     </p>
                     <div class="hero-actions">
-                        <a href="resume.pdf" download class="btn btn-solid">
+                        <a href="#contact" class="btn btn-solid">Discuss a project</a>
+                        <a href="resume.pdf" download class="btn btn-line">
                             <i class="fas fa-arrow-down" aria-hidden="true"></i> Download resume
                         </a>
-                        <a href="#contact" class="btn btn-line">Contact me</a>
                     </div>
                     <ul class="social" aria-label="Profiles">
                         <li><a href="https://linkedin.com/in/mursaleensengr" target="_blank" rel="noopener"
@@ -88,13 +97,13 @@
                 <div class="console" aria-labelledby="consoleTitle">
                     <div class="console-head">
                         <h2 id="consoleTitle" class="console-title">Ask about my work</h2>
-                        <p class="console-note">Searches my experience, projects and skills, and shows the passages it
-                            found.</p>
+                        <p class="console-note">Type a question. It searches my projects, experience and skills and
+                            shows the passages it found, with a link to each.</p>
                     </div>
                     <form class="console-form" id="askForm" role="search">
                         <label for="askInput" class="sr-only">Your question</label>
                         <input id="askInput" type="search" autocomplete="off"
-                            placeholder="e.g. Have you fine-tuned Whisper?">
+                            placeholder="e.g. Have you built text-to-SQL?">
                         <button type="submit" class="console-go" aria-label="Search">
                             <i class="fas fa-magnifying-glass" aria-hidden="true"></i>
                         </button>
@@ -103,13 +112,36 @@
                     <div class="console-results" id="askResults" aria-live="polite"></div>
                 </div>
             </div>
+
+            <div class="wrap">
+                <dl class="proof" id="proofStats"></dl>
+                <p class="worked-at" id="workedAt"></p>
+            </div>
         </section>
 
-        <!-- About -->
-        <section id="about" class="section">
+        <!-- Services -->
+        <section id="services" class="section">
             <div class="wrap">
-                <h2 class="section-title">About</h2>
-                <div class="about" id="about-content"></div>
+                <div class="section-head">
+                    <h2 class="section-title">How I can help</h2>
+                    <p class="section-intro" id="servicesIntro"></p>
+                </div>
+                <div class="services" id="servicesGrid"></div>
+
+                <h3 class="process-title">How a project runs</h3>
+                <ol class="process" id="processSteps"></ol>
+            </div>
+        </section>
+
+        <!-- Work -->
+        <section id="work" class="section">
+            <div class="wrap">
+                <div class="section-head">
+                    <h2 class="section-title">Selected work</h2>
+                    <p class="section-intro">What each project changed for the people using it, and how I built it.
+                    </p>
+                </div>
+                <div class="projects" id="projects-grid"></div>
             </div>
         </section>
 
@@ -121,14 +153,6 @@
             </div>
         </section>
 
-        <!-- Projects -->
-        <section id="projects" class="section">
-            <div class="wrap">
-                <h2 class="section-title">Selected projects</h2>
-                <div class="projects" id="projects-grid"></div>
-            </div>
-        </section>
-
         <!-- Skills -->
         <section id="skills" class="section">
             <div class="wrap">
@@ -137,10 +161,11 @@
             </div>
         </section>
 
-        <!-- Education -->
-        <section id="education" class="section">
+        <!-- About + education -->
+        <section id="about" class="section">
             <div class="wrap">
-                <h2 class="section-title">Education</h2>
+                <h2 class="section-title">About me</h2>
+                <div class="about" id="about-content"></div>
                 <div class="education" id="education-content"></div>
             </div>
         </section>
@@ -150,31 +175,44 @@
             <div class="wrap contact-grid">
                 <div class="contact-copy">
                     <h2 class="section-title">Let's build something</h2>
-                    <p>Hiring for an AI role, or need a RAG system or agent built? Write to me and I'll reply within
-                        a couple of days.</p>
+                    <p>Hiring for an AI role, or have a workflow you'd like to automate with LLMs? Tell me what you're
+                        working on and I'll reply within two working days.</p>
                     <a class="contact-email" href="mailto:mursaleen.sengr@gmail.com">mursaleen.sengr@gmail.com</a>
                     <ul class="contact-list">
                         <li><i class="fas fa-phone" aria-hidden="true"></i><a href="tel:+923077706100">+92 307 770
                                 6100</a></li>
-                        <li><i class="fas fa-location-dot" aria-hidden="true"></i>Islamabad, Pakistan</li>
+                        <li><i class="fab fa-linkedin-in" aria-hidden="true"></i><a
+                                href="https://linkedin.com/in/mursaleensengr" target="_blank"
+                                rel="noopener">linkedin.com/in/mursaleensengr</a></li>
+                        <li><i class="fas fa-location-dot" aria-hidden="true"></i>Lahore, Pakistan, working with
+                            teams remotely</li>
                     </ul>
                 </div>
                 <form class="contact-form" id="contactForm">
-                    <div class="field">
-                        <label for="cf-name">Name</label>
-                        <input id="cf-name" type="text" name="name" autocomplete="name" required>
+                    <div class="field-row">
+                        <div class="field">
+                            <label for="cf-name">Name</label>
+                            <input id="cf-name" type="text" name="name" autocomplete="name" required>
+                        </div>
+                        <div class="field">
+                            <label for="cf-email">Email</label>
+                            <input id="cf-email" type="email" name="email" autocomplete="email" required>
+                        </div>
                     </div>
-                    <div class="field">
-                        <label for="cf-email">Email</label>
-                        <input id="cf-email" type="email" name="email" autocomplete="email" required>
-                    </div>
-                    <div class="field">
-                        <label for="cf-subject">Subject</label>
-                        <input id="cf-subject" type="text" name="subject" required>
-                    </div>
+                    <fieldset class="field">
+                        <legend>What's this about?</legend>
+                        <div class="choice-row">
+                            <label class="choice"><input type="radio" name="topic" value="Job opportunity" checked>
+                                Job opportunity</label>
+                            <label class="choice"><input type="radio" name="topic" value="Project"> A project</label>
+                            <label class="choice"><input type="radio" name="topic" value="Something else">
+                                Something else</label>
+                        </div>
+                    </fieldset>
                     <div class="field">
                         <label for="cf-message">Message</label>
-                        <textarea id="cf-message" name="message" rows="5" required></textarea>
+                        <textarea id="cf-message" name="message" rows="5" required
+                            placeholder="A few lines on the role or the problem you want solved"></textarea>
                     </div>
                     <button type="submit" class="btn btn-solid">Open in email app</button>
                     <p class="form-status" id="formStatus" role="status"></p>

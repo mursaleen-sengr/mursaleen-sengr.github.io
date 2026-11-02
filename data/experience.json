@@ -1,14 +1,24 @@
 {
     "experiences": [
         {
-            "date": "March 2025 – Present",
+            "date": "July 2026 – Present",
+            "title": "Software Engineer (AI/ML)",
+            "company": "CodingCops",
+            "location": "Lahore, Pakistan",
+            "responsibilities": [
+                "Design and build multi-agent AI systems and text-to-SQL pipelines using LangGraph and self-hosted LLMs.",
+                "Optimize prompts, context management and token usage to improve reasoning efficiency on complex natural-language queries across large datasets."
+            ]
+        },
+        {
+            "date": "March 2025 – July 2026",
             "title": "AI/ML Engineer",
             "company": "DiveDeepAI",
             "location": "Islamabad, Pakistan",
             "responsibilities": [
-                "Engineered Generative AI solutions, developing both custom and LangGraph driven RAG pipelines, and fine-tuning LLMs.",
-                "Architected robust FastAPI backends; managed deployments on AWS EC2 and DigitalOcean.",
-                "Led a 3-person team to deliver sprint goals, managing system architecture and mentored junior developers."
+                "Built and deployed Generative AI systems using custom and LangGraph-driven RAG pipelines and LLM fine-tuning.",
+                "Architected FastAPI backends and managed deployments on AWS EC2 and DigitalOcean.",
+                "Led a 3-person engineering team, drove system architecture and mentored junior developers."
             ]
         },
         {
@@ -17,8 +27,8 @@
             "company": "Softoo",
             "location": "Islamabad, Pakistan",
             "responsibilities": [
-                "Collaborated with the Solution Architect to rapidly prototype and iterate Generative AI Proof-of-Concepts (POCs).",
-                "Built scalable RAG-based applications utilizing LangChain, LangGraph, LLMs, and vector databases."
+                "Built production-oriented Generative AI proofs of concept with the solution architect, then validated and iterated on them.",
+                "Built RAG applications using LangChain, LangGraph, LLMs and vector databases."
             ]
         }
     ]

@@ -4,11 +4,12 @@ A modern, animated portfolio website showcasing AI & ML engineering expertise.
 
 ## 🎨 Features
 
-- **Ask about my work**: a search box in the hero that runs a small BM25 keyword search over the site's own data (`data/*.json`) and shows the matching passages with highlights and a link to their section
+- **Business-first layout**: a clear value statement, proof figures and companies above the fold, then services, case studies, experience, skills and contact, in the order recruiters and clients look for them
+- **Ask about my work**: a search box in the hero that runs a small BM25 keyword search over the site's own data (`data/*.json`) and shows matching passages with highlights and a link to their section
+- **Case studies**: each project leads with its business impact, then what was built and the stack
+- **Real logos for skills**: stored locally in `assets/logos/` (from Devicon, Simple Icons, Lobe Icons, AWS architecture icons and Mem0's repo), so they load fast and never break
 - **Light and dark themes**: follows the visitor's system setting, with a toggle that remembers their choice
-- **Fully responsive**: from phones up to wide desktops, with a mobile menu
-- **Accessible**: skip link, labelled form fields, visible keyboard focus, respects reduced-motion settings
-- **Sections**: hero, about, experience timeline, selected projects, skills, education, contact
+- **Accessible and responsive**: skip link, labelled form fields, visible keyboard focus, reduced-motion support, mobile menu
 
 ## 🚀 Technologies Used
 
@@ -31,7 +32,7 @@ portfolio_website/
 
 ## 🎯 Key Highlights
 
-- **1.5+ Years Experience** in AI/ML Engineering
+- **Almost 3 years** in AI/ML engineering
 - **Production-grade** systems deployment on AWS & DigitalOcean
 - **RAG pipelines** and LLM fine-tuning expertise
 - **FastAPI backend** development
@@ -66,7 +67,7 @@ portfolio_website/
 
 - **Email**: mursaleen.sengr@gmail.com
 - **Phone**: +92 307 770 6100
-- **Location**: Islamabad, Pakistan
+- **Location**: Lahore, Pakistan
 - **LinkedIn**: [Profile Link]
 - **GitHub**: [Profile Link]
 

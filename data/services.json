@@ -1,0 +1,47 @@
+{
+    "intro": "I help teams turn LLMs into products people rely on: accurate, measurable, and running in production.",
+    "services": [
+        {
+            "icon": "fas fa-file-circle-question",
+            "title": "AI assistants on your own documents",
+            "text": "RAG chatbots that answer from your files and policies, show their sources, and are tested for accuracy before launch.",
+            "proof": "Bridge Vet, eQRA-AI, Yani"
+        },
+        {
+            "icon": "fas fa-diagram-project",
+            "title": "Agents and text-to-SQL",
+            "text": "Multi-agent workflows and plain-English database chat, so non-technical staff can get answers without writing queries.",
+            "proof": "92% NL-to-SQL accuracy on Yani"
+        },
+        {
+            "icon": "fas fa-sliders",
+            "title": "Model fine-tuning",
+            "text": "Adapting open models like Whisper and LLMs to your domain, language or terminology when off-the-shelf models fall short.",
+            "proof": "30–40% lower WER on Quranic Arabic"
+        },
+        {
+            "icon": "fas fa-server",
+            "title": "Production AI backends",
+            "text": "FastAPI services with background queues, cloud deployment on AWS or DigitalOcean, and monitoring with Langfuse and Grafana Loki.",
+            "proof": "Deployed on AWS EC2, Lambda and DigitalOcean"
+        }
+    ],
+    "process": [
+        {
+            "title": "Understand the workflow",
+            "text": "Start with the task people do today, the data it uses and what a good answer looks like."
+        },
+        {
+            "title": "Prototype on real data",
+            "text": "A working version in days, not a slide deck, so you can judge it with your own examples."
+        },
+        {
+            "title": "Measure before scaling",
+            "text": "Track retrieval accuracy, hallucinations, latency and token cost, and fix what the numbers show."
+        },
+        {
+            "title": "Ship and monitor",
+            "text": "Deploy with logging and evaluation in place, then keep improving from real usage."
+        }
+    ]
+}

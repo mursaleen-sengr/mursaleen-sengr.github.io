@@ -2,15 +2,17 @@
 // Data is embedded directly to avoid fetch issues on GitHub Pages
 
 const DATA = {
-    about: {"summary":{"title":"Professional Summary","text":"AI & ML Engineer with 2+ years of experience building production-grade LLM applications, RAG systems, and agent workflows. Delivered FastAPI-based AI platforms serving healthcare, finance, and Islamic knowledge domains using LangGraph, Qdrant, AWS, and Docker. Experienced in fine-tuning, retrieval optimization, and scalable AI backend development."},"info":[{"icon":"fas fa-map-marker-alt","text":"Islamabad, Pakistan"},{"icon":"fas fa-phone","text":"+92 307 770 6100"},{"icon":"fas fa-envelope","text":"mursaleen.sengr@gmail.com"}],"stats":[{"value":"2+","label":"Years Experience"},{"value":"10+","label":"Projects Completed"},{"value":"99.9%","label":"Uptime Achieved"}]},
+    about: {"summary":{"title":"Professional Summary","text":"AI & ML Engineer with almost 3 years of experience building production-grade LLM applications, RAG systems and agent workflows. I've delivered FastAPI-based AI platforms for healthcare, finance, procurement and Islamic knowledge using LangGraph, Qdrant, AWS and Docker, and I work across fine-tuning, retrieval optimization and scalable Gen-AI backends."},"current":{"role":"Software Engineer (AI/ML)","company":"CodingCops","location":"Lahore, Pakistan"},"info":[{"icon":"fas fa-location-dot","text":"Lahore, Pakistan"},{"icon":"fas fa-phone","text":"+92 307 770 6100"},{"icon":"fas fa-envelope","text":"mursaleen.sengr@gmail.com"}],"stats":[{"value":"~3 yrs","label":"Building production AI"},{"value":"4","label":"Industries: healthcare, finance, procurement, Islamic knowledge"},{"value":"92%","label":"Accuracy on natural-language to SQL"},{"value":"30–40%","label":"Lower word error rate after fine-tuning Whisper"}]},
     
-    experience: {"experiences":[{"date":"March 2025 – Present","title":"AI/ML Engineer","company":"DiveDeepAI","location":"Islamabad, Pakistan","responsibilities":["Engineered Generative AI solutions, developing both custom and LangGraph driven RAG pipelines, and fine-tuning LLMs.","Architected robust FastAPI backends; managed deployments on AWS EC2 and DigitalOcean.","Led a 3-person team to deliver sprint goals, managing system architecture and mentored junior developers."]},{"date":"August 2024 – February 2025","title":"Jr AI Engineer","company":"Softoo","location":"Islamabad, Pakistan","responsibilities":["Collaborated with the Solution Architect to rapidly prototype and iterate Generative AI Proof-of-Concepts (POCs).","Built scalable RAG-based applications utilizing LangChain, LangGraph, LLMs, and vector databases."]}]},
+    experience: {"experiences":[{"date":"July 2026 – Present","title":"Software Engineer (AI/ML)","company":"CodingCops","location":"Lahore, Pakistan","responsibilities":["Design and build multi-agent AI systems and text-to-SQL pipelines using LangGraph and self-hosted LLMs.","Optimize prompts, context management and token usage to improve reasoning efficiency on complex natural-language queries across large datasets."]},{"date":"March 2025 – July 2026","title":"AI/ML Engineer","company":"DiveDeepAI","location":"Islamabad, Pakistan","responsibilities":["Built and deployed Generative AI systems using custom and LangGraph-driven RAG pipelines and LLM fine-tuning.","Architected FastAPI backends and managed deployments on AWS EC2 and DigitalOcean.","Led a 3-person engineering team, drove system architecture and mentored junior developers."]},{"date":"August 2024 – February 2025","title":"Jr AI Engineer","company":"Softoo","location":"Islamabad, Pakistan","responsibilities":["Built production-oriented Generative AI proofs of concept with the solution architect, then validated and iterated on them.","Built RAG applications using LangChain, LangGraph, LLMs and vector databases."]}]},
     
-    projects: {"projects":[{"icon":"fas fa-clinic-medical","title":"Bridge Vet: Veterinary Clinic Platform","description":["Managed a development team to deliver an end-to-end clinic management system; built a scalable FastAPI, Redis, and Celery backend for asynchronous AI SOAP note generation, medication extraction, and appointment follow-ups.","Developed a custom RAG-based clinical assistant for dosage calculations, evaluated retrieval accuracy via Langfuse, and implemented OCR pipelines to automate inventory tracking. Maintained continuous deployments on AWS EC2."],"tags":["Python","FastAPI","Redis","Celery","Google Gemini","Vector DBs","Langfuse","OCR","Docker","AWS EC2"],"stats":[{"icon":"fas fa-stethoscope","text":"Clinical SOAP Notes"},{"icon":"fas fa-shield-alt","text":"Langfuse Evaluated"}]},{"icon":"fas fa-mosque","title":"eQRA-AI: Islamic AI Assistant","description":["Built the backend for an Islamic AI Assistant, deploying dual RAG chatbots (Phase 1) dedicated to precise Fatwa and Duas retrieval. Scaled deployments on DigitalOcean App platform and Redis/Celery over droplets and Grafana Loki for log aggregation.","Developed an agentic MVP (Phase 2) using a LangGraph multi-tool agent to efficiently route user intent between live web queries and vectorized Qdrant databases. Integrated Mem0 for long-term memory and built web scraping pipelines to ingest extensive Islamic literature."],"tags":["Python","FastAPI","LangGraph","Qdrant","Mem0","Redis","Celery","Grafana Loki","AWS","DigitalOcean"],"stats":[{"icon":"fas fa-project-diagram","text":"LangGraph Agents"},{"icon":"fas fa-database","text":"Qdrant & Mem0"}]},{"icon":"fas fa-file-invoice-dollar","title":"Yani: AI Assistant for Chartered Accountants","description":["Built a RAG-based chatbot to assist Chartered Accountants, alongside a distinct document compliance workflow that evaluates text chunks directly against regulatory frameworks to map clauses and flag non-compliance.","Implemented an AI-powered database chat utilizing Vanna.ai trained on complex schemas, achieving 92% accuracy in natural language to SQL conversion.","Developed a multi-agent system using Autogen to perform automated Exploratory Data Analysis (EDA) and dynamically generate visual insights from the extracted SQL data."],"tags":["Python","Vanna.ai","Autogen","RAG","LLMs","Pandas","Matplotlib","Streamlit"],"stats":[{"icon":"fas fa-percentage","text":"92% NL-to-SQL Accuracy"},{"icon":"fas fa-chart-bar","text":"Autogen Multi-Agent EDA"}]},{"icon":"fas fa-microphone-alt","title":"Whisper Fine-Tuning for Quranic Arabic","description":["Optimized a custom fine-tuning pipeline for the Whisper model utilizing 10,000+ Quranic Tarteel audio samples to improve specialized Arabic speech-to-text transcription and phonetic accuracy.","Achieved a 90% improvement in complex Harakat (diacritic) recognition and reduced overall Word Error Rate (WER) by 30–40% compared to foundational baseline models."],"tags":["Python","PyTorch","Hugging Face","Whisper","Audio Processing"],"stats":[{"icon":"fas fa-star","text":"90% Harakat Recognition"},{"icon":"fas fa-chart-line","text":"30-40% WER Reduction"}]}]},
+    projects: {"projects":[{"icon":"fas fa-stethoscope","title":"Bridge Vet: Veterinary Clinic Platform","domain":"Healthcare","impact":"Vets spend less time on paperwork: SOAP notes, medication lists and follow-ups are drafted by AI in the background after each appointment.","description":["Managed a development team to deliver an end-to-end clinic management system; built a scalable FastAPI, Redis and Celery backend for asynchronous AI SOAP note generation, medication extraction and appointment follow-ups.","Developed a custom RAG-based clinical assistant for dosage calculations, evaluated retrieval accuracy with Langfuse, and built OCR pipelines that automate inventory tracking."],"tags":["Python","FastAPI","Redis","Celery","Gemini","Vector DBs","Langfuse","OCR","AsyncIO","Docker","AWS EC2"],"stats":[{"icon":"fas fa-file-medical","text":"AI-drafted SOAP notes"},{"icon":"fas fa-chart-simple","text":"Retrieval checked in Langfuse"}]},{"icon":"fas fa-mosque","title":"eQRA-AI: Islamic AI Assistant Mobile App","domain":"Consumer app","impact":"App users get sourced answers on fatwas and duas from an assistant that remembers their past conversations and sends timely notifications.","description":["Built the backend for an Islamic AI assistant, deploying dual RAG chatbots for precise fatwa and dua retrieval, with Mem0-powered long-term conversational memory.","Engineered an event-driven notification system using AWS EventBridge, SNS and Lambda to send real-time push notifications through FCM.","Scaled deployments on DigitalOcean App Platform with Redis and Celery on droplets, and self-hosted Grafana Loki for log aggregation. Prototyped a LangGraph multi-tool agent that routes questions between live web search and Qdrant."],"tags":["Python","FastAPI","Mem0","LangGraph","Qdrant","AWS EventBridge","AWS SNS","AWS Lambda","FCM","Redis","Celery","Grafana Loki","DigitalOcean"],"stats":[{"icon":"fas fa-comments","text":"Two RAG chatbots with memory"},{"icon":"fas fa-bell","text":"Event-driven push notifications"}]},{"icon":"fas fa-file-invoice-dollar","title":"Yani: AI Assistant for Chartered Accountants","domain":"Finance","impact":"Accountants check documents against regulations and ask questions of their data in plain English instead of writing SQL.","description":["Built a RAG chatbot for chartered accountants, alongside a document compliance workflow that checks text against regulatory frameworks to map clauses and flag non-compliance.","Implemented database chat with Vanna.ai trained on complex schemas, reaching 92% accuracy in natural language to SQL.","Developed an Autogen multi-agent system that runs exploratory data analysis and generates charts from the extracted SQL data."],"tags":["Python","Vanna.ai","Autogen","RAG","LLMs","Pandas","Matplotlib","Streamlit"],"stats":[{"icon":"fas fa-bullseye","text":"92% NL-to-SQL accuracy"},{"icon":"fas fa-scale-balanced","text":"Automated compliance checks"}]},{"icon":"fas fa-microphone-lines","title":"Fine-Tuning Whisper for Quranic Arabic","domain":"Speech AI","impact":"More accurate transcription of Quran recitation, including the diacritics that general-purpose speech models get wrong.","description":["Built a fine-tuning pipeline for OpenAI's Whisper on 10,000+ Quranic Tarteel audio samples to improve specialized Arabic speech-to-text and phonetic accuracy.","Achieved a 90% improvement in Harakat (diacritic) recognition and cut word error rate by 30–40% against the base model."],"tags":["Python","PyTorch","Hugging Face","Whisper","Audio Processing"],"stats":[{"icon":"fas fa-arrow-trend-up","text":"90% better diacritic recognition"},{"icon":"fas fa-arrow-trend-down","text":"30–40% lower WER"}]}]},
     
-    skills: {"categories":[{"name":"Languages","icon":"fas fa-code","skills":[{"name":"Python","logo":"https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg"},{"name":"SQL","logo":"https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg"}]},{"name":"AI/ML & Frameworks","icon":"fas fa-brain","skills":[{"name":"PyTorch","logo":"https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pytorch/pytorch-original.svg"},{"name":"Hugging Face","logo":"https://huggingface.co/front/assets/huggingface_logo.svg"},{"name":"OpenAI","icon":"fas fa-brain"},{"name":"LangChain","logo":"https://cdn.simpleicons.org/langchain"},{"name":"LangGraph","icon":"fas fa-network-wired"},{"name":"Autogen","icon":"fas fa-robot"},{"name":"RAG","icon":"fas fa-search-plus"},{"name":"Mem0","icon":"fas fa-memory"}]},{"name":"Evaluation & Observability","icon":"fas fa-glasses","skills":[{"name":"Langfuse","icon":"fas fa-binoculars"},{"name":"Grafana Loki","logo":"https://cdn.simpleicons.org/grafana"},{"name":"LLM Benchmarking","icon":"fas fa-tasks"},{"name":"Retrieval Evaluation","icon":"fas fa-poll"},{"name":"Hallucination Reduction","icon":"fas fa-shield-alt"}]},{"name":"Databases","icon":"fas fa-database","skills":[{"name":"PostgreSQL","logo":"https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg"},{"name":"Qdrant","logo":"https://cdn.simpleicons.org/qdrant"},{"name":"FAISS","icon":"fas fa-search-plus"},{"name":"PgVector","icon":"fas fa-vector-square"},{"name":"Redis","logo":"https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/redis/redis-original.svg"},{"name":"MongoDB","logo":"https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original.svg"}]},{"name":"Backend & Infrastructure","icon":"fas fa-server","skills":[{"name":"FastAPI","logo":"https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/fastapi/fastapi-original.svg"},{"name":"Celery","logo":"https://cdn.simpleicons.org/celery"},{"name":"AWS (EC2, S3)","logo":"https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-original-wordmark.svg"},{"name":"DigitalOcean","logo":"https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/digitalocean/digitalocean-original.svg"},{"name":"Docker","logo":"https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg"},{"name":"Linux","logo":"https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg"},{"name":"CI/CD","icon":"fas fa-sync-alt"}]},{"name":"Tools","icon":"fas fa-tools","skills":[{"name":"Git","logo":"https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg"},{"name":"GitHub","logo":"https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg"},{"name":"GitLab","logo":"https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/gitlab/gitlab-original.svg"},{"name":"Web Scraping","icon":"fas fa-spider"},{"name":"Postman","logo":"https://cdn.simpleicons.org/postman"},{"name":"Claude Code","icon":"fas fa-code-branch"},{"name":"Cursor","icon":"fas fa-mouse-pointer"},{"name":"Antigravity","icon":"fas fa-space-shuttle"}]}]},
+    skills: {"categories":[{"name":"Languages","icon":"fas fa-code","skills":[{"name":"Python","logo":"assets/logos/python.svg"},{"name":"SQL","logo":"assets/logos/sql.svg"}]},{"name":"AI/ML & Frameworks","icon":"fas fa-brain","skills":[{"name":"PyTorch","logo":"assets/logos/pytorch.svg"},{"name":"Hugging Face","logo":"assets/logos/huggingface.svg"},{"name":"OpenAI","logo":"assets/logos/openai.svg"},{"name":"Gemini","logo":"assets/logos/gemini.svg"},{"name":"LangChain","logo":"assets/logos/langchain.svg"},{"name":"LangGraph","logo":"assets/logos/langgraph.svg"},{"name":"Autogen","logo":"assets/logos/autogen.svg"},{"name":"Mem0","logo":"assets/logos/mem0.svg"},{"name":"RAG","icon":"fas fa-magnifying-glass-chart"},{"name":"Vanna.ai","icon":"fas fa-table-cells"}]},{"name":"Evaluation & Observability","icon":"fas fa-gauge-high","skills":[{"name":"Langfuse","logo":"assets/logos/langfuse.svg"},{"name":"Grafana Loki","logo":"assets/logos/grafana.svg"},{"name":"LLM Benchmarking","icon":"fas fa-ranking-star"},{"name":"Retrieval Evaluation","icon":"fas fa-list-check"},{"name":"Hallucination Reduction","icon":"fas fa-shield-halved"}]},{"name":"Databases","icon":"fas fa-database","skills":[{"name":"PostgreSQL","logo":"assets/logos/postgresql.svg"},{"name":"Qdrant","logo":"assets/logos/qdrant.svg"},{"name":"FAISS","logo":"assets/logos/faiss.svg"},{"name":"PgVector","logo":"assets/logos/postgresql.svg"},{"name":"Redis","logo":"assets/logos/redis.svg"},{"name":"MongoDB","logo":"assets/logos/mongodb.svg"}]},{"name":"Backend & Infrastructure","icon":"fas fa-server","skills":[{"name":"FastAPI","logo":"assets/logos/fastapi.svg"},{"name":"Celery","logo":"assets/logos/celery.svg"},{"name":"AsyncIO","logo":"assets/logos/python.svg"},{"name":"AWS","logo":"assets/logos/aws.svg"},{"name":"EC2","logo":"assets/logos/aws-ec2.svg"},{"name":"S3","logo":"assets/logos/aws-s3.svg"},{"name":"EventBridge","logo":"assets/logos/aws-eventbridge.svg"},{"name":"SNS","logo":"assets/logos/aws-sns.svg"},{"name":"Lambda","logo":"assets/logos/aws-lambda.svg"},{"name":"DigitalOcean","logo":"assets/logos/digitalocean.svg"},{"name":"Docker","logo":"assets/logos/docker.svg"},{"name":"Linux","logo":"assets/logos/linux.svg"},{"name":"CI/CD","logo":"assets/logos/cicd.svg"},{"name":"Firebase Cloud Messaging","logo":"assets/logos/firebase.svg"}]},{"name":"Data & Apps","icon":"fas fa-chart-pie","skills":[{"name":"Pandas","logo":"assets/logos/pandas.svg"},{"name":"Matplotlib","logo":"assets/logos/matplotlib.svg"},{"name":"Streamlit","logo":"assets/logos/streamlit.svg"},{"name":"OCR","icon":"fas fa-file-image"},{"name":"Web Scraping","icon":"fas fa-spider"}]},{"name":"Tools","icon":"fas fa-screwdriver-wrench","skills":[{"name":"Git","logo":"assets/logos/git.svg"},{"name":"GitHub","logo":"assets/logos/github.svg"},{"name":"GitLab","logo":"assets/logos/gitlab.svg"},{"name":"Postman","logo":"assets/logos/postman.svg"},{"name":"Claude Code","logo":"assets/logos/claude-code.svg"},{"name":"Cursor","logo":"assets/logos/cursor.svg"},{"name":"Antigravity","logo":"assets/logos/antigravity.svg"}]}]},
     
-    education: {"degree":{"title":"Bachelor of Science in Software Engineering","institution":"The Islamia University of Bahawalpur","date":"October 2020 – June 2024","cgpa":"3.70/4.00","coursework":"Relevant Coursework: Databases, Object-Oriented Programming, Software Engineering, Data Structures and Algorithms, Artificial Intelligence, Machine Learning, Cloud Computing, Computer Networks"},"certifications":[{"title":"Intermediate Python","issuer":"DataCamp","year":"2024"},{"title":"Introduction to Large Language Models","issuer":"Google Cloud","year":"2024"}]}
+    education: {"degree":{"title":"Bachelor of Science in Software Engineering","institution":"The Islamia University of Bahawalpur","date":"October 2020 – June 2024","cgpa":"3.70/4.00","coursework":"Relevant Coursework: Databases, Object-Oriented Programming, Software Engineering, Data Structures and Algorithms, Artificial Intelligence, Machine Learning, Cloud Computing, Computer Networks","location":"Punjab, Pakistan"},"certifications":[{"title":"Intermediate Python","issuer":"DataCamp","year":"2024"},{"title":"Introduction to Large Language Models","issuer":"Google Cloud","year":"2024"}]},
+    
+    services: {"intro":"I help teams turn LLMs into products people rely on: accurate, measurable, and running in production.","services":[{"icon":"fas fa-file-circle-question","title":"AI assistants on your own documents","text":"RAG chatbots that answer from your files and policies, show their sources, and are tested for accuracy before launch.","proof":"Bridge Vet, eQRA-AI, Yani"},{"icon":"fas fa-diagram-project","title":"Agents and text-to-SQL","text":"Multi-agent workflows and plain-English database chat, so non-technical staff can get answers without writing queries.","proof":"92% NL-to-SQL accuracy on Yani"},{"icon":"fas fa-sliders","title":"Model fine-tuning","text":"Adapting open models like Whisper and LLMs to your domain, language or terminology when off-the-shelf models fall short.","proof":"30–40% lower WER on Quranic Arabic"},{"icon":"fas fa-server","title":"Production AI backends","text":"FastAPI services with background queues, cloud deployment on AWS or DigitalOcean, and monitoring with Langfuse and Grafana Loki.","proof":"Deployed on AWS EC2, Lambda and DigitalOcean"}],"process":[{"title":"Understand the workflow","text":"Start with the task people do today, the data it uses and what a good answer looks like."},{"title":"Prototype on real data","text":"A working version in days, not a slide deck, so you can judge it with your own examples."},{"title":"Measure before scaling","text":"Track retrieval accuracy, hallucinations, latency and token cost, and fix what the numbers show."},{"title":"Ship and monitor","text":"Deploy with logging and evaluation in place, then keep improving from real usage."}]}
 };
 
 // ========== DATA LOADING ==========
@@ -31,16 +33,61 @@ const slug = (s) => String(s).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(
 // Logos that are dark/monochrome and need inverting in dark mode
 const MONO_LOGOS = ['github', 'langchain', 'amazonwebservices', 'apple'];
 
+function renderHero() {
+    const a = DATA.about || {};
+    const status = document.getElementById('heroStatus');
+    if (status && a.current) {
+        status.innerHTML = `<span class="status-dot" aria-hidden="true"></span>
+            ${esc(a.current.role)} at ${esc(a.current.company)}, ${esc(a.current.location.split(',')[0])}`;
+    }
+
+    const proof = document.getElementById('proofStats');
+    if (proof) {
+        proof.innerHTML = (a.stats || []).map((s) => `
+            <div class="proof-item">
+                <dt>${esc(s.label)}</dt>
+                <dd>${esc(s.value)}</dd>
+            </div>`).join('');
+    }
+
+    const worked = document.getElementById('workedAt');
+    const companies = [...new Set((DATA.experience?.experiences || []).map((j) => j.company))];
+    if (worked && companies.length) {
+        worked.innerHTML = `Worked at ${companies.map((c) => `<strong>${esc(c)}</strong>`).join('')}`;
+    }
+}
+
+function renderServices() {
+    const d = DATA.services;
+    if (!d) return;
+    const intro = document.getElementById('servicesIntro');
+    if (intro) intro.textContent = d.intro || '';
+
+    const grid = document.getElementById('servicesGrid');
+    if (grid) {
+        grid.innerHTML = (d.services || []).map((s) => `
+            <article class="service">
+                <div class="service-icon"><i class="${esc(s.icon)}" aria-hidden="true"></i></div>
+                <h3>${esc(s.title)}</h3>
+                <p>${esc(s.text)}</p>
+                <p class="service-proof"><i class="fas fa-circle-check" aria-hidden="true"></i>${esc(s.proof)}</p>
+            </article>`).join('');
+    }
+
+    const steps = document.getElementById('processSteps');
+    if (steps) {
+        steps.innerHTML = (d.process || []).map((p) => `
+            <li class="step">
+                <h4>${esc(p.title)}</h4>
+                <p>${esc(p.text)}</p>
+            </li>`).join('');
+    }
+}
+
 function renderAbout() {
     const d = DATA.about;
     const el = document.getElementById('about-content');
     if (!d || !el) return;
-
-    const stats = (d.stats || []).map((s) => `
-        <div class="stat">
-            <div class="stat-value">${esc(s.value)}</div>
-            <div class="stat-label">${esc(s.label)}</div>
-        </div>`).join('');
 
     const info = (d.info || []).map((i) => `
         <li><i class="${esc(i.icon)}" aria-hidden="true"></i>${esc(i.text)}</li>`).join('');
@@ -48,9 +95,8 @@ function renderAbout() {
     el.innerHTML = `
         <img class="about-photo" src="profile-photo-640.jpg" alt="Portrait of Muhammad Mursaleen"
              width="640" height="877" loading="lazy">
-        <div>
+        <div class="about-side">
             <p class="about-summary">${esc(d.summary?.text)}</p>
-            <div class="about-stats">${stats}</div>
             <ul class="about-info">${info}</ul>
         </div>`;
 }
@@ -83,17 +129,22 @@ function renderProjects() {
     el.innerHTML = list.map((p) => `
         <article class="project" id="project-${slug(p.title)}">
             <div>
-                <div class="project-icon"><i class="${esc(p.icon)}" aria-hidden="true"></i></div>
+                <div class="project-top">
+                    <div class="project-icon"><i class="${esc(p.icon)}" aria-hidden="true"></i></div>
+                    ${p.domain ? `<span class="project-domain">${esc(p.domain)}</span>` : ''}
+                </div>
                 <h3 class="project-title">${esc(p.title)}</h3>
+                ${p.impact ? `<p class="project-impact">${esc(p.impact)}</p>` : ''}
                 <ul class="project-metrics">
                     ${(p.stats || []).map((s) => `
                         <li><i class="${esc(s.icon)}" aria-hidden="true"></i>${esc(s.text)}</li>`).join('')}
                 </ul>
             </div>
             <div>
-                <div class="project-desc">
-                    ${asList(p.description).map((t) => `<p>${esc(t)}</p>`).join('')}
-                </div>
+                <p class="built-label">What I built</p>
+                <ul class="project-desc">
+                    ${asList(p.description).map((t) => `<li>${esc(t)}</li>`).join('')}
+                </ul>
                 <ul class="tags" aria-label="Technologies">
                     ${(p.tags || []).map((t) => `<li>${esc(t)}</li>`).join('')}
                 </ul>
@@ -112,14 +163,12 @@ function renderSkills() {
             <dt><i class="${esc(c.icon)}" aria-hidden="true"></i>${esc(c.name)}</dt>
             <dd>
                 ${(c.skills || []).map((s) => {
-                    let glyph;
-                    if (s.logo) {
-                        const mono = MONO_LOGOS.some((m) => s.logo.includes(m)) ? ' logo-mono' : '';
-                        glyph = `<img class="${mono.trim()}" src="${esc(s.logo)}" alt="" width="20" height="20" loading="lazy" onerror="this.remove()">`;
-                    } else {
-                        glyph = `<i class="${esc(s.icon || 'fas fa-circle')}" aria-hidden="true"></i>`;
-                    }
-                    return `<span class="skill">${glyph}${esc(s.name)}</span>`;
+                    const fallback = esc(s.icon || 'fas fa-circle');
+                    const glyph = s.logo
+                        ? `<img src="${esc(s.logo)}" alt="" width="18" height="18" loading="lazy"
+                               onerror="this.outerHTML='<i class=&quot;${fallback}&quot; aria-hidden=&quot;true&quot;></i>'">`
+                        : `<i class="${fallback}" aria-hidden="true"></i>`;
+                    return `<span class="skill"><span class="skill-logo">${glyph}</span>${esc(s.name)}</span>`;
                 }).join('')}
             </dd>
         </div>`).join('');
@@ -135,7 +184,7 @@ function renderEducation() {
     el.innerHTML = `
         <div>
             <h3 class="degree-title">${esc(g.title)}</h3>
-            <p class="degree-meta">${esc(g.institution)}, ${esc(g.date)}</p>
+            <p class="degree-meta">${esc(g.institution)}${g.location ? `, ${esc(g.location)}` : ''}. ${esc(g.date)}</p>
             ${g.cgpa ? `<p class="degree-cgpa">CGPA ${esc(g.cgpa)}</p>` : ''}
             <p class="degree-course">${esc(g.coursework)}</p>
         </div>
@@ -176,8 +225,10 @@ const SYNONYMS = {
     education: ['university', 'degree', 'bachelor', 'coursework'],
     lead: ['led', 'team', 'mentored'],
     team: ['led', 'mentored', 'managed'],
-    sql: ['vanna', 'nl-to-sql'],
+    sql: ['vanna', 'nl-to-sql', 'natural language'],
     llm: ['llms', 'gemini', 'openai'],
+    aws: ['eventbridge', 'sns', 'lambda', 'ec2', 's3'],
+    text2sql: ['nl-to-sql', 'vanna', 'sql'],
 };
 
 function stem(w) {
@@ -197,7 +248,10 @@ function buildChunks() {
     const chunks = [];
     const add = (text, source, href) => chunks.push({ text, source, href });
 
-    if (DATA.about?.summary?.text) add(DATA.about.summary.text, 'About', '#about');
+    if (DATA.about?.summary?.text) {
+        add(DATA.about.summary.text, 'About', '#about');
+        chunks[chunks.length - 1].boost = 0.7; // general summary, prefer specific work
+    }
 
     (DATA.experience?.experiences || []).forEach((j) => {
         add(`${j.title} at ${j.company} (${j.date}). ${asList(j.responsibilities).join(' ')}`,
@@ -205,7 +259,7 @@ function buildChunks() {
     });
 
     (DATA.projects?.projects || []).forEach((p) => {
-        asList(p.description).forEach((t) => {
+        asList([p.impact, ...asList(p.description)]).forEach((t) => {
             add(t, p.title.split(':')[0], `#project-${slug(p.title)}`);
             chunks[chunks.length - 1].extra = `${p.title} ${(p.tags || []).join(' ')}`;
         });
@@ -262,7 +316,9 @@ function search(query, k = 3) {
 
     const top = scored[0]?.score || 1;
     return {
-        hits: scored.slice(0, k).map((h) => ({ ...h.c, rel: h.score / top })),
+        // one passage per source, so results show different projects and roles
+        hits: scored.filter((h, i, all) => all.findIndex((x) => x.c.source === h.c.source) === i)
+            .slice(0, k).map((h) => ({ ...h.c, rel: h.score / top })).filter((h) => h.rel >= 0.3),
         terms,
     };
 }
@@ -308,11 +364,11 @@ function initConsole() {
     if (!form || !input || !chipsEl) return;
 
     const suggestions = [
+        'Have you built text-to-SQL?',
         'What have you built with LangGraph?',
-        'Have you fine-tuned a model?',
         'Healthcare experience',
-        'Which vector databases?',
-        'Where did you study?',
+        'Have you fine-tuned a model?',
+        'Which AWS services?',
     ];
 
     chipsEl.innerHTML = suggestions.map((q) =>
@@ -402,7 +458,8 @@ function initContact() {
         e.preventDefault();
         const f = new FormData(form);
         const body = `Name: ${f.get('name')}\nEmail: ${f.get('email')}\n\n${f.get('message')}`;
-        window.location.href = `mailto:mursaleen.sengr@gmail.com?subject=${encodeURIComponent(f.get('subject'))}&body=${encodeURIComponent(body)}`;
+        const subject = `${f.get('topic') || 'Hello'} from ${f.get('name')}`;
+        window.location.href = `mailto:mursaleen.sengr@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
         if (status) status.textContent = 'Your email app should open with the message filled in.';
         form.reset();
     });
@@ -410,6 +467,8 @@ function initContact() {
 
 // ========== INIT ==========
 document.addEventListener('DOMContentLoaded', () => {
+    renderHero();
+    renderServices();
     renderAbout();
     renderExperience();
     renderProjects();
