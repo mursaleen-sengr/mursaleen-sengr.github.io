@@ -25,6 +25,7 @@ python3 build.py
 This will:
 - Read all JSON files
 - Update the embedded data in `script.js`
+- Stamp a new version on the `style.css` and `script.js` links in `index.html`, so visitors' browsers load the new files instead of cached old ones
 - Show success message
 
 ### 3. Test Locally (Optional)
@@ -44,7 +45,7 @@ Wait 1-2 minutes for GitHub Pages to rebuild.
 
 ## 🚀 Quick Update Command
 ```bash
-python3 build.py && git add script.js && git commit -m "Update content" && git push origin main
+python3 build.py && git add script.js index.html && git commit -m "Update content" && git push origin main
 ```
 
 ## 📂 Project Structure
@@ -72,11 +73,12 @@ portfolio_website/
 
 ## 🎨 Styling Updates
 
-To update styles, just edit `style.css` and commit:
+To update styles, edit `style.css`, then run `python3 build.py` so browsers pick up the new version:
 ```bash
-git add style.css
+python3 build.py
+git add style.css script.js index.html
 git commit -m "Update styling"
 git push origin main
 ```
 
-No build script needed for CSS changes!
+Run the build script for CSS changes too: it bumps the version so nobody sees a stale stylesheet.
