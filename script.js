@@ -29,12 +29,11 @@ const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({
 
 const asList = (v) => (Array.isArray(v) ? v : [v]).filter(Boolean);
 const slug = (s) => String(s).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-
-// Logos that are dark/monochrome and need inverting in dark mode
-const MONO_LOGOS = ['github', 'langchain', 'amazonwebservices', 'apple'];
+const REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 function renderHero() {
     const a = DATA.about || {};
+
     const proof = document.getElementById('proofStats');
     if (proof) {
         proof.innerHTML = (a.stats || []).map((s) => `
@@ -47,9 +46,23 @@ function renderHero() {
     const worked = document.getElementById('workedAt');
     const companies = [...new Set((DATA.experience?.experiences || []).map((j) => j.company))];
     if (worked && companies.length) {
-        worked.innerHTML = `Worked at ${companies.map((c) => `<strong>${esc(c)}</strong>`).join('')}`;
+        worked.innerHTML = `<span>Worked at</span>${companies.map((c) => `<strong>${esc(c)}</strong>`).join('')}`;
     }
 }
+
+// Small illustrations for the two wide service cards, built from real project facts
+const SERVICE_DEMOS = {
+    0: [
+        ['fas fa-message', 'Q: What dose of amoxicillin for a 12 kg dog?'],
+        ['fas fa-file-lines', 'Answer cites the clinic documents it came from'],
+        ['fas fa-gauge-high', 'Retrieval accuracy tracked in Langfuse'],
+    ],
+    3: [
+        ['fas fa-bolt', 'FastAPI service, Redis and Celery workers'],
+        ['fas fa-cloud', 'AWS EC2, Lambda, EventBridge, SNS, DigitalOcean'],
+        ['fas fa-chart-line', 'Logs in Grafana Loki, LLM traces in Langfuse'],
+    ],
+};
 
 function renderServices() {
     const d = DATA.services;
@@ -59,11 +72,15 @@ function renderServices() {
 
     const grid = document.getElementById('servicesGrid');
     if (grid) {
-        grid.innerHTML = (d.services || []).map((s) => `
-            <article class="service">
+        grid.innerHTML = (d.services || []).map((s, i) => `
+            <article class="service reveal">
                 <div class="service-icon"><i class="${esc(s.icon)}" aria-hidden="true"></i></div>
                 <h3>${esc(s.title)}</h3>
                 <p>${esc(s.text)}</p>
+                ${SERVICE_DEMOS[i] ? `<div class="service-demo" aria-hidden="true">
+                    ${SERVICE_DEMOS[i].map(([icon, text]) => `
+                        <div class="demo-line"><i class="${icon}"></i><b>${esc(text)}</b></div>`).join('')}
+                </div>` : ''}
                 <p class="service-proof"><i class="fas fa-circle-check" aria-hidden="true"></i>${esc(s.proof)}</p>
             </article>`).join('');
     }
@@ -101,9 +118,14 @@ function renderExperience() {
     const el = document.getElementById('experience-timeline');
     if (!el) return;
 
-    el.innerHTML = list.map((job) => `
-        <li class="job" id="job-${slug(job.company)}">
-            <p class="job-when">${esc(job.date)}</p>
+    el.innerHTML = list.map((job) => {
+        const current = /present/i.test(job.date);
+        return `
+        <li class="job reveal${current ? ' is-current' : ''}" id="job-${slug(job.company)}">
+            <div class="job-when">
+                ${current ? '<span class="badge">Current</span>' : ''}
+                <span>${esc(job.date)}</span>
+            </div>
             <div class="job-body">
                 <h3 class="job-title">${esc(job.title)}</h3>
                 <p class="job-org"><strong>${esc(job.company)}</strong>, ${esc(job.location)}</p>
@@ -111,7 +133,8 @@ function renderExperience() {
                     ${asList(job.responsibilities).map((r) => `<li>${esc(r)}</li>`).join('')}
                 </ul>
             </div>
-        </li>`).join('');
+        </li>`;
+    }).join('');
 }
 
 // ========== PROJECTS ==========
@@ -121,51 +144,58 @@ function renderProjects() {
     if (!el) return;
 
     el.innerHTML = list.map((p) => `
-        <article class="project" id="project-${slug(p.title)}">
-            <div>
-                <div class="project-top">
-                    <div class="project-icon"><i class="${esc(p.icon)}" aria-hidden="true"></i></div>
-                    ${p.domain ? `<span class="project-domain">${esc(p.domain)}</span>` : ''}
-                </div>
-                <h3 class="project-title">${esc(p.title)}</h3>
-                ${p.impact ? `<p class="project-impact">${esc(p.impact)}</p>` : ''}
-                <ul class="project-metrics">
-                    ${(p.stats || []).map((s) => `
-                        <li><i class="${esc(s.icon)}" aria-hidden="true"></i>${esc(s.text)}</li>`).join('')}
-                </ul>
+        <article class="project reveal" id="project-${slug(p.title)}">
+            <div class="project-top">
+                <div class="project-icon"><i class="${esc(p.icon)}" aria-hidden="true"></i></div>
+                ${p.domain ? `<span class="project-domain">${esc(p.domain)}</span>` : ''}
             </div>
-            <div>
-                <p class="built-label">What I built</p>
+            <h3 class="project-title">${esc(p.title)}</h3>
+            ${p.impact ? `<p class="project-impact">${esc(p.impact)}</p>` : ''}
+            <ul class="project-metrics">
+                ${(p.stats || []).map((s) => `
+                    <li><i class="${esc(s.icon)}" aria-hidden="true"></i>${esc(s.text)}</li>`).join('')}
+            </ul>
+            <ul class="tags" aria-label="Technologies">
+                ${(p.tags || []).map((t) => `<li>${esc(t)}</li>`).join('')}
+            </ul>
+            <details>
+                <summary>How I built it <i class="fas fa-chevron-down" aria-hidden="true"></i></summary>
                 <ul class="project-desc">
                     ${asList(p.description).map((t) => `<li>${esc(t)}</li>`).join('')}
                 </ul>
-                <ul class="tags" aria-label="Technologies">
-                    ${(p.tags || []).map((t) => `<li>${esc(t)}</li>`).join('')}
-                </ul>
-            </div>
+            </details>
         </article>`).join('');
 }
 
 // ========== SKILLS ==========
 function renderSkills() {
     const cats = DATA.skills?.categories || [];
-    const el = document.getElementById('skills-container');
-    if (!el) return;
+    const grid = document.getElementById('skills-container');
+    const tabs = document.getElementById('skillTabs');
+    if (!grid || !tabs) return;
 
-    el.innerHTML = cats.map((c) => `
-        <div class="skill-row">
-            <dt><i class="${esc(c.icon)}" aria-hidden="true"></i>${esc(c.name)}</dt>
-            <dd>
-                ${(c.skills || []).map((s) => {
-                    const fallback = esc(s.icon || 'fas fa-circle');
-                    const glyph = s.logo
-                        ? `<img src="${esc(s.logo)}" alt="" width="18" height="18" loading="lazy"
-                               onerror="this.outerHTML='<i class=&quot;${fallback}&quot; aria-hidden=&quot;true&quot;></i>'">`
-                        : `<i class="${fallback}" aria-hidden="true"></i>`;
-                    return `<span class="skill"><span class="skill-logo">${glyph}</span>${esc(s.name)}</span>`;
-                }).join('')}
-            </dd>
-        </div>`).join('');
+    const all = cats.flatMap((c) => (c.skills || []).map((s) => ({ ...s, cat: c.name })));
+    const groups = [{ name: 'All', items: all }, ...cats.map((c) => ({ name: c.name, items: all.filter((s) => s.cat === c.name) }))];
+
+    const tile = (s) => {
+        const fallback = esc(s.icon || 'fas fa-circle');
+        const glyph = s.logo
+            ? `<img src="${esc(s.logo)}" alt="" width="24" height="24" loading="lazy"
+                   onerror="this.outerHTML='<i class=&quot;${fallback}&quot; aria-hidden=&quot;true&quot;></i>'">`
+            : `<i class="${fallback}" aria-hidden="true"></i>`;
+        return `<li class="skill"><span class="skill-logo">${glyph}</span>
+            <span class="skill-name">${esc(s.name)}<span class="skill-cat">${esc(s.cat)}</span></span></li>`;
+    };
+
+    const show = (i) => {
+        [...tabs.children].forEach((t, j) => t.setAttribute('aria-selected', String(i === j)));
+        grid.innerHTML = groups[i].items.map(tile).join('');
+    };
+
+    tabs.innerHTML = groups.map((g, i) => `
+        <button type="button" class="tab" role="tab" aria-selected="${i === 0}">${esc(g.name)}<span class="count">${g.items.length}</span></button>`).join('');
+    [...tabs.children].forEach((t, i) => t.addEventListener('click', () => show(i)));
+    show(0);
 }
 
 // ========== EDUCATION ==========
@@ -176,13 +206,18 @@ function renderEducation() {
     const g = d.degree || {};
 
     el.innerHTML = `
-        <div>
-            <h3 class="degree-title">${esc(g.title)}</h3>
-            <p class="degree-meta">${esc(g.institution)}${g.location ? `, ${esc(g.location)}` : ''}. ${esc(g.date)}</p>
+        <div class="edu-card reveal">
+            <div class="edu-head">
+                <i class="fas fa-graduation-cap" aria-hidden="true"></i>
+                <div>
+                    <h3 class="degree-title">${esc(g.title)}</h3>
+                    <p class="degree-meta">${esc(g.institution)}${g.location ? `, ${esc(g.location)}` : ''}. ${esc(g.date)}</p>
+                </div>
+            </div>
             ${g.cgpa ? `<p class="degree-cgpa">CGPA ${esc(g.cgpa)}</p>` : ''}
             <p class="degree-course">${esc(g.coursework)}</p>
         </div>
-        <div>
+        <div class="edu-card reveal">
             <h3 class="certs-title">Certifications</h3>
             <ul class="certs">
                 ${(d.certifications || []).map((c) => `
@@ -346,7 +381,7 @@ function showResults(query) {
             <p class="hit-text">${highlight(trimAround(h.text, terms), terms)}</p>
             <p class="hit-source">
                 <a href="${h.href}">${esc(h.source)}</a>
-                <span>Relevance ${Math.round(h.rel * 100)}%</span>
+                <span class="rel"><span class="rel-bar"><i style="width:${Math.round(h.rel * 100)}%"></i></span>${Math.round(h.rel * 100)}% match</span>
             </p>
         </div>`).join('');
 }
@@ -395,39 +430,52 @@ function initTheme() {
     const btn = document.getElementById('themeToggle');
     if (!btn) return;
     const root = document.documentElement;
+    const meta = document.querySelector('meta[name="theme-color"]');
+
     const sync = () => {
-        const dark = root.getAttribute('data-theme') === 'dark';
+        const dark = root.getAttribute('data-theme') !== 'light';
         btn.innerHTML = `<i class="${dark ? 'fas fa-sun' : 'fas fa-moon'}" aria-hidden="true"></i>`;
         btn.setAttribute('aria-label', dark ? 'Switch to light theme' : 'Switch to dark theme');
+        if (meta) meta.setAttribute('content', dark ? '#070b14' : '#f6f8fb');
     };
     sync();
 
     btn.addEventListener('click', () => {
-        const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        const next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
         root.setAttribute('data-theme', next);
         try { localStorage.setItem('theme', next); } catch (e) { /* storage unavailable */ }
         sync();
+        window.dispatchEvent(new Event('themechange'));
     });
 }
 
 // ========== NAVIGATION ==========
 function initNav() {
     const header = document.getElementById('siteHeader');
-    const nav = document.getElementById('siteNav');
     const menu = document.getElementById('menuToggle');
+    const sheet = document.getElementById('mobileMenu');
     const links = [...document.querySelectorAll('.nav-link')];
 
     const setMenu = (open) => {
-        nav.classList.toggle('is-open', open);
+        if (!sheet || !menu) return;
+        sheet.hidden = !open;
+        document.body.classList.toggle('menu-open', open);
         menu.setAttribute('aria-expanded', String(open));
         menu.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
         menu.innerHTML = `<i class="${open ? 'fas fa-xmark' : 'fas fa-bars'}" aria-hidden="true"></i>`;
+        if (open) sheet.querySelector('a')?.focus();
     };
-    menu?.addEventListener('click', () => setMenu(!nav.classList.contains('is-open')));
-    links.forEach((l) => l.addEventListener('click', () => setMenu(false)));
-    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setMenu(false); });
+    menu?.addEventListener('click', () => setMenu(sheet.hidden));
+    sheet?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setMenu(false)));
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && sheet && !sheet.hidden) { setMenu(false); menu.focus(); }
+    });
+    window.addEventListener('resize', () => { if (window.innerWidth > 860) setMenu(false); });
 
-    const onScroll = () => header.classList.toggle('is-scrolled', window.scrollY > 8);
+    const onScroll = () => {
+        header.classList.toggle('is-scrolled', window.scrollY > 10);
+        if (window.scrollY < 200) links.forEach((l) => l.classList.remove('is-active'));
+    };
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
 
@@ -442,12 +490,127 @@ function initNav() {
     sections.forEach((s) => io.observe(s));
 }
 
-// ========== CONTACT FORM ==========
+// ========== SCROLL REVEAL ==========
+// Only elements below the fold are hidden first, so the page is complete without JS.
+function initReveal() {
+    if (REDUCED_MOTION || !('IntersectionObserver' in window)) return;
+    document.documentElement.classList.add('js');
+    const els = [...document.querySelectorAll('.reveal')];
+    const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+            if (e.isIntersecting) { e.target.classList.remove('is-pending'); io.unobserve(e.target); }
+        });
+    }, { rootMargin: '0px 0px -8% 0px' });
+    els.forEach((el) => {
+        if (el.getBoundingClientRect().top > window.innerHeight) {
+            el.classList.add('is-pending');
+            io.observe(el);
+        }
+    });
+}
+
+// ========== HERO FIELD ==========
+// Drifting points that link up when close, like neighbours in an embedding space.
+function initField() {
+    const canvas = document.getElementById('heroField');
+    if (!canvas || !canvas.getContext) return;
+    const ctx = canvas.getContext('2d');
+    const hero = canvas.parentElement;
+    let w = 0, h = 0, dpr = 1, pts = [], raf = 0, visible = true;
+    const pointer = { x: -9999, y: -9999 };
+    let color = '45,212,191';
+
+    const readColor = () => {
+        color = document.documentElement.getAttribute('data-theme') === 'light' ? '13,148,136' : '45,212,191';
+    };
+
+    const resize = () => {
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+        w = hero.clientWidth; h = hero.clientHeight;
+        canvas.width = w * dpr; canvas.height = h * dpr;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        const n = Math.round(Math.min(90, (w * h) / 16000));
+        pts = Array.from({ length: n }, () => ({
+            x: Math.random() * w, y: Math.random() * h,
+            vx: (Math.random() - 0.5) * 0.25, vy: (Math.random() - 0.5) * 0.25,
+            r: Math.random() * 1.4 + 0.6,
+        }));
+    };
+
+    const draw = () => {
+        ctx.clearRect(0, 0, w, h);
+        const link = Math.min(140, w / 8);
+        for (let i = 0; i < pts.length; i++) {
+            const p = pts[i];
+            for (let j = i + 1; j < pts.length; j++) {
+                const q = pts[j];
+                const d = Math.hypot(p.x - q.x, p.y - q.y);
+                if (d < link) {
+                    ctx.strokeStyle = `rgba(${color},${(1 - d / link) * 0.22})`;
+                    ctx.lineWidth = 1;
+                    ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(q.x, q.y); ctx.stroke();
+                }
+            }
+            const dp = Math.hypot(p.x - pointer.x, p.y - pointer.y);
+            if (dp < 160) {
+                ctx.strokeStyle = `rgba(${color},${(1 - dp / 160) * 0.5})`;
+                ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(pointer.x, pointer.y); ctx.stroke();
+            }
+            ctx.fillStyle = `rgba(${color},0.75)`;
+            ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fill();
+        }
+    };
+
+    const step = () => {
+        for (const p of pts) {
+            p.x += p.vx; p.y += p.vy;
+            if (p.x < 0 || p.x > w) p.vx *= -1;
+            if (p.y < 0 || p.y > h) p.vy *= -1;
+        }
+        draw();
+        raf = visible && !document.hidden ? requestAnimationFrame(step) : 0;
+    };
+
+    const start = () => { if (!raf && !REDUCED_MOTION) raf = requestAnimationFrame(step); };
+
+    readColor(); resize();
+    if (REDUCED_MOTION) draw(); else start();
+
+    window.addEventListener('resize', () => { resize(); if (REDUCED_MOTION) draw(); });
+    window.addEventListener('themechange', () => { readColor(); if (REDUCED_MOTION) draw(); });
+    hero.addEventListener('pointermove', (e) => {
+        const r = canvas.getBoundingClientRect();
+        pointer.x = e.clientX - r.left; pointer.y = e.clientY - r.top;
+    });
+    hero.addEventListener('pointerleave', () => { pointer.x = pointer.y = -9999; });
+    new IntersectionObserver(([e]) => { visible = e.isIntersecting; if (visible) start(); }).observe(hero);
+    document.addEventListener('visibilitychange', () => { if (!document.hidden) start(); });
+}
+
+// ========== CONTACT ==========
 function initContact() {
     const form = document.getElementById('contactForm');
     const status = document.getElementById('formStatus');
-    if (!form) return;
+    const copy = document.getElementById('copyEmail');
 
+    copy?.addEventListener('click', async () => {
+        const email = 'mursaleen.sengr@gmail.com';
+        try {
+            await navigator.clipboard.writeText(email);
+            copy.innerHTML = '<i class="fas fa-check" aria-hidden="true"></i>';
+            copy.setAttribute('aria-label', 'Email address copied');
+            setTimeout(() => {
+                copy.innerHTML = '<i class="far fa-copy" aria-hidden="true"></i>';
+                copy.setAttribute('aria-label', 'Copy email address');
+            }, 1800);
+        } catch (e) {
+            const range = document.createRange();
+            range.selectNodeContents(document.getElementById('contactEmail'));
+            const sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(range);
+        }
+    });
+
+    if (!form) return;
     form.addEventListener('submit', (e) => {
         e.preventDefault();
         const f = new FormData(form);
@@ -460,7 +623,7 @@ function initContact() {
 }
 
 // ========== INIT ==========
-document.addEventListener('DOMContentLoaded', () => {
+function init() {
     renderHero();
     renderServices();
     renderAbout();
@@ -471,10 +634,15 @@ document.addEventListener('DOMContentLoaded', () => {
     initConsole();
     initTheme();
     initNav();
+    initReveal();
+    initField();
     initContact();
     const year = document.getElementById('year');
     if (year) year.textContent = new Date().getFullYear();
-});
+}
 
-console.log('%cHi there, thanks for looking under the hood.', 'font: 600 14px sans-serif; color:#0e6e6c');
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+else init();
+
+console.log('%cHi there, thanks for looking under the hood.', 'font: 600 14px sans-serif; color:#2dd4bf');
 console.log('Want to talk AI engineering? mursaleen.sengr@gmail.com');

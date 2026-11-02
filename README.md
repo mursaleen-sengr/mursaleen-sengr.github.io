@@ -58,9 +58,12 @@ portfolio_website/
 
 ## 🎨 Design
 
-- Typefaces: Bricolage Grotesque (headings), IBM Plex Sans (body)
-- Light: paper `#eef1f4`, ink `#0f1b2d`, teal accent `#0e6e6c`, highlighter `#f4dc6b`
-- Dark: background `#0c141d`, ink `#e4e9ee`, teal accent `#4cc2b8`
+- Dark-first, with a light theme that follows the visitor's system setting and a toggle that remembers their choice
+- Typefaces: Bricolage Grotesque (headings), Geist (body)
+- Dark: background `#070b14`, ink `#e9eef6`, teal-to-sky accent `#2dd4bf` → `#38bdf8`
+- Light: background `#f6f8fb`, ink `#0b1324`, accent `#0d9488` → `#0284c7`
+- Hero background: an animated field of linked points (pauses off-screen, static with reduced motion)
+- Bento grid for services, collapsible "How I built it" on each project, filterable skill grid, full-screen mobile menu
 - All colors are CSS variables at the top of `style.css`
 
 ## 📧 Contact Information
