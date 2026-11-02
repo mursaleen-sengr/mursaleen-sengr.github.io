@@ -21,27 +21,33 @@
             "skills": [
                 {
                     "name": "Agentic AI",
-                    "icon": "fas fa-robot"
+                    "icon": "fas fa-robot",
+                    "logo": "assets/logos/agentic-ai.svg"
                 },
                 {
                     "name": "Generative AI",
-                    "icon": "fas fa-wand-magic-sparkles"
+                    "icon": "fas fa-wand-magic-sparkles",
+                    "logo": "assets/logos/generative-ai.svg"
                 },
                 {
                     "name": "Artificial Intelligence",
-                    "icon": "fas fa-microchip"
+                    "icon": "fas fa-microchip",
+                    "logo": "assets/logos/artificial-intelligence.svg"
                 },
                 {
                     "name": "Machine Learning",
-                    "icon": "fas fa-chart-line"
+                    "icon": "fas fa-chart-line",
+                    "logo": "assets/logos/machine-learning.svg"
                 },
                 {
                     "name": "Deep Learning",
-                    "icon": "fas fa-layer-group"
+                    "icon": "fas fa-layer-group",
+                    "logo": "assets/logos/deep-learning.svg"
                 },
                 {
                     "name": "NLP",
-                    "icon": "fas fa-language"
+                    "icon": "fas fa-language",
+                    "logo": "assets/logos/nlp.svg"
                 }
             ]
         },
@@ -97,11 +103,13 @@
                 },
                 {
                     "name": "RAG",
-                    "icon": "fas fa-magnifying-glass-chart"
+                    "icon": "fas fa-magnifying-glass-chart",
+                    "logo": "assets/logos/rag.svg"
                 },
                 {
                     "name": "Vanna.ai",
-                    "icon": "fas fa-table-cells"
+                    "icon": "fas fa-table-cells",
+                    "logo": "assets/logos/vanna.svg"
                 }
             ]
         },
@@ -119,15 +127,18 @@
                 },
                 {
                     "name": "LLM Benchmarking",
-                    "icon": "fas fa-ranking-star"
+                    "icon": "fas fa-ranking-star",
+                    "logo": "assets/logos/llm-benchmarking.svg"
                 },
                 {
                     "name": "Retrieval Evaluation",
-                    "icon": "fas fa-list-check"
+                    "icon": "fas fa-list-check",
+                    "logo": "assets/logos/retrieval-evaluation.svg"
                 },
                 {
                     "name": "Hallucination Reduction",
-                    "icon": "fas fa-shield-halved"
+                    "icon": "fas fa-shield-halved",
+                    "logo": "assets/logos/hallucination-reduction.svg"
                 }
             ]
         },
@@ -241,11 +252,13 @@
                 },
                 {
                     "name": "OCR",
-                    "icon": "fas fa-file-image"
+                    "icon": "fas fa-file-image",
+                    "logo": "assets/logos/ocr.svg"
                 },
                 {
                     "name": "Web Scraping",
-                    "icon": "fas fa-spider"
+                    "icon": "fas fa-spider",
+                    "logo": "assets/logos/web-scraping.svg"
                 }
             ]
         },

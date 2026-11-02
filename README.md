@@ -8,7 +8,7 @@ A modern, animated portfolio website showcasing AI & ML engineering expertise.
 - **Ask about my work**: a search box in the hero that runs a small BM25 keyword search over the site's own data (`data/*.json`) and shows matching passages with highlights and a link to their section
 - **Case studies**: each project leads with its business impact, then what was built and the stack
 - **Skills orbit**: logos circle a center in three rings (AI/ML, data, cloud and tools); pick a project to light up the exact tools it used, or switch to a filterable list
-- **Real logos for skills**: stored locally in `assets/logos/` (from Devicon, Simple Icons, Lobe Icons, AWS architecture icons and Mem0's repo), so they load fast and never break
+- **Real logos for skills**: stored locally in `assets/logos/` (from Devicon, Simple Icons, Lobe Icons, AWS architecture icons, and the Mem0 and Vanna repos; concept skills like RAG and NLP use gradient versions of Font Awesome Free icons, CC BY 4.0), so they load fast and never break
 - **Light and dark themes**: follows the visitor's system setting, with a toggle that remembers their choice
 - **Accessible and responsive**: skip link, labelled form fields, visible keyboard focus, reduced-motion support, mobile menu
 

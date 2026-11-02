@@ -1385,6 +1385,17 @@ mark {
     white-space: nowrap;
 }
 
+.expertise-list img {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+    padding: 3px;
+    box-sizing: content-box;
+    border-radius: 50%;
+    background: var(--tile-bg);
+    flex: none;
+}
+
 .expertise-list i {
     color: var(--accent);
     font-size: 0.85rem;
