@@ -3,21 +3,41 @@
         {
             "icon": "fas fa-stethoscope",
             "title": "Bridge Vet: Veterinary Clinic Platform",
+            "short": "Bridge Vet",
             "domain": "Healthcare",
             "impact": "Vets spend less time on paperwork: SOAP notes, medication lists and follow-ups are drafted by AI in the background after each appointment.",
             "description": [
                 "Managed a development team to deliver an end-to-end clinic management system; built a scalable FastAPI, Redis and Celery backend for asynchronous AI SOAP note generation, medication extraction and appointment follow-ups.",
                 "Developed a custom RAG-based clinical assistant for dosage calculations, evaluated retrieval accuracy with Langfuse, and built OCR pipelines that automate inventory tracking."
             ],
-            "tags": ["Python", "FastAPI", "Redis", "Celery", "Gemini", "Vector DBs", "Langfuse", "OCR", "AsyncIO", "Docker", "AWS EC2"],
+            "tags": [
+                "Python",
+                "FastAPI",
+                "Redis",
+                "Celery",
+                "Gemini",
+                "Vector DBs",
+                "Langfuse",
+                "OCR",
+                "AsyncIO",
+                "Docker",
+                "AWS EC2"
+            ],
             "stats": [
-                { "icon": "fas fa-file-medical", "text": "AI-drafted SOAP notes" },
-                { "icon": "fas fa-chart-simple", "text": "Retrieval checked in Langfuse" }
+                {
+                    "icon": "fas fa-file-medical",
+                    "text": "AI-drafted SOAP notes"
+                },
+                {
+                    "icon": "fas fa-chart-simple",
+                    "text": "Retrieval checked in Langfuse"
+                }
             ]
         },
         {
             "icon": "fas fa-mosque",
             "title": "eQRA-AI: Islamic AI Assistant Mobile App",
+            "short": "eQRA-AI",
             "domain": "Consumer app",
             "impact": "App users get sourced answers on fatwas and duas from an assistant that remembers their past conversations and sends timely notifications.",
             "description": [
@@ -25,15 +45,36 @@
                 "Engineered an event-driven notification system using AWS EventBridge, SNS and Lambda to send real-time push notifications through FCM.",
                 "Scaled deployments on DigitalOcean App Platform with Redis and Celery on droplets, and self-hosted Grafana Loki for log aggregation. Prototyped a LangGraph multi-tool agent that routes questions between live web search and Qdrant."
             ],
-            "tags": ["Python", "FastAPI", "Mem0", "LangGraph", "Qdrant", "AWS EventBridge", "AWS SNS", "AWS Lambda", "FCM", "Redis", "Celery", "Grafana Loki", "DigitalOcean"],
+            "tags": [
+                "Python",
+                "FastAPI",
+                "Mem0",
+                "LangGraph",
+                "Qdrant",
+                "AWS EventBridge",
+                "AWS SNS",
+                "AWS Lambda",
+                "FCM",
+                "Redis",
+                "Celery",
+                "Grafana Loki",
+                "DigitalOcean"
+            ],
             "stats": [
-                { "icon": "fas fa-comments", "text": "Two RAG chatbots with memory" },
-                { "icon": "fas fa-bell", "text": "Event-driven push notifications" }
+                {
+                    "icon": "fas fa-comments",
+                    "text": "Two RAG chatbots with memory"
+                },
+                {
+                    "icon": "fas fa-bell",
+                    "text": "Event-driven push notifications"
+                }
             ]
         },
         {
             "icon": "fas fa-file-invoice-dollar",
             "title": "Yani: AI Assistant for Chartered Accountants",
+            "short": "Yani",
             "domain": "Finance",
             "impact": "Accountants check documents against regulations and ask questions of their data in plain English instead of writing SQL.",
             "description": [
@@ -41,25 +82,53 @@
                 "Implemented database chat with Vanna.ai trained on complex schemas, reaching 92% accuracy in natural language to SQL.",
                 "Developed an Autogen multi-agent system that runs exploratory data analysis and generates charts from the extracted SQL data."
             ],
-            "tags": ["Python", "Vanna.ai", "Autogen", "RAG", "LLMs", "Pandas", "Matplotlib", "Streamlit"],
+            "tags": [
+                "Python",
+                "Vanna.ai",
+                "Autogen",
+                "RAG",
+                "LLMs",
+                "Pandas",
+                "Matplotlib",
+                "Streamlit"
+            ],
             "stats": [
-                { "icon": "fas fa-bullseye", "text": "92% NL-to-SQL accuracy" },
-                { "icon": "fas fa-scale-balanced", "text": "Automated compliance checks" }
+                {
+                    "icon": "fas fa-bullseye",
+                    "text": "92% NL-to-SQL accuracy"
+                },
+                {
+                    "icon": "fas fa-scale-balanced",
+                    "text": "Automated compliance checks"
+                }
             ]
         },
         {
             "icon": "fas fa-microphone-lines",
             "title": "Fine-Tuning Whisper for Quranic Arabic",
+            "short": "Whisper fine-tuning",
             "domain": "Speech AI",
             "impact": "More accurate transcription of Quran recitation, including the diacritics that general-purpose speech models get wrong.",
             "description": [
                 "Built a fine-tuning pipeline for OpenAI's Whisper on 10,000+ Quranic Tarteel audio samples to improve specialized Arabic speech-to-text and phonetic accuracy.",
                 "Achieved a 90% improvement in Harakat (diacritic) recognition and cut word error rate by 30–40% against the base model."
             ],
-            "tags": ["Python", "PyTorch", "Hugging Face", "Whisper", "Audio Processing"],
+            "tags": [
+                "Python",
+                "PyTorch",
+                "Hugging Face",
+                "Whisper",
+                "Audio Processing"
+            ],
             "stats": [
-                { "icon": "fas fa-arrow-trend-up", "text": "90% better diacritic recognition" },
-                { "icon": "fas fa-arrow-trend-down", "text": "30–40% lower WER" }
+                {
+                    "icon": "fas fa-arrow-trend-up",
+                    "text": "90% better diacritic recognition"
+                },
+                {
+                    "icon": "fas fa-arrow-trend-down",
+                    "text": "30–40% lower WER"
+                }
             ]
         }
     ]

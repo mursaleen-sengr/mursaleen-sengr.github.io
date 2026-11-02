@@ -90,6 +90,7 @@ data/
         {
             "icon": "fas fa-robot",  // FontAwesome icon for the project
             "title": "Project Name",
+            "short": "Short name for the skills orbit chip",
             "description": "Brief description of the project...",
             "tags": ["Python", "FastAPI", "Docker"],  // Tech stack
             "stats": [

@@ -21,6 +21,7 @@
     --mark-bg: rgba(251, 191, 36, 0.2);
     --mark-ink: #fde68a;
     --tile: #f4f7fb;
+    --tile-bg: #f4f7fb;
     --focus: #7dd3fc;
     --shadow: 0 24px 60px -24px rgba(0, 0, 0, 0.7);
     --glass: rgba(14, 21, 36, 0.72);
@@ -1335,6 +1336,266 @@ mark {
     margin-top: 2px;
 }
 
+
+/* ---------- Skills orbit ---------- */
+.skills-stage {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    gap: clamp(28px, 5vw, 64px);
+    align-items: center;
+}
+
+.orbit {
+    --ts: clamp(30px, 7.4cqi, 48px);
+    container-type: inline-size;
+    position: relative;
+    width: 100%;
+    max-width: 640px;
+    aspect-ratio: 1;
+    margin: 0 auto;
+    isolation: isolate;
+}
+
+.orbit::before {
+    content: "";
+    position: absolute;
+    inset: 18%;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--glow), transparent 70%);
+    z-index: -1;
+}
+
+.ring {
+    position: absolute;
+    inset: 0;
+    animation: orbit-spin var(--dur, 80s) linear infinite;
+    animation-direction: var(--dir, normal);
+    pointer-events: none;
+}
+
+.ring::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: calc(var(--r) * var(--rs, 1) * 100%);
+    height: calc(var(--r) * var(--rs, 1) * 100%);
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    border: 1px dashed color-mix(in srgb, var(--ring-color) 45%, transparent);
+}
+
+.orbit-item {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: var(--ts);
+    height: var(--ts);
+    margin: calc(var(--ts) / -2) 0 0 calc(var(--ts) / -2);
+    transform: rotate(var(--a)) translateX(calc(var(--r) * var(--rs, 1) * 50cqi)) rotate(calc(-1 * var(--a)));
+    pointer-events: auto;
+}
+
+.orbit-tile {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    background: var(--tile-bg, #f4f7fb);
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--ring-color) 50%, transparent), 0 8px 20px -10px rgba(0, 0, 0, 0.6);
+    animation: orbit-spin var(--dur, 80s) linear infinite;
+    animation-direction: var(--rdir, reverse);
+    transition: opacity 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease, scale 0.25s ease;
+}
+
+.orbit-tile img {
+    width: 58%;
+    height: 58%;
+    object-fit: contain;
+}
+
+.orbit-tile i {
+    font-size: calc(var(--ts) * 0.36);
+    color: #3b4a5c;
+}
+
+.orbit-tile:hover,
+.orbit-tile:focus-visible,
+.orbit-item.is-on .orbit-tile {
+    scale: 1.18;
+    box-shadow: 0 0 0 2px var(--ring-color), 0 0 24px -2px var(--ring-color);
+}
+
+.orbit-tile:focus-visible {
+    outline: none;
+}
+
+.orbit:hover .ring,
+.orbit:hover .orbit-tile,
+.orbit:focus-within .ring,
+.orbit:focus-within .orbit-tile {
+    animation-play-state: paused;
+}
+
+.orbit.is-filtered .orbit-item:not(.is-on) .orbit-tile {
+    opacity: 0.16;
+    filter: grayscale(1);
+    box-shadow: none;
+}
+
+.orbit-center {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 30%;
+    aspect-ratio: 1;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    display: grid;
+    place-content: center;
+    text-align: center;
+    gap: 2px;
+    padding: 8px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent) 8%, transparent), var(--shadow);
+    z-index: 2;
+}
+
+.orbit-center::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: 50%;
+    padding: 1.5px;
+    background: conic-gradient(from 0deg, var(--accent), var(--accent-2), transparent 60%, var(--accent));
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    animation: orbit-spin 6s linear infinite;
+}
+
+.oc-value {
+    font: 800 calc(7.4cqi + 4px)/1 var(--font-display);
+    letter-spacing: -0.03em;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.oc-logo {
+    width: calc(9cqi);
+    height: calc(9cqi);
+    margin: 0 auto 4px;
+    border-radius: 50%;
+    background: var(--tile-bg, #f4f7fb);
+    display: grid;
+    place-items: center;
+}
+
+.oc-logo img {
+    width: 60%;
+    height: 60%;
+    object-fit: contain;
+}
+
+.oc-logo i {
+    color: #3b4a5c;
+}
+
+.oc-title {
+    font: 700 clamp(0.8rem, 2.9cqi, 1.05rem)/1.15 var(--font-display);
+    max-width: 18ch;
+    margin: 0 auto;
+}
+
+.oc-sub {
+    font-size: clamp(0.66rem, 2.1cqi, 0.8rem);
+    color: var(--muted);
+    line-height: 1.3;
+}
+
+@keyframes orbit-spin {
+    to {
+        rotate: 360deg;
+    }
+}
+
+.orbit-side {
+    display: grid;
+    gap: 16px;
+    align-content: center;
+}
+
+.orbit-side .sub-title {
+    margin-bottom: 0;
+}
+
+.orbit-hint {
+    color: var(--muted);
+    font-size: 0.95rem;
+    max-width: 44ch;
+}
+
+.stack-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.stack-chips .chip {
+    min-height: 40px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.stack-chips .chip i {
+    color: var(--accent);
+}
+
+.ring-legend {
+    list-style: none;
+    display: grid;
+    gap: 8px;
+    padding: 16px 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+}
+
+.ring-legend li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9rem;
+    color: var(--muted);
+}
+
+.ring-legend b {
+    color: var(--ink);
+    font-weight: 500;
+}
+
+.ring-swatch {
+    width: 22px;
+    height: 0;
+    border-top: 2px dashed var(--ring-color);
+    flex: none;
+}
+
+#skillsViewToggle {
+    justify-self: start;
+}
+
+.skills-list {
+    margin-top: clamp(28px, 4vw, 44px);
+}
+
 /* ---------- About ---------- */
 .about {
     display: grid;
@@ -1747,6 +2008,10 @@ fieldset.field legend {
         grid-template-columns: 1fr;
     }
 
+    .skills-stage {
+        grid-template-columns: 1fr;
+    }
+
     .contact-panel {
         grid-template-columns: 1fr;
     }
@@ -1862,6 +2127,21 @@ fieldset.field legend {
     }
 }
 
+@media (max-width: 560px) {
+    #skills {
+        overflow-x: clip;
+    }
+
+    .orbit {
+        --rs: 0.9;
+        --ts: clamp(26px, 8cqi, 40px);
+    }
+
+    .orbit-center {
+        width: 34%;
+    }
+}
+
 @media (max-width: 420px) {
     .brand-name {
         font-size: 0.95rem;
@@ -1910,5 +2190,11 @@ fieldset.field legend {
     .js .reveal.is-pending {
         opacity: 1;
         transform: none;
+    }
+
+    .ring,
+    .orbit-tile,
+    .orbit-center::before {
+        animation: none !important;
     }
 }
