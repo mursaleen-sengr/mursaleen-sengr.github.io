@@ -35,11 +35,6 @@ const MONO_LOGOS = ['github', 'langchain', 'amazonwebservices', 'apple'];
 
 function renderHero() {
     const a = DATA.about || {};
-    const status = document.getElementById('heroStatus');
-    if (status && a.headline) {
-        status.innerHTML = `<span class="status-dot" aria-hidden="true"></span>${esc(a.headline)}`;
-    }
-
     const proof = document.getElementById('proofStats');
     if (proof) {
         proof.innerHTML = (a.stats || []).map((s) => `
