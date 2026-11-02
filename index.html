@@ -30,7 +30,7 @@
         href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Geist:wght@400;500;600&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css?v=20261102223519">
+    <link rel="stylesheet" href="style.css?v=20261102231758">
 </head>
 
 <body>
@@ -88,18 +88,50 @@
 
             <div class="wrap hero-grid">
                 <div class="hero-intro">
-                    <h1 class="hero-name">Muhammad<br>Mursaleen</h1>
-                    <p class="hero-role">End-to-end AI solutions, from the first idea to a product running in
-                        production.</p>
-                    <p class="hero-lede">
-                        I design, build and deploy LLM assistants, AI agents, RAG systems and fine-tuned models for
-                        healthcare, finance, procurement and Islamic knowledge.
-                    </p>
-                    <div class="hero-actions">
-                        <a href="#contact" class="btn btn-primary btn-lg">Discuss a project</a>
-                        <a href="resume.pdf" download class="btn btn-ghost btn-lg">
-                            <i class="fas fa-arrow-down" aria-hidden="true"></i> Resume
-                        </a>
+                    <h1 class="hero-heading">
+                        <span class="hero-hello">
+                            <span class="hero-hello-text">
+                                <span class="hero-hi">Hi, I'm <strong class="hero-name"><span
+                                            class="name-first">Muhammad</span> <span
+                                            class="name-last">Mursaleen</span></strong><span class="wave"
+                                        aria-hidden="true">👋</span></span>
+                                <span class="hero-status"><span class="status-dot" aria-hidden="true"></span>Software
+                                    Engineer focused on AI &amp; ML · open to new projects and roles</span>
+                            </span>
+                        </span>
+                        <span class="hero-title">I build
+                            <span class="sr-only">AI products</span><span class="rotator" id="heroRotator"
+                                aria-hidden="true">AI agents</span>
+                            that run in production.</span>
+                    </h1>
+
+                    <div class="audience" role="group" aria-label="Who are you?">
+                        <span class="audience-label">I'm a</span>
+                        <div class="audience-switch">
+                            <button type="button" class="audience-btn" data-audience="founder" aria-pressed="true">
+                                <i class="fas fa-rocket" aria-hidden="true"></i> Founder
+                            </button>
+                            <button type="button" class="audience-btn" data-audience="recruiter" aria-pressed="false">
+                                <i class="fas fa-user-tie" aria-hidden="true"></i> Recruiter
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="audience-panel" id="audiencePanel" aria-live="polite">
+                        <p class="hero-lede" id="heroLede">
+                            Got an AI idea, or a prototype that won't hold up with real users? I take it from the first
+                            sketch to a product your customers rely on: scoped, built, deployed and monitored.
+                        </p>
+                        <ul class="expect" id="heroExpect">
+                            <li>A clear scope and a working prototype early</li>
+                            <li>Production setup: APIs, cloud, monitoring</li>
+                            <li>Results you can measure, like 92% text-to-SQL accuracy</li>
+                        </ul>
+                    </div>
+
+                    <div class="hero-actions" id="heroActions">
+                        <a href="#contact" class="btn btn-primary btn-lg">Discuss your project</a>
+                        <a href="#work" class="btn btn-ghost btn-lg">See results</a>
                     </div>
                     <ul class="social" aria-label="Profiles">
                         <li><a href="https://linkedin.com/in/mursaleensengr" target="_blank" rel="noopener"
@@ -292,7 +324,7 @@
         </div>
     </footer>
 
-    <script src="script.js?v=20261102223519"></script>
+    <script src="script.js?v=20261102231758"></script>
 </body>
 
 </html>

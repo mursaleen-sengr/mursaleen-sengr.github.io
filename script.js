@@ -519,6 +519,80 @@ function initConsole() {
     run(suggestions[0], chips[0]);
 }
 
+// ========== HERO: ROTATING HEADLINE + AUDIENCE SWITCH ==========
+const HERO_WORDS = ['AI agents', 'RAG systems', 'text-to-SQL', 'LLM assistants', 'fine-tuned models'];
+
+const AUDIENCES = {
+    founder: {
+        lede: "Got an AI idea, or a prototype that won't hold up with real users? I take it from the first sketch to a product your customers rely on: scoped, built, deployed and monitored.",
+        expect: [
+            'A clear scope and a working prototype early',
+            'Production setup: APIs, cloud, monitoring',
+            'Results you can measure, like 92% text-to-SQL accuracy'
+        ],
+        actions: `<a href="#contact" class="btn btn-primary btn-lg">Discuss your project</a>
+            <a href="#work" class="btn btn-ghost btn-lg">See results</a>`
+    },
+    recruiter: {
+        lede: 'AI & ML Engineer with ~3 years shipping LLM apps, RAG systems and agent workflows in Python, LangGraph, FastAPI and AWS, from first prototype to leading a team.',
+        expect: [
+            '~3 years building production AI',
+            'Shipped in healthcare, finance, procurement and Islamic knowledge',
+            'Based in Lahore, Pakistan'
+        ],
+        actions: `<a href="resume.pdf" download class="btn btn-primary btn-lg"><i class="fas fa-arrow-down" aria-hidden="true"></i> Download resume</a>
+            <a href="#experience" class="btn btn-ghost btn-lg">View experience</a>`
+    }
+};
+
+function initHeroRotator() {
+    const el = document.getElementById('heroRotator');
+    if (!el || REDUCED_MOTION) return;
+    let i = 0;
+    setInterval(() => {
+        el.classList.add('is-out');
+        setTimeout(() => {
+            i = (i + 1) % HERO_WORDS.length;
+            el.textContent = HERO_WORDS[i];
+            el.classList.remove('is-out');
+        }, 300);
+    }, 2600);
+}
+
+function initAudience() {
+    const buttons = [...document.querySelectorAll('.audience-btn')];
+    const panel = document.getElementById('audiencePanel');
+    const lede = document.getElementById('heroLede');
+    const expect = document.getElementById('heroExpect');
+    const actions = document.getElementById('heroActions');
+    if (!buttons.length || !panel) return;
+
+    const render = (key) => {
+        const a = AUDIENCES[key];
+        lede.textContent = a.lede;
+        expect.innerHTML = a.expect.map((t) => `<li>${t}</li>`).join('');
+        actions.innerHTML = a.actions;
+    };
+
+    const select = (key, animate) => {
+        if (!AUDIENCES[key]) return;
+        buttons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.audience === key)));
+        try { localStorage.setItem('audience', key); } catch (e) { /* storage unavailable */ }
+        if (!animate || REDUCED_MOTION) return render(key);
+        panel.classList.add('is-swapping');
+        setTimeout(() => { render(key); panel.classList.remove('is-swapping'); }, 200);
+    };
+
+    buttons.forEach((b) => b.addEventListener('click', () => select(b.dataset.audience, true)));
+
+    // A shared link like ?for=recruiter opens straight to that view
+    let initial = new URLSearchParams(location.search).get('for');
+    if (!AUDIENCES[initial]) {
+        try { initial = localStorage.getItem('audience'); } catch (e) { initial = null; }
+    }
+    if (AUDIENCES[initial] && initial !== 'founder') select(initial, false);
+}
+
 // ========== THEME ==========
 function initTheme() {
     const btn = document.getElementById('themeToggle');
@@ -725,6 +799,8 @@ function init() {
     renderProjects();
     renderSkills();
     renderEducation();
+    initHeroRotator();
+    initAudience();
     initConsole();
     initTheme();
     initNav();

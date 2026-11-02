@@ -1,0 +1,126 @@
+From fecebb94475960f1be3c8adccb98f6f6777db98d Mon Sep 17 00:00:00 2001
+From: Claude <noreply@anthropic.com>
+Date: Mon, 2 Nov 2026 22:35:44 +0500
+Subject: [PATCH] Force browsers to load the new CSS and JS after updates
+
+Visitors with the old style.css cached saw the new page unstyled.
+index.html now loads style.css and script.js with a ?v= version,
+and build.py stamps a fresh version on every run.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01Lbzy3ed4CJxnAN1iky3fxo
+---
+ WORKFLOW.md | 10 ++++++----
+ build.py    | 20 +++++++++++++++++++-
+ index.html  |  4 ++--
+ 3 files changed, 27 insertions(+), 7 deletions(-)
+
+diff --git a/WORKFLOW.md b/WORKFLOW.md
+index 0f40174..4867914 100644
+--- a/WORKFLOW.md
++++ b/WORKFLOW.md
+@@ -25,6 +25,7 @@ python3 build.py
+ This will:
+ - Read all JSON files
+ - Update the embedded data in `script.js`
++- Stamp a new version on the `style.css` and `script.js` links in `index.html`, so visitors' browsers load the new files instead of cached old ones
+ - Show success message
+ 
+ ### 3. Test Locally (Optional)
+@@ -44,7 +45,7 @@ Wait 1-2 minutes for GitHub Pages to rebuild.
+ 
+ ## 🚀 Quick Update Command
+ ```bash
+-python3 build.py && git add script.js && git commit -m "Update content" && git push origin main
++python3 build.py && git add script.js index.html && git commit -m "Update content" && git push origin main
+ ```
+ 
+ ## 📂 Project Structure
+@@ -72,11 +73,12 @@ portfolio_website/
+ 
+ ## 🎨 Styling Updates
+ 
+-To update styles, just edit `style.css` and commit:
++To update styles, edit `style.css`, then run `python3 build.py` so browsers pick up the new version:
+ ```bash
+-git add style.css
++python3 build.py
++git add style.css script.js index.html
+ git commit -m "Update styling"
+ git push origin main
+ ```
+ 
+-No build script needed for CSS changes!
++Run the build script for CSS changes too: it bumps the version so nobody sees a stale stylesheet.
+diff --git a/build.py b/build.py
+index 3046a5a..d06822a 100755
+--- a/build.py
++++ b/build.py
+@@ -7,6 +7,7 @@ Run this after updating any JSON files in the data/ folder
+ import json
+ import os
+ import re
++import time
+ 
+ def load_json_files():
+     """Load all JSON files from the data directory"""
+@@ -75,6 +76,20 @@ async function loadJSON(key) {{
+     
+     return True
+ 
++def bump_asset_version():
++    """Stamp a new ?v= on style.css and script.js links in index.html.
++
++    Browsers cache CSS and JS. Changing the version makes every visitor
++    load the new files after an update instead of a stale mix.
++    """
++    version = time.strftime('%Y%m%d%H%M%S')
++    with open('index.html', 'r', encoding='utf-8') as f:
++        html = f.read()
++    html, n = re.subn(r'(href="style\.css|src="script\.js)(\?v=[^"]*)?"', rf'\1?v={version}"', html)
++    with open('index.html', 'w', encoding='utf-8') as f:
++        f.write(html)
++    return version if n else None
++
+ def main():
+     print("🔨 Building script.js with latest JSON data...")
+     
+@@ -92,9 +107,12 @@ def main():
+     # Update script.js
+     if update_script_js(data_object):
+         print("✅ script.js updated successfully!")
++        version = bump_asset_version()
++        if version:
++            print(f"✓ index.html now loads style.css and script.js as version {version}")
+         print("\nNext steps:")
+         print("  1. Test locally: python3 -m http.server 8080")
+-        print("  2. Commit: git add script.js && git commit -m 'Update data'")
++        print("  2. Commit: git add script.js index.html && git commit -m 'Update data'")
+         print("  3. Deploy: git push origin main")
+     else:
+         print("❌ Failed to update script.js")
+diff --git a/index.html b/index.html
+index 85d2dfa..3836e0f 100644
+--- a/index.html
++++ b/index.html
+@@ -30,7 +30,7 @@
+         href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Geist:wght@400;500;600&display=swap"
+         rel="stylesheet">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+-    <link rel="stylesheet" href="style.css">
++    <link rel="stylesheet" href="style.css?v=20261102223519">
+ </head>
+ 
+ <body>
+@@ -292,7 +292,7 @@
+         </div>
+     </footer>
+ 
+-    <script src="script.js"></script>
++    <script src="script.js?v=20261102223519"></script>
+ </body>
+ 
+ </html>
+-- 
+2.43.0
+

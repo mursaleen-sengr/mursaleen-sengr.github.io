@@ -432,30 +432,203 @@ mark {
     min-width: 0;
 }
 
+@keyframes rise {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+}
+
+.hero-heading {
+    display: block;
+    margin-bottom: 1.6rem;
+}
+
+.hero-hello {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 1.4rem;
+    animation: rise 0.6s ease both;
+}
+
+.hero-hello-text {
+    display: grid;
+    gap: 2px;
+    min-width: 0;
+}
+
+.hero-hi {
+    font: 500 clamp(1.05rem, 0.95rem + 0.5vw, 1.25rem)/1.3 var(--font-body);
+    letter-spacing: 0;
+}
+
 .hero-name {
-    font-size: clamp(2.9rem, 17cqi, 7rem);
-    font-weight: 800;
-    letter-spacing: -0.045em;
-    line-height: 0.9;
-    margin-bottom: 1.5rem;
-    background: linear-gradient(180deg, var(--ink) 55%, color-mix(in srgb, var(--ink) 55%, var(--accent)));
+    font: 800 1.15em/1 var(--font-display);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.name-first {
+    color: var(--ink);
+}
+
+.name-last {
+    background: linear-gradient(120deg, var(--accent), var(--accent-2));
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    padding-bottom: 0.06em;
 }
 
-.hero-role {
-    font: 700 clamp(1.35rem, 1rem + 1.4vw, 1.75rem)/1.25 var(--font-display);
-    letter-spacing: -0.015em;
-    max-width: 24ch;
-    margin-bottom: 1rem;
+.wave {
+    display: inline-block;
+    margin-left: 0.3em;
+    transform-origin: 70% 70%;
+    animation: wave 2.4s ease-in-out 0.8s 2;
+}
+
+@keyframes wave {
+    0%, 60%, 100% { transform: rotate(0); }
+    10%, 30% { transform: rotate(16deg); }
+    20%, 40% { transform: rotate(-8deg); }
+}
+
+.hero-status {
+    display: inline-flex;
+    align-items: flex-start;
+    gap: 8px;
+    font: 400 0.9rem/1.4 var(--font-body);
+    color: var(--muted);
+    letter-spacing: 0;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    flex: none;
+    margin-top: 0.43em;
+    border-radius: 50%;
+    background: #22c55e;
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.6);
+    animation: pulse 2s ease-out infinite;
+}
+
+@keyframes pulse {
+    to { box-shadow: 0 0 0 8px rgba(34, 197, 94, 0); }
+}
+
+.hero-title {
+    display: block;
+    font-size: clamp(2.3rem, 10cqi, 4.4rem);
+    font-weight: 800;
+    letter-spacing: -0.035em;
+    line-height: 1.02;
+    animation: rise 0.6s ease 0.1s both;
+}
+
+.rotator {
+    display: block;
+    min-height: 1.06em;
+    padding-bottom: 0.06em;
+    background: linear-gradient(120deg, var(--accent), var(--accent-2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.rotator.is-out {
+    opacity: 0;
+    transform: translateY(0.25em);
+}
+
+.audience {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px 12px;
+    margin-bottom: 1.2rem;
+}
+
+.audience-label {
+    color: var(--muted);
+    font-size: 0.95rem;
+}
+
+.audience-switch {
+    display: inline-flex;
+    padding: 4px;
+    gap: 4px;
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--surface) 70%, transparent);
+}
+
+.audience-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 40px;
+    padding: 0 1rem;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    color: var(--muted);
+    font: 500 0.95rem var(--font-body);
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.audience-btn:hover {
+    color: var(--ink);
+}
+
+.audience-btn[aria-pressed="true"] {
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    color: var(--accent-ink);
+}
+
+.audience-panel {
+    margin-bottom: 1.8rem;
+    transition: opacity 0.25s ease;
+}
+
+.audience-panel.is-swapping {
+    opacity: 0;
 }
 
 .hero-lede {
     color: var(--muted);
-    max-width: 48ch;
-    margin-bottom: 2rem;
+    max-width: 50ch;
+    margin-bottom: 1rem;
+}
+
+.expect {
+    list-style: none;
+    display: grid;
+    gap: 8px;
+}
+
+.expect li {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+}
+
+.expect li::before {
+    content: "\f00c";
+    font: 900 0.8rem "Font Awesome 6 Free";
+    color: var(--accent);
+    flex: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hero-hello,
+    .hero-title,
+    .wave,
+    .status-dot {
+        animation: none;
+    }
 }
 
 .hero-actions {
