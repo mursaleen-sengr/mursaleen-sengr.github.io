@@ -3,7 +3,6 @@
         {
             "icon": "fas fa-stethoscope",
             "title": "Bridge Vet: Veterinary Clinic Platform",
-            "short": "Bridge Vet",
             "domain": "Healthcare",
             "impact": "Vets spend less time on paperwork: SOAP notes, medication lists and follow-ups are drafted by AI in the background after each appointment.",
             "description": [
@@ -37,7 +36,6 @@
         {
             "icon": "fas fa-mosque",
             "title": "eQRA-AI: Islamic AI Assistant Mobile App",
-            "short": "eQRA-AI",
             "domain": "Consumer app",
             "impact": "App users get sourced answers on fatwas and duas from an assistant that remembers their past conversations and sends timely notifications.",
             "description": [
@@ -74,7 +72,6 @@
         {
             "icon": "fas fa-file-invoice-dollar",
             "title": "Yani: AI Assistant for Chartered Accountants",
-            "short": "Yani",
             "domain": "Finance",
             "impact": "Accountants check documents against regulations and ask questions of their data in plain English instead of writing SQL.",
             "description": [
@@ -106,7 +103,6 @@
         {
             "icon": "fas fa-microphone-lines",
             "title": "Fine-Tuning Whisper for Quranic Arabic",
-            "short": "Whisper fine-tuning",
             "domain": "Speech AI",
             "impact": "More accurate transcription of Quran recitation, including the diacritics that general-purpose speech models get wrong.",
             "description": [

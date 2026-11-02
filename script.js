@@ -6,9 +6,9 @@ const DATA = {
     
     experience: {"experiences":[{"date":"July 2026 – Present","title":"Software Engineer (AI/ML)","company":"CodingCops","location":"Lahore, Pakistan","responsibilities":["Design and build multi-agent AI systems and text-to-SQL pipelines using LangGraph and self-hosted LLMs.","Optimize prompts, context management and token usage to improve reasoning efficiency on complex natural-language queries across large datasets."]},{"date":"March 2025 – July 2026","title":"AI/ML Engineer","company":"DiveDeepAI","location":"Islamabad, Pakistan","responsibilities":["Built and deployed Generative AI systems using custom and LangGraph-driven RAG pipelines and LLM fine-tuning.","Architected FastAPI backends and managed deployments on AWS EC2 and DigitalOcean.","Led a 3-person engineering team, drove system architecture and mentored junior developers."]},{"date":"August 2024 – February 2025","title":"Jr AI Engineer","company":"Softoo","location":"Islamabad, Pakistan","responsibilities":["Built production-oriented Generative AI proofs of concept with the solution architect, then validated and iterated on them.","Built RAG applications using LangChain, LangGraph, LLMs and vector databases."]}]},
     
-    projects: {"projects":[{"icon":"fas fa-stethoscope","title":"Bridge Vet: Veterinary Clinic Platform","short":"Bridge Vet","domain":"Healthcare","impact":"Vets spend less time on paperwork: SOAP notes, medication lists and follow-ups are drafted by AI in the background after each appointment.","description":["Managed a development team to deliver an end-to-end clinic management system; built a scalable FastAPI, Redis and Celery backend for asynchronous AI SOAP note generation, medication extraction and appointment follow-ups.","Developed a custom RAG-based clinical assistant for dosage calculations, evaluated retrieval accuracy with Langfuse, and built OCR pipelines that automate inventory tracking."],"tags":["Python","FastAPI","Redis","Celery","Gemini","Vector DBs","Langfuse","OCR","AsyncIO","Docker","AWS EC2"],"stats":[{"icon":"fas fa-file-medical","text":"AI-drafted SOAP notes"},{"icon":"fas fa-chart-simple","text":"Retrieval checked in Langfuse"}]},{"icon":"fas fa-mosque","title":"eQRA-AI: Islamic AI Assistant Mobile App","short":"eQRA-AI","domain":"Consumer app","impact":"App users get sourced answers on fatwas and duas from an assistant that remembers their past conversations and sends timely notifications.","description":["Built the backend for an Islamic AI assistant, deploying dual RAG chatbots for precise fatwa and dua retrieval, with Mem0-powered long-term conversational memory.","Engineered an event-driven notification system using AWS EventBridge, SNS and Lambda to send real-time push notifications through FCM.","Scaled deployments on DigitalOcean App Platform with Redis and Celery on droplets, and self-hosted Grafana Loki for log aggregation. Prototyped a LangGraph multi-tool agent that routes questions between live web search and Qdrant."],"tags":["Python","FastAPI","Mem0","LangGraph","Qdrant","AWS EventBridge","AWS SNS","AWS Lambda","FCM","Redis","Celery","Grafana Loki","DigitalOcean"],"stats":[{"icon":"fas fa-comments","text":"Two RAG chatbots with memory"},{"icon":"fas fa-bell","text":"Event-driven push notifications"}]},{"icon":"fas fa-file-invoice-dollar","title":"Yani: AI Assistant for Chartered Accountants","short":"Yani","domain":"Finance","impact":"Accountants check documents against regulations and ask questions of their data in plain English instead of writing SQL.","description":["Built a RAG chatbot for chartered accountants, alongside a document compliance workflow that checks text against regulatory frameworks to map clauses and flag non-compliance.","Implemented database chat with Vanna.ai trained on complex schemas, reaching 92% accuracy in natural language to SQL.","Developed an Autogen multi-agent system that runs exploratory data analysis and generates charts from the extracted SQL data."],"tags":["Python","Vanna.ai","Autogen","RAG","LLMs","Pandas","Matplotlib","Streamlit"],"stats":[{"icon":"fas fa-bullseye","text":"92% NL-to-SQL accuracy"},{"icon":"fas fa-scale-balanced","text":"Automated compliance checks"}]},{"icon":"fas fa-microphone-lines","title":"Fine-Tuning Whisper for Quranic Arabic","short":"Whisper fine-tuning","domain":"Speech AI","impact":"More accurate transcription of Quran recitation, including the diacritics that general-purpose speech models get wrong.","description":["Built a fine-tuning pipeline for OpenAI's Whisper on 10,000+ Quranic Tarteel audio samples to improve specialized Arabic speech-to-text and phonetic accuracy.","Achieved a 90% improvement in Harakat (diacritic) recognition and cut word error rate by 30–40% against the base model."],"tags":["Python","PyTorch","Hugging Face","Whisper","Audio Processing"],"stats":[{"icon":"fas fa-arrow-trend-up","text":"90% better diacritic recognition"},{"icon":"fas fa-arrow-trend-down","text":"30–40% lower WER"}]}]},
+    projects: {"projects":[{"icon":"fas fa-stethoscope","title":"Bridge Vet: Veterinary Clinic Platform","domain":"Healthcare","impact":"Vets spend less time on paperwork: SOAP notes, medication lists and follow-ups are drafted by AI in the background after each appointment.","description":["Managed a development team to deliver an end-to-end clinic management system; built a scalable FastAPI, Redis and Celery backend for asynchronous AI SOAP note generation, medication extraction and appointment follow-ups.","Developed a custom RAG-based clinical assistant for dosage calculations, evaluated retrieval accuracy with Langfuse, and built OCR pipelines that automate inventory tracking."],"tags":["Python","FastAPI","Redis","Celery","Gemini","Vector DBs","Langfuse","OCR","AsyncIO","Docker","AWS EC2"],"stats":[{"icon":"fas fa-file-medical","text":"AI-drafted SOAP notes"},{"icon":"fas fa-chart-simple","text":"Retrieval checked in Langfuse"}]},{"icon":"fas fa-mosque","title":"eQRA-AI: Islamic AI Assistant Mobile App","domain":"Consumer app","impact":"App users get sourced answers on fatwas and duas from an assistant that remembers their past conversations and sends timely notifications.","description":["Built the backend for an Islamic AI assistant, deploying dual RAG chatbots for precise fatwa and dua retrieval, with Mem0-powered long-term conversational memory.","Engineered an event-driven notification system using AWS EventBridge, SNS and Lambda to send real-time push notifications through FCM.","Scaled deployments on DigitalOcean App Platform with Redis and Celery on droplets, and self-hosted Grafana Loki for log aggregation. Prototyped a LangGraph multi-tool agent that routes questions between live web search and Qdrant."],"tags":["Python","FastAPI","Mem0","LangGraph","Qdrant","AWS EventBridge","AWS SNS","AWS Lambda","FCM","Redis","Celery","Grafana Loki","DigitalOcean"],"stats":[{"icon":"fas fa-comments","text":"Two RAG chatbots with memory"},{"icon":"fas fa-bell","text":"Event-driven push notifications"}]},{"icon":"fas fa-file-invoice-dollar","title":"Yani: AI Assistant for Chartered Accountants","domain":"Finance","impact":"Accountants check documents against regulations and ask questions of their data in plain English instead of writing SQL.","description":["Built a RAG chatbot for chartered accountants, alongside a document compliance workflow that checks text against regulatory frameworks to map clauses and flag non-compliance.","Implemented database chat with Vanna.ai trained on complex schemas, reaching 92% accuracy in natural language to SQL.","Developed an Autogen multi-agent system that runs exploratory data analysis and generates charts from the extracted SQL data."],"tags":["Python","Vanna.ai","Autogen","RAG","LLMs","Pandas","Matplotlib","Streamlit"],"stats":[{"icon":"fas fa-bullseye","text":"92% NL-to-SQL accuracy"},{"icon":"fas fa-scale-balanced","text":"Automated compliance checks"}]},{"icon":"fas fa-microphone-lines","title":"Fine-Tuning Whisper for Quranic Arabic","domain":"Speech AI","impact":"More accurate transcription of Quran recitation, including the diacritics that general-purpose speech models get wrong.","description":["Built a fine-tuning pipeline for OpenAI's Whisper on 10,000+ Quranic Tarteel audio samples to improve specialized Arabic speech-to-text and phonetic accuracy.","Achieved a 90% improvement in Harakat (diacritic) recognition and cut word error rate by 30–40% against the base model."],"tags":["Python","PyTorch","Hugging Face","Whisper","Audio Processing"],"stats":[{"icon":"fas fa-arrow-trend-up","text":"90% better diacritic recognition"},{"icon":"fas fa-arrow-trend-down","text":"30–40% lower WER"}]}]},
     
-    skills: {"core":["Python","LangGraph","LangChain","RAG","FastAPI","Qdrant","Redis","PyTorch","Hugging Face","Langfuse","Docker","AWS"],"categories":[{"name":"Languages","icon":"fas fa-code","skills":[{"name":"Python","logo":"assets/logos/python.svg"},{"name":"SQL","logo":"assets/logos/sql.svg"}]},{"name":"AI/ML & Frameworks","icon":"fas fa-brain","skills":[{"name":"PyTorch","logo":"assets/logos/pytorch.svg"},{"name":"Hugging Face","logo":"assets/logos/huggingface.svg"},{"name":"OpenAI","logo":"assets/logos/openai.svg"},{"name":"Gemini","logo":"assets/logos/gemini.svg"},{"name":"LangChain","logo":"assets/logos/langchain.svg"},{"name":"LangGraph","logo":"assets/logos/langgraph.svg"},{"name":"Autogen","logo":"assets/logos/autogen.svg"},{"name":"Mem0","logo":"assets/logos/mem0.svg"},{"name":"RAG","icon":"fas fa-magnifying-glass-chart"},{"name":"Vanna.ai","icon":"fas fa-table-cells"}]},{"name":"Evaluation & Observability","icon":"fas fa-gauge-high","skills":[{"name":"Langfuse","logo":"assets/logos/langfuse.svg"},{"name":"Grafana Loki","logo":"assets/logos/grafana.svg"},{"name":"LLM Benchmarking","icon":"fas fa-ranking-star"},{"name":"Retrieval Evaluation","icon":"fas fa-list-check"},{"name":"Hallucination Reduction","icon":"fas fa-shield-halved"}]},{"name":"Databases","icon":"fas fa-database","skills":[{"name":"PostgreSQL","logo":"assets/logos/postgresql.svg"},{"name":"Qdrant","logo":"assets/logos/qdrant.svg"},{"name":"FAISS","logo":"assets/logos/faiss.svg"},{"name":"PgVector","logo":"assets/logos/postgresql.svg"},{"name":"Redis","logo":"assets/logos/redis.svg"},{"name":"MongoDB","logo":"assets/logos/mongodb.svg"}]},{"name":"Backend & Infrastructure","icon":"fas fa-server","skills":[{"name":"FastAPI","logo":"assets/logos/fastapi.svg"},{"name":"Celery","logo":"assets/logos/celery.svg"},{"name":"AsyncIO","logo":"assets/logos/python.svg"},{"name":"AWS","logo":"assets/logos/aws.svg"},{"name":"EC2","logo":"assets/logos/aws-ec2.svg"},{"name":"S3","logo":"assets/logos/aws-s3.svg"},{"name":"EventBridge","logo":"assets/logos/aws-eventbridge.svg"},{"name":"SNS","logo":"assets/logos/aws-sns.svg"},{"name":"Lambda","logo":"assets/logos/aws-lambda.svg"},{"name":"DigitalOcean","logo":"assets/logos/digitalocean.svg"},{"name":"Docker","logo":"assets/logos/docker.svg"},{"name":"Linux","logo":"assets/logos/linux.svg"},{"name":"CI/CD","logo":"assets/logos/cicd.svg"},{"name":"Firebase Cloud Messaging","logo":"assets/logos/firebase.svg"}]},{"name":"Data & Apps","icon":"fas fa-chart-pie","skills":[{"name":"Pandas","logo":"assets/logos/pandas.svg"},{"name":"Matplotlib","logo":"assets/logos/matplotlib.svg"},{"name":"Streamlit","logo":"assets/logos/streamlit.svg"},{"name":"OCR","icon":"fas fa-file-image"},{"name":"Web Scraping","icon":"fas fa-spider"}]},{"name":"Tools","icon":"fas fa-screwdriver-wrench","skills":[{"name":"Git","logo":"assets/logos/git.svg"},{"name":"GitHub","logo":"assets/logos/github.svg"},{"name":"GitLab","logo":"assets/logos/gitlab.svg"},{"name":"Postman","logo":"assets/logos/postman.svg"},{"name":"Claude Code","logo":"assets/logos/claude-code.svg"},{"name":"Cursor","logo":"assets/logos/cursor.svg"},{"name":"Antigravity","logo":"assets/logos/antigravity.svg"}]}]},
+    skills: {"expertise":"AI Expertise","core":["Python","LangGraph","LangChain","RAG","FastAPI","Qdrant","Redis","PyTorch","Hugging Face","Langfuse","Docker","AWS"],"categories":[{"name":"AI Expertise","icon":"fas fa-brain","skills":[{"name":"Agentic AI","icon":"fas fa-robot"},{"name":"Generative AI","icon":"fas fa-wand-magic-sparkles"},{"name":"Artificial Intelligence","icon":"fas fa-microchip"},{"name":"Machine Learning","icon":"fas fa-chart-line"},{"name":"Deep Learning","icon":"fas fa-layer-group"},{"name":"NLP","icon":"fas fa-language"}]},{"name":"Languages","icon":"fas fa-code","skills":[{"name":"Python","logo":"assets/logos/python.svg"},{"name":"SQL","logo":"assets/logos/sql.svg"}]},{"name":"AI/ML & Frameworks","icon":"fas fa-brain","skills":[{"name":"PyTorch","logo":"assets/logos/pytorch.svg"},{"name":"Hugging Face","logo":"assets/logos/huggingface.svg"},{"name":"OpenAI","logo":"assets/logos/openai.svg"},{"name":"Gemini","logo":"assets/logos/gemini.svg"},{"name":"LangChain","logo":"assets/logos/langchain.svg"},{"name":"LangGraph","logo":"assets/logos/langgraph.svg"},{"name":"Autogen","logo":"assets/logos/autogen.svg"},{"name":"Mem0","logo":"assets/logos/mem0.svg"},{"name":"RAG","icon":"fas fa-magnifying-glass-chart"},{"name":"Vanna.ai","icon":"fas fa-table-cells"}]},{"name":"Evaluation & Observability","icon":"fas fa-gauge-high","skills":[{"name":"Langfuse","logo":"assets/logos/langfuse.svg"},{"name":"Grafana Loki","logo":"assets/logos/grafana.svg"},{"name":"LLM Benchmarking","icon":"fas fa-ranking-star"},{"name":"Retrieval Evaluation","icon":"fas fa-list-check"},{"name":"Hallucination Reduction","icon":"fas fa-shield-halved"}]},{"name":"Databases","icon":"fas fa-database","skills":[{"name":"PostgreSQL","logo":"assets/logos/postgresql.svg"},{"name":"Qdrant","logo":"assets/logos/qdrant.svg"},{"name":"FAISS","logo":"assets/logos/faiss.svg"},{"name":"PgVector","logo":"assets/logos/postgresql.svg"},{"name":"Redis","logo":"assets/logos/redis.svg"},{"name":"MongoDB","logo":"assets/logos/mongodb.svg"}]},{"name":"Backend & Infrastructure","icon":"fas fa-server","skills":[{"name":"FastAPI","logo":"assets/logos/fastapi.svg"},{"name":"Celery","logo":"assets/logos/celery.svg"},{"name":"AsyncIO","logo":"assets/logos/python.svg"},{"name":"AWS","logo":"assets/logos/aws.svg"},{"name":"EC2","logo":"assets/logos/aws-ec2.svg"},{"name":"S3","logo":"assets/logos/aws-s3.svg"},{"name":"EventBridge","logo":"assets/logos/aws-eventbridge.svg"},{"name":"SNS","logo":"assets/logos/aws-sns.svg"},{"name":"Lambda","logo":"assets/logos/aws-lambda.svg"},{"name":"DigitalOcean","logo":"assets/logos/digitalocean.svg"},{"name":"Docker","logo":"assets/logos/docker.svg"},{"name":"Linux","logo":"assets/logos/linux.svg"},{"name":"CI/CD","logo":"assets/logos/cicd.svg"},{"name":"Firebase Cloud Messaging","logo":"assets/logos/firebase.svg"}]},{"name":"Data & Apps","icon":"fas fa-chart-pie","skills":[{"name":"Pandas","logo":"assets/logos/pandas.svg"},{"name":"Matplotlib","logo":"assets/logos/matplotlib.svg"},{"name":"Streamlit","logo":"assets/logos/streamlit.svg"},{"name":"OCR","icon":"fas fa-file-image"},{"name":"Web Scraping","icon":"fas fa-spider"}]},{"name":"Tools","icon":"fas fa-screwdriver-wrench","skills":[{"name":"Git","logo":"assets/logos/git.svg"},{"name":"GitHub","logo":"assets/logos/github.svg"},{"name":"GitLab","logo":"assets/logos/gitlab.svg"},{"name":"Postman","logo":"assets/logos/postman.svg"},{"name":"Claude Code","logo":"assets/logos/claude-code.svg"},{"name":"Cursor","logo":"assets/logos/cursor.svg"},{"name":"Antigravity","logo":"assets/logos/antigravity.svg"}]}]},
     
     education: {"degree":{"title":"Bachelor of Science in Software Engineering","institution":"The Islamia University of Bahawalpur","date":"October 2020 – June 2024","cgpa":"3.70/4.00","coursework":"Relevant Coursework: Databases, Object-Oriented Programming, Software Engineering, Data Structures and Algorithms, Artificial Intelligence, Machine Learning, Cloud Computing, Computer Networks","location":"Punjab, Pakistan"},"certifications":[{"title":"Intermediate Python","issuer":"DataCamp","year":"2024"},{"title":"Introduction to Large Language Models","issuer":"Google Cloud","year":"2024"}]},
     
@@ -169,17 +169,11 @@ function renderProjects() {
 
 // ========== SKILLS ==========
 const RINGS = [
-    { label: 'AI/ML and languages', cats: ['Languages', 'AI/ML & Frameworks'], r: 0.47, dur: 70, color: '#2dd4bf' },
-    { label: 'Evaluation, databases and data', cats: ['Evaluation & Observability', 'Databases', 'Data & Apps'], r: 0.7, dur: 95, color: '#38bdf8', reverse: true },
+    { label: 'AI expertise and frameworks', cats: ['AI Expertise', 'AI/ML & Frameworks'], r: 0.46, dur: 70, color: '#2dd4bf' },
+    { label: 'Languages, evaluation, databases and data', cats: ['Languages', 'Evaluation & Observability', 'Databases', 'Data & Apps'], r: 0.7, dur: 95, color: '#38bdf8', reverse: true },
     { label: 'Cloud, backend and tools', cats: ['Backend & Infrastructure', 'Tools'], r: 0.93, dur: 130, color: '#a78bfa' },
 ];
 
-// Project tags that don't match a skill name directly
-const TAG_ALIASES = {
-    vectordbs: ['qdrant', 'faiss', 'pgvector'],
-    awsec2: ['ec2'], awseventbridge: ['eventbridge'], awssns: ['sns'], awslambda: ['lambda'],
-    fcm: ['firebasecloudmessaging'], rag: ['rag'], whisper: ['pytorch', 'huggingface'],
-};
 const norm = (s) => String(s).toLowerCase().replace(/[^a-z0-9]/g, '');
 
 function skillGlyph(s, size) {
@@ -194,13 +188,19 @@ function renderSkills() {
     const cats = DATA.skills?.categories || [];
     const all = cats.flatMap((c) => (c.skills || []).map((s) => ({ ...s, cat: c.name, key: norm(s.name) })));
     const intro = document.getElementById('skillsIntro');
-    if (intro) intro.textContent = `${all.length} tools I use to take AI products from prototype to production.`;
+    if (intro) intro.textContent = `${all.length} skills and tools I use to take AI products from prototype to production.`;
     renderCore(all);
     renderOrbit(all);
     renderSkillList(cats, all);
 }
 
 function renderCore(all) {
+    const exp = document.getElementById('expertiseList');
+    const expCat = DATA.skills?.expertise || 'AI Expertise';
+    if (exp) {
+        exp.innerHTML = all.filter((s) => s.cat === expCat).map((s) => `
+            <li><i class="${esc(s.icon || 'fas fa-circle')}" aria-hidden="true"></i>${esc(s.name)}</li>`).join('');
+    }
     const el = document.getElementById('coreList');
     if (!el) return;
     const byName = Object.fromEntries(all.map((s) => [s.name, s]));
@@ -212,7 +212,6 @@ function renderCore(all) {
 function renderOrbit(all) {
     const orbit = document.getElementById('orbit');
     const center = document.getElementById('orbitCenter');
-    const chipsEl = document.getElementById('stackChips');
     const legend = document.getElementById('ringLegend');
     if (!orbit || !center) return;
 
@@ -235,10 +234,9 @@ function renderOrbit(all) {
     orbit.insertAdjacentHTML('beforeend', ringsHtml);
 
     const defaultCenter = () => `<div class="oc-value">${all.length}</div>
-        <div class="oc-title">tools</div><div class="oc-sub">across AI, data and cloud</div>`;
-    let pinned = null; // project currently selected
+        <div class="oc-title">skills and tools</div>`;
     const setCenter = (html) => { center.innerHTML = html; };
-    const restore = () => setCenter(pinned ? pinned.html : defaultCenter());
+    const restore = () => setCenter(defaultCenter());
     restore();
 
     const byKey = Object.fromEntries(all.map((s) => [s.key, s]));
@@ -257,39 +255,9 @@ function renderOrbit(all) {
     if (legend) {
         legend.innerHTML = RINGS.map((r) => `
             <li style="--ring-color:${r.color}"><span class="ring-swatch" aria-hidden="true"></span>
-                <span><b>${esc(r.label)}</b>, ${all.filter((s) => ringOf(s.cat) === RINGS.indexOf(r)).length} tools</span></li>`).join('');
+                <span><b>${esc(r.label)}</b>, ${all.filter((s) => ringOf(s.cat) === RINGS.indexOf(r)).length}</span></li>`).join('');
     }
 
-    // Project chips: light up the tools each project used
-    const projects = DATA.projects?.projects || [];
-    if (!chipsEl || !projects.length) return;
-    const stackFor = (p) => {
-        const keys = new Set();
-        (p.tags || []).forEach((t) => {
-            const k = norm(t);
-            if (byKey[k]) keys.add(k);
-            (TAG_ALIASES[k] || []).forEach((a) => byKey[a] && keys.add(a));
-            if (k.startsWith('aws') && byKey.aws) keys.add('aws');
-        });
-        if (keys.size) keys.add('python');
-        return keys;
-    };
-
-    const options = [{ label: 'All tools', icon: 'fas fa-circle-nodes', keys: null },
-        ...projects.map((p) => ({ label: p.short || p.title.split(':')[0], icon: p.icon, keys: stackFor(p), title: p.title }))];
-    chipsEl.innerHTML = options.map((o, i) => `
-        <button type="button" class="chip" aria-pressed="${i === 0}"><i class="${esc(o.icon)}" aria-hidden="true"></i>${esc(o.label)}</button>`).join('');
-
-    [...chipsEl.children].forEach((chip, i) => chip.addEventListener('click', () => {
-        const o = options[i];
-        [...chipsEl.children].forEach((c, j) => c.setAttribute('aria-pressed', String(i === j)));
-        orbit.classList.toggle('is-filtered', !!o.keys);
-        orbit.querySelectorAll('.orbit-item').forEach((it) => it.classList.toggle('is-on', !!o.keys && o.keys.has(it.dataset.key)));
-        pinned = o.keys ? {
-            html: `<div class="oc-value">${o.keys.size}</div><div class="oc-title">${esc(o.label)}</div><div class="oc-sub">tools used</div>`,
-        } : null;
-        restore();
-    }));
 }
 
 function renderSkillList(cats, all) {

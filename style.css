@@ -1363,10 +1363,41 @@ mark {
     margin-bottom: 0;
 }
 
+.expertise-list {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 14px;
+}
+
+.expertise-list li {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--ink);
+    background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 16%, transparent), color-mix(in srgb, var(--accent-2) 12%, transparent));
+    border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+    white-space: nowrap;
+}
+
+.expertise-list i {
+    color: var(--accent);
+    font-size: 0.85rem;
+}
+
+.core-title {
+    margin-top: 6px;
+}
+
 .core-list {
     list-style: none;
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     gap: 8px;
     margin-top: 4px;
 }
@@ -1402,7 +1433,9 @@ mark {
 
 .core-list span:last-child {
     min-width: 0;
-    overflow-wrap: anywhere;
+    overflow-wrap: normal;
+    word-break: normal;
+    hyphens: none;
 }
 
 .orbit {
@@ -1602,23 +1635,6 @@ mark {
     color: var(--muted);
     font-size: 0.95rem;
     max-width: 44ch;
-}
-
-.stack-chips {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-}
-
-.stack-chips .chip {
-    min-height: 40px;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.stack-chips .chip i {
-    color: var(--accent);
 }
 
 .ring-legend {
@@ -2204,7 +2220,7 @@ fieldset.field legend {
 
     .orbit {
         --rs: 0.9;
-        --ts: clamp(26px, 8cqi, 40px);
+        --ts: clamp(24px, 7cqi, 40px);
     }
 
     .orbit-center {
@@ -2215,6 +2231,12 @@ fieldset.field legend {
 @media (max-width: 520px) {
     .core-list {
         grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 360px) {
+    .core-list {
+        grid-template-columns: 1fr;
     }
 }
 

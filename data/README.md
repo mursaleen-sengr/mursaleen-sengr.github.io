@@ -90,7 +90,6 @@ data/
         {
             "icon": "fas fa-robot",  // FontAwesome icon for the project
             "title": "Project Name",
-            "short": "Short name for the skills orbit chip",
             "description": "Brief description of the project...",
             "tags": ["Python", "FastAPI", "Docker"],  // Tech stack
             "stats": [
@@ -143,6 +142,10 @@ data/
 - Simple Icons: `https://cdn.simpleicons.org/{name}`
 
 ---
+
+### AI expertise
+
+The category named in `expertise` (default "AI Expertise") is shown as the "Areas of expertise" pills at the top of the Skills section, and also appears in the orbit and the full list.
 
 ### Core stack
 
