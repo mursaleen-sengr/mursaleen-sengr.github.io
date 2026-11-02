@@ -4,25 +4,11 @@ A modern, animated portfolio website showcasing AI & ML engineering expertise.
 
 ## 🎨 Features
 
-- **Modern Design**: Sleek dark theme with gradient accents and smooth animations
-- **Fully Responsive**: Optimized for all devices (desktop, tablet, mobile)
-- **Interactive Elements**: 
-  - Smooth scroll navigation
-  - Animated floating cards
-  - Typing effect for subtitle
-  - Parallax scrolling effects
-  - 3D tilt effect on project cards
-  - Cursor trail effect (desktop only)
-  - Animated counters for statistics
-  - Scroll-to-top button
-- **Sections Included**:
-  - Hero section with call-to-action
-  - About me with professional summary
-  - Work experience timeline
-  - Featured projects showcase
-  - Skills & technologies grid
-  - Education & certifications
-  - Contact form with social links
+- **Ask about my work**: a search box in the hero that runs a small BM25 keyword search over the site's own data (`data/*.json`) and shows the matching passages with highlights and a link to their section
+- **Light and dark themes**: follows the visitor's system setting, with a toggle that remembers their choice
+- **Fully responsive**: from phones up to wide desktops, with a mobile menu
+- **Accessible**: skip link, labelled form fields, visible keyboard focus, respects reduced-motion settings
+- **Sections**: hero, about, experience timeline, selected projects, skills, education, contact
 
 ## 🚀 Technologies Used
 
@@ -30,7 +16,7 @@ A modern, animated portfolio website showcasing AI & ML engineering expertise.
 - CSS3 (Flexbox, Grid, Animations)
 - Vanilla JavaScript (ES6+)
 - Font Awesome Icons
-- Inter Font Family
+- Google Fonts (Bricolage Grotesque, IBM Plex Sans)
 
 ## 📁 File Structure
 
@@ -69,14 +55,12 @@ portfolio_website/
 - Tablet: 768px - 1199px
 - Mobile: < 768px
 
-## 🎨 Color Scheme
+## 🎨 Design
 
-- Primary: #6366f1 (Indigo)
-- Secondary: #8b5cf6 (Purple)
-- Accent: #ec4899 (Pink)
-- Dark Background: #0f172a
-- Darker Background: #020617
-- Card Background: #1e293b
+- Typefaces: Bricolage Grotesque (headings), IBM Plex Sans (body)
+- Light: paper `#eef1f4`, ink `#0f1b2d`, teal accent `#0e6e6c`, highlighter `#f4dc6b`
+- Dark: background `#0c141d`, ink `#e4e9ee`, teal accent `#4cc2b8`
+- All colors are CSS variables at the top of `style.css`
 
 ## 📧 Contact Information
 

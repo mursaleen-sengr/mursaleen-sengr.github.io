@@ -19,646 +19,411 @@ async function loadJSON(key) {
 }
 
 // ========== ABOUT SECTION RENDERER ==========
-async function renderAboutSection() {
-    const data = await loadJSON('about');
-    if (!data) return;
+// Everything below this line is hand-written. Content comes from data/*.json via build.py.
 
-    const container = document.getElementById('about-content');
-    if (!container) return;
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+}[c]));
 
-    const infoItemsHTML = data.info.map(item => `
-        <div class="info-item">
-            <i class="${item.icon}"></i>
-            <span>${item.text}</span>
-        </div>
-    `).join('');
+const asList = (v) => (Array.isArray(v) ? v : [v]).filter(Boolean);
+const slug = (s) => String(s).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 
-    const statsHTML = data.stats.map(stat => `
-        <div class="stat-card">
-            <h4>${stat.value}</h4>
-            <p>${stat.label}</p>
-        </div>
-    `).join('');
+// Logos that are dark/monochrome and need inverting in dark mode
+const MONO_LOGOS = ['github', 'langchain', 'amazonwebservices', 'apple'];
 
-    container.innerHTML = `
-        <div class="about-text">
-            <h3>${data.summary.title}</h3>
-            <p>${data.summary.text}</p>
-            <div class="about-info">
-                ${infoItemsHTML}
-            </div>
-        </div>
-        <div class="about-stats">
-            ${statsHTML}
-        </div>
-    `;
+function renderAbout() {
+    const d = DATA.about;
+    const el = document.getElementById('about-content');
+    if (!d || !el) return;
+
+    const stats = (d.stats || []).map((s) => `
+        <div class="stat">
+            <div class="stat-value">${esc(s.value)}</div>
+            <div class="stat-label">${esc(s.label)}</div>
+        </div>`).join('');
+
+    const info = (d.info || []).map((i) => `
+        <li><i class="${esc(i.icon)}" aria-hidden="true"></i>${esc(i.text)}</li>`).join('');
+
+    el.innerHTML = `
+        <img class="about-photo" src="profile-photo-640.jpg" alt="Portrait of Muhammad Mursaleen"
+             width="640" height="877" loading="lazy">
+        <div>
+            <p class="about-summary">${esc(d.summary?.text)}</p>
+            <div class="about-stats">${stats}</div>
+            <ul class="about-info">${info}</ul>
+        </div>`;
 }
 
-// ========== EXPERIENCE SECTION RENDERER ==========
-async function renderExperienceSection() {
-    const data = await loadJSON('experience');
-    if (!data) return;
+// ========== EXPERIENCE ==========
+function renderExperience() {
+    const list = DATA.experience?.experiences || [];
+    const el = document.getElementById('experience-timeline');
+    if (!el) return;
 
-    const container = document.getElementById('experience-timeline');
-    if (!container) return;
-
-    const timelineHTML = data.experiences.map(exp => {
-        const responsibilitiesHTML = exp.responsibilities.map(r => `<li>${r}</li>`).join('');
-        return `
-            <div class="timeline-item">
-                <div class="timeline-dot"></div>
-                <div class="timeline-content">
-                    <span class="timeline-date">${exp.date}</span>
-                    <h3>${exp.title}</h3>
-                    <h4>${exp.company} | ${exp.location}</h4>
-                    <ul>
-                        ${responsibilitiesHTML}
-                    </ul>
-                </div>
+    el.innerHTML = list.map((job) => `
+        <li class="job" id="job-${slug(job.company)}">
+            <p class="job-when">${esc(job.date)}</p>
+            <div class="job-body">
+                <h3 class="job-title">${esc(job.title)}</h3>
+                <p class="job-org"><strong>${esc(job.company)}</strong>, ${esc(job.location)}</p>
+                <ul class="job-points">
+                    ${asList(job.responsibilities).map((r) => `<li>${esc(r)}</li>`).join('')}
+                </ul>
             </div>
-        `;
-    }).join('');
-
-    container.innerHTML = timelineHTML;
+        </li>`).join('');
 }
 
-// ========== PROJECTS SECTION RENDERER ==========
-async function renderProjectsSection() {
-    const data = await loadJSON('projects');
-    if (!data) return;
+// ========== PROJECTS ==========
+function renderProjects() {
+    const list = DATA.projects?.projects || [];
+    const el = document.getElementById('projects-grid');
+    if (!el) return;
 
-    const container = document.getElementById('projects-grid');
-    if (!container) return;
-
-    const projectsHTML = data.projects.map(project => {
-        const tagsHTML = project.tags.map(tag => `<span>${tag}</span>`).join('');
-        const statsHTML = project.stats.map(stat => 
-            `<span><i class="${stat.icon}"></i> ${stat.text}</span>`
-        ).join('');
-
-        let descHTML = '';
-        if (Array.isArray(project.description)) {
-            descHTML = `<ul class="project-bullets">` + 
-                project.description.map(bullet => `<li>${bullet}</li>`).join('') + 
-                `</ul>`;
-        } else {
-            descHTML = `<p>${project.description}</p>`;
-        }
-
-        return `
-            <div class="project-card">
-                <div class="project-icon">
-                    <i class="${project.icon}"></i>
-                </div>
-                <h3>${project.title}</h3>
-                ${descHTML}
-                <div class="project-tags">
-                    ${tagsHTML}
-                </div>
-                <div class="project-stats">
-                    ${statsHTML}
-                </div>
-            </div>
-        `;
-    }).join('');
-
-    container.innerHTML = projectsHTML;
-}
-
-// ========== SKILLS SECTION RENDERER ==========
-async function renderSkillsSection() {
-    const data = await loadJSON('skills');
-    if (!data) return;
-
-    const container = document.getElementById('skills-container');
-    if (!container) return;
-
-    const categoriesHTML = data.categories.map(category => {
-        const skillsHTML = category.skills.map(skill => {
-            // Check if skill has a logo URL or uses an icon
-            const iconHTML = skill.logo 
-                ? `<img src="${skill.logo}" alt="${skill.name}">`
-                : `<div class="skill-icon-placeholder"><i class="${skill.icon}"></i></div>`;
-            
-            return `
-                <div class="skill-item">
-                    ${iconHTML}
-                    <span>${skill.name}</span>
-                </div>
-            `;
-        }).join('');
-
-        return `
-            <div class="skill-category">
-                <div class="category-header">
-                    <i class="${category.icon}"></i>
-                    <h3>${category.name}</h3>
-                </div>
-                <div class="skill-grid">
-                    ${skillsHTML}
-                </div>
-            </div>
-        `;
-    }).join('');
-
-    container.innerHTML = categoriesHTML;
-}
-
-// ========== EDUCATION SECTION RENDERER ==========
-async function renderEducationSection() {
-    const data = await loadJSON('education');
-    if (!data) return;
-
-    const container = document.getElementById('education-content');
-    if (!container) return;
-
-    const certificationsHTML = data.certifications.map(cert => `
-        <div class="cert-item">
-            <i class="fas fa-certificate"></i>
+    el.innerHTML = list.map((p) => `
+        <article class="project" id="project-${slug(p.title)}">
             <div>
-                <h4>${cert.title}</h4>
-                <p>${cert.issuer}, ${cert.year}</p>
+                <div class="project-icon"><i class="${esc(p.icon)}" aria-hidden="true"></i></div>
+                <h3 class="project-title">${esc(p.title)}</h3>
+                <ul class="project-metrics">
+                    ${(p.stats || []).map((s) => `
+                        <li><i class="${esc(s.icon)}" aria-hidden="true"></i>${esc(s.text)}</li>`).join('')}
+                </ul>
             </div>
-        </div>
-    `).join('');
-
-    container.innerHTML = `
-        <div class="education-card">
-            <div class="education-icon">
-                <i class="fas fa-graduation-cap"></i>
+            <div>
+                <div class="project-desc">
+                    ${asList(p.description).map((t) => `<p>${esc(t)}</p>`).join('')}
+                </div>
+                <ul class="tags" aria-label="Technologies">
+                    ${(p.tags || []).map((t) => `<li>${esc(t)}</li>`).join('')}
+                </ul>
             </div>
-            <h3>${data.degree.title}</h3>
-            <h4>${data.degree.institution}</h4>
-            <p class="education-date">${data.degree.date}</p>
-            <p class="cgpa">CGPA: ${data.degree.cgpa}</p>
-            <p>${data.degree.coursework}</p>
+        </article>`).join('');
+}
+
+// ========== SKILLS ==========
+function renderSkills() {
+    const cats = DATA.skills?.categories || [];
+    const el = document.getElementById('skills-container');
+    if (!el) return;
+
+    el.innerHTML = cats.map((c) => `
+        <div class="skill-row">
+            <dt><i class="${esc(c.icon)}" aria-hidden="true"></i>${esc(c.name)}</dt>
+            <dd>
+                ${(c.skills || []).map((s) => {
+                    let glyph;
+                    if (s.logo) {
+                        const mono = MONO_LOGOS.some((m) => s.logo.includes(m)) ? ' logo-mono' : '';
+                        glyph = `<img class="${mono.trim()}" src="${esc(s.logo)}" alt="" width="20" height="20" loading="lazy">`;
+                    } else {
+                        glyph = `<i class="${esc(s.icon || 'fas fa-circle')}" aria-hidden="true"></i>`;
+                    }
+                    return `<span class="skill">${glyph}${esc(s.name)}</span>`;
+                }).join('')}
+            </dd>
+        </div>`).join('');
+}
+
+// ========== EDUCATION ==========
+function renderEducation() {
+    const d = DATA.education;
+    const el = document.getElementById('education-content');
+    if (!d || !el) return;
+    const g = d.degree || {};
+
+    el.innerHTML = `
+        <div>
+            <h3 class="degree-title">${esc(g.title)}</h3>
+            <p class="degree-meta">${esc(g.institution)}, ${esc(g.date)}</p>
+            ${g.cgpa ? `<p class="degree-cgpa">CGPA ${esc(g.cgpa)}</p>` : ''}
+            <p class="degree-course">${esc(g.coursework)}</p>
         </div>
-
-        <div class="certificates">
-            <h3>Certifications</h3>
-            ${certificationsHTML}
-        </div>
-    `;
+        <div>
+            <h3 class="certs-title">Certifications</h3>
+            <ul class="certs">
+                ${(d.certifications || []).map((c) => `
+                    <li class="cert">
+                        <i class="fas fa-award" aria-hidden="true"></i>
+                        <div>
+                            <div class="cert-name">${esc(c.title)}</div>
+                            <div class="cert-issuer">${esc(c.issuer)}</div>
+                        </div>
+                        <span class="cert-year">${esc(c.year)}</span>
+                    </li>`).join('')}
+            </ul>
+        </div>`;
 }
 
-// ========== INITIALIZE ALL DATA-DRIVEN SECTIONS ==========
-async function initializeDataSections() {
-    // Load all sections in parallel for better performance
-    await Promise.all([
-        renderAboutSection(),
-        renderExperienceSection(),
-        renderProjectsSection(),
-        renderSkillsSection(),
-        renderEducationSection()
-    ]);
+// ========== RETRIEVAL CONSOLE ==========
+// A tiny BM25 search over the portfolio's own data, shown with highlighted matches.
 
-    // Re-initialize animations after content is loaded
-    initializeAnimations();
-}
+const STOP = new Set(('a an and are as at be by can do does did for from have has had how i in is it its me my ' +
+    'of on or that the this to was what when where which who why with you your yours he his him about any ' +
+    'ever worked work used use using built build tell show some there their they them').split(' '));
 
-// ========== ANIMATION INITIALIZATION ==========
-function initializeAnimations() {
-    // Re-observe elements for scroll animations
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -100px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('fade-in');
-                observer.unobserve(entry.target);
-            }
-        });
-    }, observerOptions);
-
-    // Observe all dynamically created elements
-    const elementsToAnimate = document.querySelectorAll(`
-        .about-content,
-        .timeline-item,
-        .project-card,
-        .skill-category,
-        .education-card,
-        .cert-item,
-        .contact-content
-    `);
-
-    elementsToAnimate.forEach(el => {
-        observer.observe(el);
-    });
-
-    // Re-initialize skill items animation
-    const skillItems = document.querySelectorAll('.skill-item');
-    const skillObserver = new IntersectionObserver((entries) => {
-        entries.forEach((entry, index) => {
-            if (entry.isIntersecting) {
-                setTimeout(() => {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }, index * 50);
-                skillObserver.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.1 });
-
-    skillItems.forEach(item => {
-        item.style.opacity = '0';
-        item.style.transform = 'translateY(30px)';
-        item.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
-        skillObserver.observe(item);
-    });
-
-    // Re-initialize project card hover effects
-    const projectCards = document.querySelectorAll('.project-card');
-    projectCards.forEach(card => {
-        card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            
-            const rotateX = (y - centerY) / 20;
-            const rotateY = (centerX - x) / 20;
-            
-            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-12px)`;
-        });
-        
-        card.addEventListener('mouseleave', () => {
-            card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
-            card.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
-        });
-        
-        card.addEventListener('mouseenter', () => {
-            card.style.transition = 'none';
-        });
-    });
-
-    // Re-initialize stat counter animation
-    const statCards = document.querySelectorAll('.stat-card h4');
-    const statsObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                statCards.forEach(card => {
-                    const targetValue = parseFloat(card.textContent);
-                    animateCounter(card, targetValue);
-                });
-                statsObserver.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.5 });
-
-    const statsSection = document.querySelector('.about-stats');
-    if (statsSection) {
-        statsObserver.observe(statsSection);
-    }
-}
-
-// ========== COUNTER ANIMATION ==========
-const animateCounter = (element, target, duration = 2000) => {
-    let start = 0;
-    const increment = target / (duration / 16);
-    const suffix = element.textContent.replace(/[0-9.]/g, '');
-    
-    const timer = setInterval(() => {
-        start += increment;
-        if (start >= parseFloat(target)) {
-            element.textContent = target + suffix;
-            clearInterval(timer);
-        } else {
-            element.textContent = start.toFixed(1) + suffix;
-        }
-    }, 16);
+const SYNONYMS = {
+    agent: ['agentic', 'agents', 'autogen', 'langgraph'],
+    finetune: ['fine', 'tuning', 'whisper'],
+    db: ['database', 'databases', 'qdrant', 'postgresql', 'redis', 'mongodb'],
+    database: ['databases', 'qdrant', 'postgresql', 'pgvector', 'faiss'],
+    cloud: ['aws', 'digitalocean', 'ec2'],
+    deploy: ['deployments', 'deploying', 'aws', 'digitalocean'],
+    health: ['healthcare', 'clinic', 'clinical', 'veterinary'],
+    healthcare: ['clinic', 'clinical', 'veterinary'],
+    speech: ['whisper', 'audio', 'transcription'],
+    study: ['university', 'degree', 'bachelor'],
+    education: ['university', 'degree', 'bachelor', 'coursework'],
+    lead: ['led', 'team', 'mentored'],
+    team: ['led', 'mentored', 'managed'],
+    sql: ['vanna', 'nl-to-sql'],
+    llm: ['llms', 'gemini', 'openai'],
 };
 
-// ========== MOBILE MENU TOGGLE ==========
-const hamburger = document.querySelector('.hamburger');
-const navMenu = document.querySelector('.nav-menu');
-const navLinks = document.querySelectorAll('.nav-link');
-
-// ========== THEME TOGGLE ==========
-const themeToggle = document.getElementById('themeToggle');
-const html = document.documentElement;
-const themeIcon = themeToggle.querySelector('i');
-
-// Check for saved theme preference or default to 'dark'
-const currentTheme = localStorage.getItem('theme') || 'dark';
-html.setAttribute('data-theme', currentTheme);
-updateThemeIcon(currentTheme);
-
-function updateThemeIcon(theme) {
-    if (theme === 'light') {
-        themeIcon.classList.remove('fa-sun');
-        themeIcon.classList.add('fa-moon');
-    } else {
-        themeIcon.classList.remove('fa-moon');
-        themeIcon.classList.add('fa-sun');
-    }
+function stem(w) {
+    w = w.toLowerCase();
+    if (w.length > 5 && w.endsWith('ing')) return w.slice(0, -3);
+    if (w.length > 4 && w.endsWith('ed')) return w.slice(0, -2);
+    if (w.length > 3 && w.endsWith('s') && !w.endsWith('ss')) return w.slice(0, -1);
+    return w;
 }
 
-themeToggle.addEventListener('click', () => {
-    const currentTheme = html.getAttribute('data-theme');
-    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-    
-    html.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme', newTheme);
-    updateThemeIcon(newTheme);
-    
-    // Add rotation animation
-    themeToggle.style.transform = 'rotate(360deg)';
-    setTimeout(() => {
-        themeToggle.style.transform = 'rotate(0deg)';
-    }, 300);
-});
+const tokenize = (text) => (String(text).toLowerCase().match(/[a-z0-9]+(?:[.\-][a-z0-9]+)*/g) || [])
+    .flatMap((t) => (t.includes('-') ? [t, ...t.split('-')] : [t]))
+    .filter((t) => !STOP.has(t))
+    .map(stem);
 
-hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('active');
-    navMenu.classList.toggle('active');
-});
+function buildChunks() {
+    const chunks = [];
+    const add = (text, source, href) => chunks.push({ text, source, href });
 
-// Close mobile menu when clicking a link
-navLinks.forEach(link => {
-    link.addEventListener('click', () => {
-        hamburger.classList.remove('active');
-        navMenu.classList.remove('active');
+    if (DATA.about?.summary?.text) add(DATA.about.summary.text, 'About', '#about');
+
+    (DATA.experience?.experiences || []).forEach((j) => {
+        add(`${j.title} at ${j.company} (${j.date}). ${asList(j.responsibilities).join(' ')}`,
+            `${j.title}, ${j.company}`, `#job-${slug(j.company)}`);
     });
-});
 
-// ========== NAVBAR SCROLL EFFECT ==========
-const navbar = document.querySelector('.navbar');
-
-window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-        navbar.classList.add('scrolled');
-    } else {
-        navbar.classList.remove('scrolled');
-    }
-});
-
-// ========== ACTIVE NAVIGATION HIGHLIGHTING ==========
-const sections = document.querySelectorAll('section[id]');
-
-function scrollActive() {
-    const scrollY = window.pageYOffset;
-
-    sections.forEach(current => {
-        const sectionHeight = current.offsetHeight;
-        const sectionTop = current.offsetTop - 100;
-        const sectionId = current.getAttribute('id');
-        const navLink = document.querySelector(`.nav-link[href*=${sectionId}]`);
-
-        if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-            navLink?.classList.add('active');
-        } else {
-            navLink?.classList.remove('active');
-        }
+    (DATA.projects?.projects || []).forEach((p) => {
+        asList(p.description).forEach((t) => {
+            add(t, p.title.split(':')[0], `#project-${slug(p.title)}`);
+            chunks[chunks.length - 1].extra = `${p.title} ${(p.tags || []).join(' ')}`;
+        });
     });
+
+    (DATA.skills?.categories || []).forEach((c) => {
+        add(`${c.name}: ${(c.skills || []).map((s) => s.name).join(', ')}.`, 'Skills', '#skills');
+        chunks[chunks.length - 1].boost = 0.75; // prefer concrete work over skill lists
+    });
+
+    const g = DATA.education?.degree;
+    if (g) add(`${g.title}, ${g.institution} (${g.date}). CGPA ${g.cgpa}. ${g.coursework}`, 'Education', '#education');
+    (DATA.education?.certifications || []).forEach((c) => {
+        add(`Certification: ${c.title}, ${c.issuer}, ${c.year}.`, 'Certifications', '#education');
+    });
+
+    chunks.forEach((c) => {
+        c.tokens = tokenize(`${c.text} ${c.extra || ''}`);
+        c.tf = c.tokens.reduce((m, t) => m.set(t, (m.get(t) || 0) + 1), new Map());
+    });
+    return chunks;
 }
 
-window.addEventListener('scroll', scrollActive);
+let INDEX = null;
 
-// ========== SMOOTH SCROLL FOR NAVIGATION LINKS ==========
-navLinks.forEach(link => {
-    link.addEventListener('click', (e) => {
+function search(query, k = 3) {
+    if (!INDEX) {
+        const chunks = buildChunks();
+        const df = new Map();
+        chunks.forEach((c) => new Set(c.tokens).forEach((t) => df.set(t, (df.get(t) || 0) + 1)));
+        const avg = chunks.reduce((s, c) => s + c.tokens.length, 0) / Math.max(chunks.length, 1);
+        INDEX = { chunks, df, avg };
+    }
+
+    const base = tokenize(query);
+    const terms = new Set(base);
+    base.forEach((t) => (SYNONYMS[t] || []).forEach((s) => tokenize(s).forEach((x) => terms.add(x))));
+    if (!terms.size) return { hits: [], terms };
+
+    const N = INDEX.chunks.length;
+    const k1 = 1.4, b = 0.75;
+    const scored = INDEX.chunks.map((c) => {
+        let score = 0;
+        terms.forEach((t) => {
+            const f = c.tf.get(t);
+            if (!f) return;
+            const n = INDEX.df.get(t) || 0;
+            const idf = Math.log(1 + (N - n + 0.5) / (n + 0.5));
+            const weight = base.includes(t) ? 1 : 0.6; // synonyms count a bit less
+            score += weight * idf * (f * (k1 + 1)) / (f + k1 * (1 - b + b * c.tokens.length / INDEX.avg));
+        });
+        return { c, score: score * (c.boost || 1) };
+    }).filter((h) => h.score > 0).sort((a, b2) => b2.score - a.score);
+
+    const top = scored[0]?.score || 1;
+    return {
+        hits: scored.slice(0, k).map((h) => ({ ...h.c, rel: h.score / top })),
+        terms,
+    };
+}
+
+function highlight(text, terms) {
+    return esc(text).replace(/[A-Za-z0-9]+(?:[.\-][A-Za-z0-9]+)*/g, (w) =>
+        (terms.has(stem(w)) && !STOP.has(w.toLowerCase()) ? `<mark>${w}</mark>` : w));
+}
+
+function trimAround(text, terms, max = 260) {
+    if (text.length <= max) return text;
+    const words = text.split(/\s+/);
+    const first = words.findIndex((w) => terms.has(stem(w.replace(/[^A-Za-z0-9.\-]/g, ''))));
+    let start = Math.max(0, first - 8);
+    let out = '';
+    for (let i = start; i < words.length && (out + words[i]).length < max; i++) out += (out ? ' ' : '') + words[i];
+    return (start > 0 ? '… ' : '') + out + ' …';
+}
+
+function showResults(query) {
+    const box = document.getElementById('askResults');
+    if (!box) return;
+    const { hits, terms } = search(query);
+
+    if (!hits.length) {
+        box.innerHTML = `<p class="hit-empty">Nothing matched "${esc(query)}". Try a tool like LangGraph or Qdrant, or a field like healthcare or finance.</p>`;
+        return;
+    }
+    box.innerHTML = hits.map((h) => `
+        <div class="hit">
+            <p class="hit-text">${highlight(trimAround(h.text, terms), terms)}</p>
+            <p class="hit-source">
+                <a href="${h.href}">${esc(h.source)}</a>
+                <span>Relevance ${Math.round(h.rel * 100)}%</span>
+            </p>
+        </div>`).join('');
+}
+
+function initConsole() {
+    const form = document.getElementById('askForm');
+    const input = document.getElementById('askInput');
+    const chipsEl = document.getElementById('askChips');
+    if (!form || !input || !chipsEl) return;
+
+    const suggestions = [
+        'What have you built with LangGraph?',
+        'Have you fine-tuned a model?',
+        'Healthcare experience',
+        'Which vector databases?',
+        'Where did you study?',
+    ];
+
+    chipsEl.innerHTML = suggestions.map((q) =>
+        `<button type="button" class="chip" aria-pressed="false">${esc(q)}</button>`).join('');
+
+    const chips = [...chipsEl.querySelectorAll('.chip')];
+    const run = (q, chip) => {
+        chips.forEach((c) => c.setAttribute('aria-pressed', String(c === chip)));
+        showResults(q);
+    };
+
+    chips.forEach((chip) => chip.addEventListener('click', () => {
+        input.value = chip.textContent;
+        run(chip.textContent, chip);
+    }));
+
+    form.addEventListener('submit', (e) => {
         e.preventDefault();
-        const targetId = link.getAttribute('href');
-        const targetSection = document.querySelector(targetId);
-        
-        if (targetSection) {
-            const offsetTop = targetSection.offsetTop - 80;
-            window.scrollTo({
-                top: offsetTop,
-                behavior: 'smooth'
-            });
-        }
+        const q = input.value.trim();
+        if (q) run(q, null);
     });
-});
 
-// ========== TYPING EFFECT FOR HERO SUBTITLE ==========
-const subtitleElement = document.querySelector('.hero-subtitle');
-const originalText = 'AI & ML Engineer';
-const typingSpeed = 100;
-const deletingSpeed = 50;
-const pauseTime = 2000;
-
-let charIndex = 0;
-let isDeleting = false;
-
-function typeEffect() {
-    const currentText = originalText.substring(0, charIndex);
-    subtitleElement.textContent = currentText;
-
-    if (!isDeleting && charIndex < originalText.length) {
-        charIndex++;
-        setTimeout(typeEffect, typingSpeed);
-    } else if (isDeleting && charIndex > 0) {
-        charIndex--;
-        setTimeout(typeEffect, deletingSpeed);
-    } else if (charIndex === originalText.length) {
-        isDeleting = true;
-        setTimeout(typeEffect, pauseTime);
-    } else if (charIndex === 0) {
-        isDeleting = false;
-        setTimeout(typeEffect, 500);
-    }
+    // Open with one example so visitors see what it does
+    input.value = suggestions[0];
+    run(suggestions[0], chips[0]);
 }
 
-// ========== FLOATING CARDS INTERACTIVE EFFECT ==========
-const floatingCards = document.querySelectorAll('.floating-card');
+// ========== THEME ==========
+function initTheme() {
+    const btn = document.getElementById('themeToggle');
+    if (!btn) return;
+    const root = document.documentElement;
+    const icon = btn.querySelector('i');
 
-floatingCards.forEach(card => {
-    card.addEventListener('mouseenter', () => {
-        card.style.transform = 'scale(1.1) translateY(-10px)';
+    const sync = () => {
+        const dark = root.getAttribute('data-theme') === 'dark';
+        icon.className = dark ? 'fas fa-sun' : 'fas fa-moon';
+        btn.setAttribute('aria-label', dark ? 'Switch to light theme' : 'Switch to dark theme');
+    };
+    sync();
+
+    btn.addEventListener('click', () => {
+        const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+        try { localStorage.setItem('theme', next); } catch (e) { /* storage unavailable */ }
+        sync();
     });
-    
-    card.addEventListener('mouseleave', () => {
-        card.style.transform = 'scale(1) translateY(0)';
-    });
-});
+}
 
-// ========== PARALLAX EFFECT FOR HERO SECTION ==========
-window.addEventListener('scroll', () => {
-    const scrolled = window.pageYOffset;
-    const heroContent = document.querySelector('.hero-content');
-    
-    if (heroContent && scrolled < window.innerHeight) {
-        heroContent.style.transform = `translateY(${scrolled * 0.3}px)`;
-        heroContent.style.opacity = 1 - scrolled / 700;
-    }
-});
+// ========== NAVIGATION ==========
+function initNav() {
+    const header = document.getElementById('siteHeader');
+    const nav = document.getElementById('siteNav');
+    const menu = document.getElementById('menuToggle');
+    const links = [...document.querySelectorAll('.nav-link')];
 
-// ========== CONTACT FORM HANDLING ==========
-const contactForm = document.getElementById('contactForm');
+    const setMenu = (open) => {
+        nav.classList.toggle('is-open', open);
+        menu.setAttribute('aria-expanded', String(open));
+        menu.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+        menu.querySelector('i').className = open ? 'fas fa-xmark' : 'fas fa-bars';
+    };
+    menu?.addEventListener('click', () => setMenu(!nav.classList.contains('is-open')));
+    links.forEach((l) => l.addEventListener('click', () => setMenu(false)));
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setMenu(false); });
 
-if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
+    const onScroll = () => header.classList.toggle('is-scrolled', window.scrollY > 8);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    // Highlight the section currently in view
+    const sections = links.map((l) => document.querySelector(l.getAttribute('href'))).filter(Boolean);
+    const io = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            links.forEach((l) => l.classList.toggle('is-active', l.getAttribute('href') === `#${entry.target.id}`));
+        });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    sections.forEach((s) => io.observe(s));
+}
+
+// ========== CONTACT FORM ==========
+function initContact() {
+    const form = document.getElementById('contactForm');
+    const status = document.getElementById('formStatus');
+    if (!form) return;
+
+    form.addEventListener('submit', (e) => {
         e.preventDefault();
-        
-        // Get form data
-        const formData = new FormData(contactForm);
-        const name = formData.get('name');
-        const email = formData.get('email');
-        const subject = formData.get('subject');
-        const message = formData.get('message');
-        
-        // Create mailto link
-        const mailtoLink = `mailto:mursaleen.sengr@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(
-            `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`
-        )}`;
-        
-        // Open email client
-        window.location.href = mailtoLink;
-        
-        // Show success message
-        showNotification('Message prepared! Your email client will open.', 'success');
-        
-        // Reset form
-        contactForm.reset();
+        const f = new FormData(form);
+        const body = `Name: ${f.get('name')}\nEmail: ${f.get('email')}\n\n${f.get('message')}`;
+        window.location.href = `mailto:mursaleen.sengr@gmail.com?subject=${encodeURIComponent(f.get('subject'))}&body=${encodeURIComponent(body)}`;
+        if (status) status.textContent = 'Your email app should open with the message filled in.';
+        form.reset();
     });
 }
 
-// ========== NOTIFICATION SYSTEM ==========
-function showNotification(message, type = 'success') {
-    const notification = document.createElement('div');
-    notification.className = `notification ${type}`;
-    notification.textContent = message;
-    
-    // Add styles
-    notification.style.cssText = `
-        position: fixed;
-        top: 100px;
-        right: 20px;
-        padding: 20px 30px;
-        background: ${type === 'success' ? 'linear-gradient(135deg, #10b981, #059669)' : 'linear-gradient(135deg, #ef4444, #dc2626)'};
-        color: white;
-        border-radius: 10px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        z-index: 10000;
-        animation: slideInRight 0.5s ease-out;
-        font-weight: 600;
-    `;
-    
-    document.body.appendChild(notification);
-    
-    // Remove after 3 seconds
-    setTimeout(() => {
-        notification.style.animation = 'slideOutRight 0.5s ease-out';
-        setTimeout(() => notification.remove(), 500);
-    }, 3000);
-}
-
-// Add notification animations to CSS dynamically
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes slideInRight {
-        from {
-            transform: translateX(400px);
-            opacity: 0;
-        }
-        to {
-            transform: translateX(0);
-            opacity: 1;
-        }
-    }
-    
-    @keyframes slideOutRight {
-        from {
-            transform: translateX(0);
-            opacity: 1;
-        }
-        to {
-            transform: translateX(400px);
-            opacity: 0;
-        }
-    }
-`;
-document.head.appendChild(style);
-
-// ========== MINI CARDS STAGGERED ANIMATION ==========
-const miniCards = document.querySelectorAll('.mini-card');
-miniCards.forEach((card, index) => {
-    card.style.opacity = '0';
-    card.style.transform = 'translateY(20px) scale(0.9)';
-    
-    setTimeout(() => {
-        card.style.transition = 'all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
-        card.style.opacity = '1';
-        card.style.transform = 'translateY(0) scale(1)';
-    }, 800 + index * 100);
-});
-
-// ========== PAGE LOAD ANIMATION ==========
-window.addEventListener('load', () => {
-    document.body.style.opacity = '0';
-    document.body.style.transition = 'opacity 0.5s ease';
-    
-    setTimeout(() => {
-        document.body.style.opacity = '1';
-    }, 100);
-    
-    // Start typing effect
-    setTimeout(typeEffect, 1000);
-});
-
-// ========== SCROLL TO TOP BUTTON ==========
-const scrollTopBtn = document.createElement('button');
-scrollTopBtn.innerHTML = '<i class="fas fa-arrow-up"></i>';
-scrollTopBtn.className = 'scroll-top-btn';
-scrollTopBtn.style.cssText = `
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #6366f1, #8b5cf6);
-    color: white;
-    border: none;
-    cursor: pointer;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-    z-index: 1000;
-    box-shadow: 0 5px 20px rgba(99, 102, 241, 0.4);
-`;
-
-document.body.appendChild(scrollTopBtn);
-
-window.addEventListener('scroll', () => {
-    if (window.pageYOffset > 500) {
-        scrollTopBtn.style.opacity = '1';
-        scrollTopBtn.style.visibility = 'visible';
-    } else {
-        scrollTopBtn.style.opacity = '0';
-        scrollTopBtn.style.visibility = 'hidden';
-    }
-});
-
-scrollTopBtn.addEventListener('click', () => {
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-    });
-});
-
-scrollTopBtn.addEventListener('mouseenter', () => {
-    scrollTopBtn.style.transform = 'translateY(-5px) scale(1.1)';
-    scrollTopBtn.style.boxShadow = '0 10px 30px rgba(99, 102, 241, 0.6)';
-});
-
-scrollTopBtn.addEventListener('mouseleave', () => {
-    scrollTopBtn.style.transform = 'translateY(0) scale(1)';
-    scrollTopBtn.style.boxShadow = '0 5px 20px rgba(99, 102, 241, 0.4)';
-});
-
-// ========== CONSOLE EASTER EGG ==========
-console.log('%c👋 Hey there!', 'font-size: 20px; font-weight: bold; color: #6366f1;');
-console.log('%cLooking for a talented AI/ML Engineer? Let\'s connect!', 'font-size: 14px; color: #8b5cf6;');
-console.log('%cEmail: mursaleen.sengr@gmail.com', 'font-size: 12px; color: #94a3b8;');
-
-// ========== INITIALIZE ON DOM READY ==========
+// ========== INIT ==========
 document.addEventListener('DOMContentLoaded', () => {
-    initializeDataSections();
+    renderAbout();
+    renderExperience();
+    renderProjects();
+    renderSkills();
+    renderEducation();
+    initConsole();
+    initTheme();
+    initNav();
+    initContact();
+    const year = document.getElementById('year');
+    if (year) year.textContent = new Date().getFullYear();
 });
+
+console.log('%cHi there, thanks for looking under the hood.', 'font: 600 14px sans-serif; color:#0e6e6c');
+console.log('Want to talk AI engineering? mursaleen.sengr@gmail.com');
