@@ -115,7 +115,7 @@ function renderSkills() {
                     let glyph;
                     if (s.logo) {
                         const mono = MONO_LOGOS.some((m) => s.logo.includes(m)) ? ' logo-mono' : '';
-                        glyph = `<img class="${mono.trim()}" src="${esc(s.logo)}" alt="" width="20" height="20" loading="lazy">`;
+                        glyph = `<img class="${mono.trim()}" src="${esc(s.logo)}" alt="" width="20" height="20" loading="lazy" onerror="this.remove()">`;
                     } else {
                         glyph = `<i class="${esc(s.icon || 'fas fa-circle')}" aria-hidden="true"></i>`;
                     }
@@ -345,11 +345,9 @@ function initTheme() {
     const btn = document.getElementById('themeToggle');
     if (!btn) return;
     const root = document.documentElement;
-    const icon = btn.querySelector('i');
-
     const sync = () => {
         const dark = root.getAttribute('data-theme') === 'dark';
-        icon.className = dark ? 'fas fa-sun' : 'fas fa-moon';
+        btn.innerHTML = `<i class="${dark ? 'fas fa-sun' : 'fas fa-moon'}" aria-hidden="true"></i>`;
         btn.setAttribute('aria-label', dark ? 'Switch to light theme' : 'Switch to dark theme');
     };
     sync();
@@ -373,7 +371,7 @@ function initNav() {
         nav.classList.toggle('is-open', open);
         menu.setAttribute('aria-expanded', String(open));
         menu.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
-        menu.querySelector('i').className = open ? 'fas fa-xmark' : 'fas fa-bars';
+        menu.innerHTML = `<i class="${open ? 'fas fa-xmark' : 'fas fa-bars'}" aria-hidden="true"></i>`;
     };
     menu?.addEventListener('click', () => setMenu(!nav.classList.contains('is-open')));
     links.forEach((l) => l.addEventListener('click', () => setMenu(false)));
