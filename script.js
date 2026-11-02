@@ -2,7 +2,7 @@
 // Data is embedded directly to avoid fetch issues on GitHub Pages
 
 const DATA = {
-    about: {"summary":{"title":"Professional Summary","text":"AI & ML Engineer with almost 3 years of experience building production-grade LLM applications, RAG systems and agent workflows. I've delivered FastAPI-based AI platforms for healthcare, finance, procurement and Islamic knowledge using LangGraph, Qdrant, AWS and Docker, and I work across fine-tuning, retrieval optimization and scalable Gen-AI backends."},"current":{"role":"Software Engineer (AI/ML)","company":"CodingCops","location":"Lahore, Pakistan"},"info":[{"icon":"fas fa-location-dot","text":"Lahore, Pakistan"},{"icon":"fas fa-phone","text":"+92 307 770 6100"},{"icon":"fas fa-envelope","text":"mursaleen.sengr@gmail.com"}],"stats":[{"value":"~3 yrs","label":"Building production AI"},{"value":"4","label":"Industries: healthcare, finance, procurement, Islamic knowledge"},{"value":"92%","label":"Accuracy on natural-language to SQL"},{"value":"30–40%","label":"Lower word error rate after fine-tuning Whisper"}]},
+    about: {"summary":{"title":"Professional Summary","text":"AI & ML Engineer with almost 3 years of experience building production-grade LLM applications, RAG systems and agent workflows. I've delivered FastAPI-based AI platforms for healthcare, finance, procurement and Islamic knowledge using LangGraph, Qdrant, AWS and Docker, and I work across fine-tuning, retrieval optimization and scalable Gen-AI backends."},"info":[{"icon":"fas fa-location-dot","text":"Lahore, Pakistan"},{"icon":"fas fa-phone","text":"+92 307 770 6100"},{"icon":"fas fa-envelope","text":"mursaleen.sengr@gmail.com"}],"stats":[{"value":"~3 yrs","label":"Building production AI"},{"value":"4","label":"Industries: healthcare, finance, procurement, Islamic knowledge"},{"value":"92%","label":"Accuracy on natural-language to SQL"},{"value":"30–40%","label":"Lower word error rate after fine-tuning Whisper"}],"headline":"Software Engineer specializing in AI & ML"},
     
     experience: {"experiences":[{"date":"July 2026 – Present","title":"Software Engineer (AI/ML)","company":"CodingCops","location":"Lahore, Pakistan","responsibilities":["Design and build multi-agent AI systems and text-to-SQL pipelines using LangGraph and self-hosted LLMs.","Optimize prompts, context management and token usage to improve reasoning efficiency on complex natural-language queries across large datasets."]},{"date":"March 2025 – July 2026","title":"AI/ML Engineer","company":"DiveDeepAI","location":"Islamabad, Pakistan","responsibilities":["Built and deployed Generative AI systems using custom and LangGraph-driven RAG pipelines and LLM fine-tuning.","Architected FastAPI backends and managed deployments on AWS EC2 and DigitalOcean.","Led a 3-person engineering team, drove system architecture and mentored junior developers."]},{"date":"August 2024 – February 2025","title":"Jr AI Engineer","company":"Softoo","location":"Islamabad, Pakistan","responsibilities":["Built production-oriented Generative AI proofs of concept with the solution architect, then validated and iterated on them.","Built RAG applications using LangChain, LangGraph, LLMs and vector databases."]}]},
     
@@ -36,9 +36,8 @@ const MONO_LOGOS = ['github', 'langchain', 'amazonwebservices', 'apple'];
 function renderHero() {
     const a = DATA.about || {};
     const status = document.getElementById('heroStatus');
-    if (status && a.current) {
-        status.innerHTML = `<span class="status-dot" aria-hidden="true"></span>
-            ${esc(a.current.role)} at ${esc(a.current.company)}, ${esc(a.current.location.split(',')[0])}`;
+    if (status && a.headline) {
+        status.innerHTML = `<span class="status-dot" aria-hidden="true"></span>${esc(a.headline)}`;
     }
 
     const proof = document.getElementById('proofStats');

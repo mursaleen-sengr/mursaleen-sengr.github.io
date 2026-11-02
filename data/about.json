@@ -3,11 +3,6 @@
         "title": "Professional Summary",
         "text": "AI & ML Engineer with almost 3 years of experience building production-grade LLM applications, RAG systems and agent workflows. I've delivered FastAPI-based AI platforms for healthcare, finance, procurement and Islamic knowledge using LangGraph, Qdrant, AWS and Docker, and I work across fine-tuning, retrieval optimization and scalable Gen-AI backends."
     },
-    "current": {
-        "role": "Software Engineer (AI/ML)",
-        "company": "CodingCops",
-        "location": "Lahore, Pakistan"
-    },
     "info": [
         {
             "icon": "fas fa-location-dot",
@@ -39,5 +34,6 @@
             "value": "30–40%",
             "label": "Lower word error rate after fine-tuning Whisper"
         }
-    ]
+    ],
+    "headline": "Software Engineer specializing in AI & ML"
 }
