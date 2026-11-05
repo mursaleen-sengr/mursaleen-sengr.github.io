@@ -143,7 +143,7 @@ function renderProjects() {
     const el = document.getElementById('projects-grid');
     if (!el) return;
 
-    el.innerHTML = list.map((p) => `
+    el.innerHTML = list.map((p, i) => `
         <article class="project reveal" id="project-${slug(p.title)}">
             <div class="project-top">
                 <div class="project-icon"><i class="${esc(p.icon)}" aria-hidden="true"></i></div>
@@ -158,13 +158,151 @@ function renderProjects() {
             <ul class="tags" aria-label="Technologies">
                 ${(p.tags || []).map((t) => `<li>${esc(t)}</li>`).join('')}
             </ul>
-            <details>
-                <summary>How I built it <i class="fas fa-chevron-down" aria-hidden="true"></i></summary>
-                <ul class="project-desc">
-                    ${asList(p.description).map((t) => `<li>${esc(t)}</li>`).join('')}
-                </ul>
-            </details>
+            <button type="button" class="project-more" data-project="${i}" aria-haspopup="dialog">
+                How I built it <i class="fas fa-arrow-right" aria-hidden="true"></i>
+            </button>
         </article>`).join('');
+}
+
+// ========== PROJECT DETAIL VIEW ==========
+// A full view over the page for each project. It adds a history entry, so the back button closes it.
+const projectIndex = (match) => (DATA.projects?.projects || []).findIndex((p) => p.title.includes(match));
+
+function initProjectModal() {
+    const dlg = document.getElementById('projectModal');
+    const list = DATA.projects?.projects || [];
+    if (!dlg || typeof dlg.showModal !== 'function' || !list.length) return;
+    const root = document.documentElement;
+    let current = -1, opener = null, hideTimer = 0;
+
+    const render = (i) => {
+        const p = list[i];
+        const flow = SHOWCASE.find((c) => p.title.includes(c.match));
+        const prev = list[(i - 1 + list.length) % list.length], next = list[(i + 1) % list.length];
+        dlg.innerHTML = `
+            <div class="pm-sheet">
+                <header class="pm-head">
+                    <div class="project-icon"><i class="${esc(p.icon)}" aria-hidden="true"></i></div>
+                    ${p.domain ? `<span class="project-domain">${esc(p.domain)}</span>` : ''}
+                    <span class="pm-count">${i + 1} / ${list.length}</span>
+                    <button type="button" class="icon-btn pm-close" data-close aria-label="Close project">
+                        <i class="fas fa-xmark" aria-hidden="true"></i>
+                    </button>
+                </header>
+                <div class="pm-body">
+                    <h2 id="pmTitle" class="pm-title">${esc(p.title)}</h2>
+                    ${p.impact ? `<p class="pm-impact">${esc(p.impact)}</p>` : ''}
+                    <ul class="project-metrics">
+                        ${(p.stats || []).map((st) => `
+                            <li><i class="${esc(st.icon)}" aria-hidden="true"></i>${esc(st.text)}</li>`).join('')}
+                    </ul>
+                    ${flow ? `
+                    <section class="pm-section">
+                        <h3 class="pm-label">How it works</h3>
+                        <ol class="pm-flow">
+                            ${flow.steps.map(([icon, name, note]) => `
+                            <li><span class="pm-flow-icon"><i class="${icon}" aria-hidden="true"></i></span>
+                                <strong>${esc(name)}</strong><small>${esc(note)}</small></li>`).join('')}
+                        </ol>
+                    </section>` : ''}
+                    <section class="pm-section">
+                        <h3 class="pm-label">How I built it</h3>
+                        <ol class="pm-steps">
+                            ${asList(p.description).map((t) => `<li>${esc(t)}</li>`).join('')}
+                        </ol>
+                    </section>
+                    <section class="pm-section">
+                        <h3 class="pm-label">Tech stack</h3>
+                        <ul class="tags">${(p.tags || []).map((t) => `<li>${esc(t)}</li>`).join('')}</ul>
+                    </section>
+                </div>
+                <footer class="pm-foot">
+                    <button type="button" class="icon-btn" data-step="-1" aria-label="Previous project: ${esc(prev.title)}">
+                        <i class="fas fa-arrow-left" aria-hidden="true"></i>
+                    </button>
+                    <a href="#contact" class="btn btn-primary" data-contact>Discuss a similar project</a>
+                    <button type="button" class="icon-btn" data-step="1" aria-label="Next project: ${esc(next.title)}">
+                        <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                    </button>
+                </footer>
+            </div>`;
+        current = i;
+    };
+
+    const hashFor = (i) => `#project-${slug(list[i].title)}`;
+
+    const open = (i) => {
+        clearTimeout(hideTimer);
+        const wasOpen = dlg.open;
+        render(i);
+        if (wasOpen) {
+            history.replaceState({ projectModal: true }, '', hashFor(i));
+            dlg.querySelector('.pm-close').focus();
+            return;
+        }
+        opener = document.activeElement;
+        history.pushState({ projectModal: true }, '', hashFor(i));
+        // Locking scroll removes the scrollbar; pad by its width so the page behind doesn't shift
+        root.style.paddingRight = `${window.innerWidth - root.clientWidth}px`;
+        root.classList.add('modal-open');
+        dlg.showModal();
+        requestAnimationFrame(() => dlg.classList.add('is-open'));
+    };
+
+    // Plays the exit animation, then closes. Called once the history entry is gone.
+    const hide = (then) => {
+        if (!dlg.open) return;
+        dlg.classList.remove('is-open');
+        hideTimer = setTimeout(() => {
+            dlg.close();
+            root.classList.remove('modal-open');
+            root.style.paddingRight = '';
+            if (then) then(); else opener?.focus({ preventScroll: true });
+        }, REDUCED_MOTION ? 0 : 260);
+    };
+
+    const requestClose = () => {
+        if (history.state?.projectModal) history.back(); // popstate below does the hiding
+        else hide();
+    };
+
+    window.addEventListener('popstate', () => {
+        if (dlg.open && !history.state?.projectModal) hide();
+    });
+
+    dlg.addEventListener('cancel', (e) => { e.preventDefault(); requestClose(); });
+    dlg.addEventListener('click', (e) => {
+        if (e.target === dlg || e.target.closest('[data-close]')) return requestClose();
+        const step = e.target.closest('[data-step]');
+        if (step) return open((current + +step.dataset.step + list.length) % list.length);
+        if (e.target.closest('[data-contact]')) {
+            e.preventDefault();
+            const title = list[current].title;
+            history.replaceState(null, '', '#contact');
+            hide(() => {
+                const topic = document.querySelector('input[name="topic"][value="Project"]');
+                const msg = document.getElementById('cf-message');
+                if (topic) topic.checked = true;
+                if (msg && !msg.value) msg.value = `I'd like to discuss a project similar to ${title}.`;
+                document.getElementById('contact')?.scrollIntoView({ behavior: REDUCED_MOTION ? 'auto' : 'smooth' });
+            });
+        }
+    });
+
+    // Anything marked data-project opens that project: the card buttons and the hero showcase link
+    document.addEventListener('click', (e) => {
+        const trigger = e.target.closest('[data-project]');
+        if (!trigger || dlg.contains(trigger)) return;
+        e.preventDefault();
+        open(+trigger.dataset.project);
+    });
+
+    // A shared link like #project-yani-... opens straight to that project
+    const fromHash = list.findIndex((p, i) => location.hash === hashFor(i));
+    if (fromHash !== -1) {
+        history.replaceState(null, '', '#work');
+        open(fromHash);
+    }
 }
 
 // ========== SKILLS ==========
@@ -327,196 +465,173 @@ function renderEducation() {
         </div>`;
 }
 
-// ========== RETRIEVAL CONSOLE ==========
-// A tiny BM25 search over the portfolio's own data, shown with highlighted matches.
+// ========== PIPELINE SHOWCASE ==========
+// Walks through real projects: an input travels through each system's stages to a measured result.
 
-const STOP = new Set(('a an and are as at be by can do does did for from have has had how i in is it its me my ' +
-    'of on or that the this to was what when where which who why with you your yours he his him about any ' +
-    'ever worked work used use using built build tell show some there their they them').split(' '));
+const SHOWCASE = [
+    {
+        tab: 'Text-to-SQL',
+        project: 'Yani · Finance',
+        match: 'Yani',
+        input: { icon: 'fas fa-comment', text: 'Which clients have invoices overdue by 60+ days?' },
+        steps: [
+            ['fas fa-language', 'Question', 'plain English'],
+            ['fas fa-database', 'Vanna.ai', 'trained on schema'],
+            ['fas fa-code', 'SQL', 'generated'],
+            ['fas fa-chart-column', 'Autogen', 'charts + EDA'],
+        ],
+        output: { kind: 'code', text: "SELECT client, SUM(amount)\nFROM invoices\nWHERE days_overdue > 60\nGROUP BY client;" },
+        result: ['92%', 'accuracy, natural language to SQL'],
+    },
+    {
+        tab: 'Clinical AI',
+        project: 'Bridge Vet · Healthcare',
+        match: 'Bridge Vet',
+        input: { icon: 'fas fa-stethoscope', text: 'Visit ended: 12 kg dog, head shaking for 3 days' },
+        steps: [
+            ['fas fa-notes-medical', 'Visit', 'transcript'],
+            ['fas fa-layer-group', 'Celery', 'async queue'],
+            ['fas fa-book-medical', 'Gemini + RAG', 'clinic docs'],
+            ['fas fa-file-medical', 'SOAP note', 'drafted'],
+        ],
+        output: { kind: 'rows', text: 'S|Head shaking, 3 days\nO|Redness, left ear canal\nA|Otitis externa\nP|Ear drops, follow-up in 10 days' },
+        result: ['Auto', 'SOAP notes drafted after every visit'],
+    },
+    {
+        tab: 'Agents',
+        project: 'eQRA-AI · Consumer app',
+        match: 'eQRA',
+        input: { icon: 'fas fa-comment', text: 'What dua should I read before travelling?' },
+        steps: [
+            ['fas fa-brain', 'Mem0', 'recalls user'],
+            ['fas fa-route', 'LangGraph', 'routes the query'],
+            ['fas fa-magnifying-glass', 'Qdrant', 'or web search'],
+            ['fas fa-quote-right', 'Answer', 'with sources'],
+        ],
+        output: { kind: 'text', text: 'Returns the travel dua with its source, remembers the user asked, and can follow up with a push notification.' },
+        result: ['2', 'RAG assistants with long-term memory'],
+    },
+    {
+        tab: 'Speech',
+        project: 'Whisper fine-tune · Speech AI',
+        match: 'Whisper',
+        input: { icon: 'fas fa-microphone-lines', text: 'Quran recitation audio', wave: true },
+        steps: [
+            ['fas fa-wave-square', 'Audio', '10,000+ samples'],
+            ['fas fa-sliders', 'Whisper', 'fine-tuned'],
+            ['fas fa-pen-nib', 'Harakat', 'diacritics kept'],
+            ['fas fa-font', 'Text', 'transcribed'],
+        ],
+        output: { kind: 'arabic', text: 'بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ' },
+        result: ['30–40%', 'lower word error rate than base Whisper'],
+    },
+];
 
-const SYNONYMS = {
-    agent: ['agentic', 'agents', 'autogen', 'langgraph'],
-    finetune: ['fine', 'tuning', 'whisper'],
-    db: ['database', 'databases', 'qdrant', 'postgresql', 'redis', 'mongodb'],
-    database: ['databases', 'qdrant', 'postgresql', 'pgvector', 'faiss'],
-    cloud: ['aws', 'digitalocean', 'ec2'],
-    deploy: ['deployments', 'deploying', 'aws', 'digitalocean'],
-    health: ['healthcare', 'clinic', 'clinical', 'veterinary'],
-    healthcare: ['clinic', 'clinical', 'veterinary'],
-    speech: ['whisper', 'audio', 'transcription'],
-    study: ['university', 'degree', 'bachelor'],
-    education: ['university', 'degree', 'bachelor', 'coursework'],
-    lead: ['led', 'team', 'mentored'],
-    team: ['led', 'mentored', 'managed'],
-    sql: ['vanna', 'nl-to-sql', 'natural language'],
-    llm: ['llms', 'gemini', 'openai'],
-    aws: ['eventbridge', 'sns', 'lambda', 'ec2', 's3'],
-    text2sql: ['nl-to-sql', 'vanna', 'sql'],
-};
-
-function stem(w) {
-    w = w.toLowerCase();
-    if (w.length > 5 && w.endsWith('ing')) return w.slice(0, -3);
-    if (w.length > 4 && w.endsWith('ed')) return w.slice(0, -2);
-    if (w.length > 3 && w.endsWith('s') && !w.endsWith('ss')) return w.slice(0, -1);
-    return w;
-}
-
-const tokenize = (text) => (String(text).toLowerCase().match(/[a-z0-9]+(?:[.\-][a-z0-9]+)*/g) || [])
-    .flatMap((t) => (t.includes('-') ? [t, ...t.split('-')] : [t]))
-    .filter((t) => !STOP.has(t))
-    .map(stem);
-
-function buildChunks() {
-    const chunks = [];
-    const add = (text, source, href) => chunks.push({ text, source, href });
-
-    if (DATA.about?.summary?.text) {
-        add(DATA.about.summary.text, 'About', '#about');
-        chunks[chunks.length - 1].boost = 0.7; // general summary, prefer specific work
+function renderShowcaseOutput(o) {
+    if (o.kind === 'code') return `<pre class="sc-code"><code>${esc(o.text)}</code></pre>`;
+    if (o.kind === 'rows') {
+        return `<dl class="sc-rows">${o.text.split('\n').map((r) => {
+            const [k, v] = r.split('|');
+            return `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`;
+        }).join('')}</dl>`;
     }
-
-    (DATA.experience?.experiences || []).forEach((j) => {
-        add(`${j.title} at ${j.company} (${j.date}). ${asList(j.responsibilities).join(' ')}`,
-            `${j.title}, ${j.company}`, `#job-${slug(j.company)}`);
-    });
-
-    (DATA.projects?.projects || []).forEach((p) => {
-        asList([p.impact, ...asList(p.description)]).forEach((t) => {
-            add(t, p.title.split(':')[0], `#project-${slug(p.title)}`);
-            chunks[chunks.length - 1].extra = `${p.title} ${(p.tags || []).join(' ')}`;
-        });
-    });
-
-    (DATA.skills?.categories || []).forEach((c) => {
-        add(`${c.name}: ${(c.skills || []).map((s) => s.name).join(', ')}.`, 'Skills', '#skills');
-        chunks[chunks.length - 1].boost = 0.75; // prefer concrete work over skill lists
-    });
-
-    const g = DATA.education?.degree;
-    if (g) add(`${g.title}, ${g.institution} (${g.date}). CGPA ${g.cgpa}. ${g.coursework}`, 'Education', '#education');
-    (DATA.education?.certifications || []).forEach((c) => {
-        add(`Certification: ${c.title}, ${c.issuer}, ${c.year}.`, 'Certifications', '#education');
-    });
-
-    chunks.forEach((c) => {
-        c.tokens = tokenize(`${c.text} ${c.extra || ''}`);
-        c.tf = c.tokens.reduce((m, t) => m.set(t, (m.get(t) || 0) + 1), new Map());
-    });
-    return chunks;
+    if (o.kind === 'arabic') return `<p class="sc-arabic" lang="ar" dir="rtl">${esc(o.text)}</p>`;
+    return `<p class="sc-text">${esc(o.text)}</p>`;
 }
 
-let INDEX = null;
+function initShowcase() {
+    const root = document.getElementById('showcase');
+    const tabsEl = document.getElementById('showcaseTabs');
+    const stage = document.getElementById('showcaseStage');
+    const progress = document.getElementById('showcaseProgress');
+    if (!root || !tabsEl || !stage) return;
 
-function search(query, k = 3) {
-    if (!INDEX) {
-        const chunks = buildChunks();
-        const df = new Map();
-        chunks.forEach((c) => new Set(c.tokens).forEach((t) => df.set(t, (df.get(t) || 0) + 1)));
-        const avg = chunks.reduce((s, c) => s + c.tokens.length, 0) / Math.max(chunks.length, 1);
-        INDEX = { chunks, df, avg };
-    }
+    tabsEl.innerHTML = SHOWCASE.map((c, i) =>
+        `<button type="button" class="sc-tab" role="tab" aria-selected="false" aria-controls="showcaseStage" data-i="${i}">${esc(c.tab)}</button>`).join('');
+    const tabs = [...tabsEl.querySelectorAll('.sc-tab')];
 
-    const base = tokenize(query);
-    const terms = new Set(base);
-    base.forEach((t) => (SYNONYMS[t] || []).forEach((s) => tokenize(s).forEach((x) => terms.add(x))));
-    if (!terms.size) return { hits: [], terms };
+    let current = 0, timers = [];
+    const later = (fn, ms) => timers.push(setTimeout(fn, ms));
 
-    const N = INDEX.chunks.length;
-    const k1 = 1.4, b = 0.75;
-    const scored = INDEX.chunks.map((c) => {
-        let score = 0;
-        terms.forEach((t) => {
-            const f = c.tf.get(t);
-            if (!f) return;
-            const n = INDEX.df.get(t) || 0;
-            const idf = Math.log(1 + (N - n + 0.5) / (n + 0.5));
-            const weight = base.includes(t) ? 1 : 0.6; // synonyms count a bit less
-            score += weight * idf * (f * (k1 + 1)) / (f + k1 * (1 - b + b * c.tokens.length / INDEX.avg));
-        });
-        return { c, score: score * (c.boost || 1) };
-    }).filter((h) => h.score > 0).sort((a, b2) => b2.score - a.score);
-
-    const top = scored[0]?.score || 1;
-    return {
-        // one passage per source, so results show different projects and roles
-        hits: scored.filter((h, i, all) => all.findIndex((x) => x.c.source === h.c.source) === i)
-            .slice(0, k).map((h) => ({ ...h.c, rel: h.score / top })).filter((h) => h.rel >= 0.3),
-        terms,
-    };
-}
-
-function highlight(text, terms) {
-    return esc(text).replace(/[A-Za-z0-9]+(?:[.\-][A-Za-z0-9]+)*/g, (w) =>
-        (terms.has(stem(w)) && !STOP.has(w.toLowerCase()) ? `<mark>${w}</mark>` : w));
-}
-
-function trimAround(text, terms, max = 260) {
-    if (text.length <= max) return text;
-    const words = text.split(/\s+/);
-    const first = words.findIndex((w) => terms.has(stem(w.replace(/[^A-Za-z0-9.\-]/g, ''))));
-    let start = Math.max(0, first - 8);
-    let out = '';
-    for (let i = start; i < words.length && (out + words[i]).length < max; i++) out += (out ? ' ' : '') + words[i];
-    return (start > 0 ? '… ' : '') + out + ' …';
-}
-
-function showResults(query) {
-    const box = document.getElementById('askResults');
-    if (!box) return;
-    const { hits, terms } = search(query);
-
-    if (!hits.length) {
-        box.innerHTML = `<p class="hit-empty">Nothing matched "${esc(query)}". Try a tool like LangGraph or Qdrant, or a field like healthcare or finance.</p>`;
-        return;
-    }
-    box.innerHTML = hits.map((h) => `
-        <div class="hit">
-            <p class="hit-text">${highlight(trimAround(h.text, terms), terms)}</p>
-            <p class="hit-source">
-                <a href="${h.href}">${esc(h.source)}</a>
-                <span class="rel"><span class="rel-bar"><i style="width:${Math.round(h.rel * 100)}%"></i></span>${Math.round(h.rel * 100)}% match</span>
-            </p>
-        </div>`).join('');
-}
-
-function initConsole() {
-    const form = document.getElementById('askForm');
-    const input = document.getElementById('askInput');
-    const chipsEl = document.getElementById('askChips');
-    if (!form || !input || !chipsEl) return;
-
-    const suggestions = [
-        'Have you built text-to-SQL?',
-        'What have you built with LangGraph?',
-        'Healthcare experience',
-        'Have you fine-tuned a model?',
-        'Which AWS services?',
-    ];
-
-    chipsEl.innerHTML = suggestions.map((q) =>
-        `<button type="button" class="chip" aria-pressed="false">${esc(q)}</button>`).join('');
-
-    const chips = [...chipsEl.querySelectorAll('.chip')];
-    const run = (q, chip) => {
-        chips.forEach((c) => c.setAttribute('aria-pressed', String(c === chip)));
-        showResults(q);
+    const countUp = (el, value) => {
+        const m = value.match(/^(\d+)%$/);
+        if (!m || REDUCED_MOTION) { el.textContent = value; return; }
+        const target = +m[1], t0 = performance.now();
+        const tick = (t) => {
+            const k = Math.min(1, (t - t0) / 900);
+            el.textContent = Math.round(target * (1 - Math.pow(1 - k, 3))) + '%';
+            if (k < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
     };
 
-    chips.forEach((chip) => chip.addEventListener('click', () => {
-        input.value = chip.textContent;
-        run(chip.textContent, chip);
-    }));
+    const show = (i) => {
+        timers.forEach(clearTimeout); timers = [];
+        current = i;
+        const c = SHOWCASE[i];
+        tabs.forEach((t, j) => t.setAttribute('aria-selected', String(j === i)));
 
-    form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const q = input.value.trim();
-        if (q) run(q, null);
+        stage.innerHTML = `
+            <p class="sc-project"><span>${esc(c.project)}</span>
+                <a href="#work" class="sc-link"${projectIndex(c.match) !== -1 ? ` data-project="${projectIndex(c.match)}" aria-haspopup="dialog"` : ''}>See the project <i class="fas fa-arrow-right" aria-hidden="true"></i></a></p>
+            <div class="sc-input">
+                <i class="${c.input.icon}" aria-hidden="true"></i>
+                ${c.input.wave ? '<span class="sc-wave" aria-hidden="true">' + '<i></i>'.repeat(18) + '</span>' : ''}
+                <span class="sc-typed" data-text="${esc(c.input.text)}"></span>
+            </div>
+            <ol class="sc-flow" style="--n:${c.steps.length}">
+                ${c.steps.map(([icon, name, note]) => `
+                <li class="sc-node">
+                    <span class="sc-dot"><i class="${icon}" aria-hidden="true"></i></span>
+                    <strong>${esc(name)}</strong>
+                    <small>${esc(note)}</small>
+                </li>`).join('')}
+            </ol>
+            <div class="sc-output">${renderShowcaseOutput(c.output)}</div>
+            <p class="sc-result"><b class="sc-metric">${esc(c.result[0])}</b><span>${esc(c.result[1])}</span></p>`;
+
+        const typed = stage.querySelector('.sc-typed');
+        const nodes = [...stage.querySelectorAll('.sc-node')];
+        const flow = stage.querySelector('.sc-flow');
+        const finish = () => {
+            nodes.forEach((n) => n.classList.add('is-on'));
+            flow.style.setProperty('--fill', '1');
+            stage.classList.add('is-done');
+            countUp(stage.querySelector('.sc-metric'), c.result[0]);
+        };
+
+        if (REDUCED_MOTION) { typed.textContent = c.input.text; finish(); return; }
+
+        // Type the input, light each stage in turn, then reveal output and result
+        const text = c.input.text;
+        const typeMs = Math.min(900, text.length * 22);
+        for (let k = 1; k <= text.length; k++) later(() => { typed.textContent = text.slice(0, k); }, (typeMs / text.length) * k);
+        nodes.forEach((n, k) => later(() => {
+            n.classList.add('is-on');
+            flow.style.setProperty('--fill', String(k / (nodes.length - 1)));
+        }, typeMs + 250 + k * 480));
+        later(finish, typeMs + 250 + nodes.length * 480);
+
+        if (progress) {
+            progress.classList.remove('is-running');
+            void progress.offsetWidth;
+            progress.classList.add('is-running');
+        }
+    };
+
+    tabs.forEach((t) => t.addEventListener('click', () => show(+t.dataset.i)));
+    tabsEl.addEventListener('keydown', (e) => {
+        const d = { ArrowRight: 1, ArrowLeft: -1 }[e.key];
+        if (!d) return;
+        const next = (current + d + tabs.length) % tabs.length;
+        show(next); tabs[next].focus();
     });
+    // The progress bar's CSS animation is the auto-advance clock, so hover or focus pauses it
+    if (progress && !REDUCED_MOTION) {
+        progress.addEventListener('animationend', () => show((current + 1) % SHOWCASE.length));
+    }
 
-    // Open with one example so visitors see what it does
-    input.value = suggestions[0];
-    run(suggestions[0], chips[0]);
+    show(0);
 }
 
 // ========== HERO: ROTATING HEADLINE + AUDIENCE SWITCH ==========
@@ -525,21 +640,11 @@ const HERO_WORDS = ['AI agents', 'RAG systems', 'text-to-SQL', 'LLM assistants',
 const AUDIENCES = {
     founder: {
         lede: "Got an AI idea, or a prototype that won't hold up with real users? I take it from the first sketch to a product your customers rely on: scoped, built, deployed and monitored.",
-        expect: [
-            'A clear scope and a working prototype early',
-            'Production setup: APIs, cloud, monitoring',
-            'Results you can measure, like 92% text-to-SQL accuracy'
-        ],
         actions: `<a href="#contact" class="btn btn-primary btn-lg">Discuss your project</a>
             <a href="#work" class="btn btn-ghost btn-lg">See results</a>`
     },
     recruiter: {
         lede: 'AI & ML Engineer with ~3 years shipping LLM apps, RAG systems and agent workflows in Python, LangGraph, FastAPI and AWS, from first prototype to leading a team.',
-        expect: [
-            '~3 years building production AI',
-            'Shipped in healthcare, finance, procurement and Islamic knowledge',
-            'Based in Lahore, Pakistan'
-        ],
         actions: `<a href="resume.pdf" download class="btn btn-primary btn-lg"><i class="fas fa-arrow-down" aria-hidden="true"></i> Download resume</a>
             <a href="#experience" class="btn btn-ghost btn-lg">View experience</a>`
     }
@@ -563,14 +668,12 @@ function initAudience() {
     const buttons = [...document.querySelectorAll('.audience-btn')];
     const panel = document.getElementById('audiencePanel');
     const lede = document.getElementById('heroLede');
-    const expect = document.getElementById('heroExpect');
     const actions = document.getElementById('heroActions');
     if (!buttons.length || !panel) return;
 
     const render = (key) => {
         const a = AUDIENCES[key];
         lede.textContent = a.lede;
-        expect.innerHTML = a.expect.map((t) => `<li>${t}</li>`).join('');
         actions.innerHTML = a.actions;
     };
 
@@ -693,11 +796,11 @@ function initField() {
     };
 
     const resize = () => {
-        dpr = Math.min(window.devicePixelRatio || 1, 2);
+        dpr = Math.min(window.devicePixelRatio || 1, 1.5);
         w = hero.clientWidth; h = hero.clientHeight;
         canvas.width = w * dpr; canvas.height = h * dpr;
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-        const n = Math.round(Math.min(90, (w * h) / 16000));
+        const n = Math.round(Math.min(45, (w * h) / 30000));
         pts = Array.from({ length: n }, () => ({
             x: Math.random() * w, y: Math.random() * h,
             vx: (Math.random() - 0.5) * 0.25, vy: (Math.random() - 0.5) * 0.25,
@@ -705,28 +808,43 @@ function initField() {
         }));
     };
 
+    // Lines are grouped into a few opacity buckets so each frame is a handful of strokes, not hundreds
+    const BUCKETS = 5;
+    const paths = Array.from({ length: BUCKETS }, () => []);
     const draw = () => {
         ctx.clearRect(0, 0, w, h);
-        const link = Math.min(140, w / 8);
+        const link = Math.min(140, w / 8), link2 = link * link;
+        paths.forEach((b) => { b.length = 0; });
         for (let i = 0; i < pts.length; i++) {
             const p = pts[i];
             for (let j = i + 1; j < pts.length; j++) {
                 const q = pts[j];
-                const d = Math.hypot(p.x - q.x, p.y - q.y);
-                if (d < link) {
-                    ctx.strokeStyle = `rgba(${color},${(1 - d / link) * 0.22})`;
-                    ctx.lineWidth = 1;
-                    ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(q.x, q.y); ctx.stroke();
+                const dx = p.x - q.x, dy = p.y - q.y, d2 = dx * dx + dy * dy;
+                if (d2 < link2) {
+                    const b = Math.min(BUCKETS - 1, Math.floor((1 - Math.sqrt(d2) / link) * BUCKETS));
+                    paths[b].push(p.x, p.y, q.x, q.y);
                 }
             }
+        }
+        ctx.lineWidth = 1;
+        paths.forEach((seg, b) => {
+            if (!seg.length) return;
+            ctx.strokeStyle = `rgba(${color},${((b + 0.5) / BUCKETS) * 0.22})`;
+            ctx.beginPath();
+            for (let k = 0; k < seg.length; k += 4) { ctx.moveTo(seg[k], seg[k + 1]); ctx.lineTo(seg[k + 2], seg[k + 3]); }
+            ctx.stroke();
+        });
+        for (const p of pts) {
             const dp = Math.hypot(p.x - pointer.x, p.y - pointer.y);
             if (dp < 160) {
                 ctx.strokeStyle = `rgba(${color},${(1 - dp / 160) * 0.5})`;
                 ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(pointer.x, pointer.y); ctx.stroke();
             }
-            ctx.fillStyle = `rgba(${color},0.75)`;
-            ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fill();
         }
+        ctx.fillStyle = `rgba(${color},0.75)`;
+        ctx.beginPath();
+        for (const p of pts) { ctx.moveTo(p.x + p.r, p.y); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); }
+        ctx.fill();
     };
 
     const step = () => {
@@ -753,6 +871,16 @@ function initField() {
     hero.addEventListener('pointerleave', () => { pointer.x = pointer.y = -9999; });
     new IntersectionObserver(([e]) => { visible = e.isIntersecting; if (visible) start(); }).observe(hero);
     document.addEventListener('visibilitychange', () => { if (!document.hidden) start(); });
+}
+
+// ========== OFF-SCREEN PAUSE ==========
+// Looping CSS animations stop while their block is out of view, so scrolling stays smooth.
+function initOffscreenPause() {
+    if (!('IntersectionObserver' in window)) return;
+    const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => e.target.classList.toggle('is-offscreen', !e.isIntersecting));
+    });
+    document.querySelectorAll('#home, .orbit').forEach((el) => io.observe(el));
 }
 
 // ========== CONTACT ==========
@@ -801,7 +929,9 @@ function init() {
     renderEducation();
     initHeroRotator();
     initAudience();
-    initConsole();
+    initShowcase();
+    initProjectModal();
+    initOffscreenPause();
     initTheme();
     initNav();
     initReveal();

@@ -30,7 +30,7 @@
         href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Geist:wght@400;500;600&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css?v=20261102231758">
+    <link rel="stylesheet" href="style.css?v=20261105174654">
 </head>
 
 <body>
@@ -90,14 +90,12 @@
                 <div class="hero-intro">
                     <h1 class="hero-heading">
                         <span class="hero-hello">
-                            <span class="hero-hello-text">
-                                <span class="hero-hi">Hi, I'm <strong class="hero-name"><span
+                            <span class="hero-status"><span class="status-dot" aria-hidden="true"></span>Open to projects
+                                and roles</span>
+                            <span class="hero-hi">Hi, I'm <span class="hero-who"><strong class="hero-name"><span
                                             class="name-first">Muhammad</span> <span
                                             class="name-last">Mursaleen</span></strong><span class="wave"
-                                        aria-hidden="true">👋</span></span>
-                                <span class="hero-status"><span class="status-dot" aria-hidden="true"></span>Software
-                                    Engineer focused on AI &amp; ML · open to new projects and roles</span>
-                            </span>
+                                        aria-hidden="true">👋</span>,</span> an AI &amp; ML engineer.</span>
                         </span>
                         <span class="hero-title">I build
                             <span class="sr-only">AI products</span><span class="rotator" id="heroRotator"
@@ -122,48 +120,33 @@
                             Got an AI idea, or a prototype that won't hold up with real users? I take it from the first
                             sketch to a product your customers rely on: scoped, built, deployed and monitored.
                         </p>
-                        <ul class="expect" id="heroExpect">
-                            <li>A clear scope and a working prototype early</li>
-                            <li>Production setup: APIs, cloud, monitoring</li>
-                            <li>Results you can measure, like 92% text-to-SQL accuracy</li>
+                    </div>
+
+                    <div class="hero-cta-row">
+                        <div class="hero-actions" id="heroActions">
+                            <a href="#contact" class="btn btn-primary btn-lg">Discuss your project</a>
+                            <a href="#work" class="btn btn-ghost btn-lg">See results</a>
+                        </div>
+                        <ul class="social" aria-label="Profiles">
+                            <li><a href="https://linkedin.com/in/mursaleensengr" target="_blank" rel="noopener"
+                                    aria-label="LinkedIn"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a></li>
+                            <li><a href="https://github.com/mursaleen-sengr" target="_blank" rel="noopener"
+                                    aria-label="GitHub"><i class="fab fa-github" aria-hidden="true"></i></a></li>
+                            <li><a href="mailto:mursaleen.sengr@gmail.com" aria-label="Email"><i class="fas fa-envelope"
+                                        aria-hidden="true"></i></a></li>
                         </ul>
                     </div>
-
-                    <div class="hero-actions" id="heroActions">
-                        <a href="#contact" class="btn btn-primary btn-lg">Discuss your project</a>
-                        <a href="#work" class="btn btn-ghost btn-lg">See results</a>
-                    </div>
-                    <ul class="social" aria-label="Profiles">
-                        <li><a href="https://linkedin.com/in/mursaleensengr" target="_blank" rel="noopener"
-                                aria-label="LinkedIn"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a></li>
-                        <li><a href="https://github.com/mursaleen-sengr" target="_blank" rel="noopener"
-                                aria-label="GitHub"><i class="fab fa-github" aria-hidden="true"></i></a></li>
-                        <li><a href="mailto:mursaleen.sengr@gmail.com" aria-label="Email"><i class="fas fa-envelope"
-                                    aria-hidden="true"></i></a></li>
-                    </ul>
                 </div>
 
-                <!-- Retrieval console: searches this page's own data -->
-                <div class="console glass" aria-labelledby="consoleTitle">
-                    <div class="console-bar" aria-hidden="true">
-                        <span></span><span></span><span></span>
-                        <em>search my work</em>
+                <!-- Pipeline showcase: real projects, input to measured result -->
+                <div class="showcase" id="showcase" aria-labelledby="showcaseTitle">
+                    <h2 id="showcaseTitle" class="sr-only">How my systems work</h2>
+                    <div class="sc-head">
+                        <span class="sc-live">Live pipeline</span>
+                        <div class="sc-tabs" id="showcaseTabs" role="tablist" aria-label="Projects"></div>
                     </div>
-                    <div class="console-body">
-                        <h2 id="consoleTitle" class="console-title">Ask about my work</h2>
-                        <p class="console-note">Searches my projects, experience and skills and shows what it found.
-                        </p>
-                        <form class="console-form" id="askForm" role="search">
-                            <label for="askInput" class="sr-only">Your question</label>
-                            <input id="askInput" type="search" autocomplete="off" enterkeyhint="search"
-                                placeholder="e.g. Have you built text-to-SQL?">
-                            <button type="submit" class="console-go" aria-label="Search">
-                                <i class="fas fa-arrow-right" aria-hidden="true"></i>
-                            </button>
-                        </form>
-                        <div class="console-chips" id="askChips" aria-label="Suggested questions"></div>
-                        <div class="console-results" id="askResults" aria-live="polite"></div>
-                    </div>
+                    <div class="sc-stage" id="showcaseStage" role="tabpanel"></div>
+                    <div class="sc-progress" id="showcaseProgress" aria-hidden="true"><i></i></div>
                 </div>
             </div>
 
@@ -317,6 +300,9 @@
         </section>
     </main>
 
+    <!-- Project detail view, filled by initProjectModal -->
+    <dialog class="pmodal" id="projectModal" aria-labelledby="pmTitle"></dialog>
+
     <footer class="site-footer">
         <div class="wrap footer-inner">
             <p>&copy; <span id="year">2026</span> Muhammad Mursaleen</p>
@@ -324,7 +310,7 @@
         </div>
     </footer>
 
-    <script src="script.js?v=20261102231758"></script>
+    <script src="script.js?v=20261105174654"></script>
 </body>
 
 </html>
